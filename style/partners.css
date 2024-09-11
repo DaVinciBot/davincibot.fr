@@ -88,8 +88,9 @@ html[data-theme="dark"] .carousel-partner {
     background-image: url("/assets/images/dvic_light.webp");
 }
 
-.bg-logo-monday {
-    background-image: url("/assets/images/monday_light.webp");
+.bg-logo-notion {
+    background-image: url("/assets/images/notion.png");
+    filter: none !important;
 }
 
 .bg-logo-synum {

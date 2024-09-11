@@ -44,15 +44,15 @@
                 <img src="/assets/images/dvic_light.webp" alt="Logo DVIC"  class="footer-school-logo">
             </a>
 
-            <a href="https://monday.com/" target="_blank">
-                <img src="/assets/images/monday_light.webp" alt="Logo Monday.com"  class="footer-partner-logo">
+            <a href="https://notion.so/" target="_blank">
+                <img src="/assets/images/notion.png" alt="Logo Notion"  class="footer-partner-logo">
             </a>
 
             <a href="https://www.sy-numerique.fr/" target="_blank">
                 <img src="/assets/images/sy_numerique_light.svg" alt="Logo Seine et Yvelines Numérique"  class="footer-partner-logo">
             </a>
 
-            <a href="https://gotronic.fr/" target="_blank">
+            <a href="https://www.gotronic.fr/" target="_blank">
                 <?php  /* <img src="/assets/images/equans.webp" alt="Logo EQUANS DIGITAL"  class="footer-partner-logo"> */ ?>
                 <img src="/assets/images/gotronic.webp" alt="Logo Gotronic"  class="footer-partner-logo">
             </a>

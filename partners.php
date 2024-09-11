@@ -31,7 +31,7 @@
             <div id="partners-carousel">
                 <div id="carousel-contents">
                     <div class="carousel-partner bg-logo-dvic"></div>
-                    <div class="carousel-partner bg-logo-monday"></div>
+                    <div class="carousel-partner bg-logo-notion"></div>
                     <div class="carousel-partner bg-logo-synum"></div>
                     <div class="carousel-partner bg-logo-gotronic"></div>
                     <?php /* <div class="carousel-partner bg-logo-faulhaber"></div> */ ?>
@@ -78,19 +78,19 @@
 
         <div class="partner-pres reverse">
             <div class="partner-desc">
-                <h3 class="partner-title">Monday</h3>
+                <h3 class="partner-title">Notion</h3>
 
                 <p class="partner-text">
-                    Monday est le Work OS qui a été adopté par l'association DaVinciBot.
+                    Notion est le Work OS qui a été adopté par l'association DaVinciBot.
                     
                     <br/><br/>Il permet notamment aux chefs de projet de gérer leur équipe en organisant leur environnement de travail
                     comme bon leur semble (gestion des tâches, des documents, des budgets, etc...).
                 </p>
 
-                <a class="partner-link" href="https://monday.com/" target="_blank">SITE INTERNET</a>
+                <a class="partner-link" href="https://notion.so/" target="_blank">SITE INTERNET</a>
             </div>
 
-            <div class="partner-logo-container bg-logo-monday"></div>
+            <div class="partner-logo-container bg-logo-notion"></div>
         </div>
 
         <div class="partner-pres">
@@ -121,7 +121,7 @@
                     <br/><br/>Nous les remercions de promouvoir la robotique dans le milieu étudiant à travers notre association !
                 </p>
 
-                <a class="partner-link" href="https://gotronic.fr/" target="_blank">SITE INTERNET</a>
+                <a class="partner-link" href="https://www.gotronic.fr/" target="_blank">SITE INTERNET</a>
             </div>
 
             <div class="partner-logo-container bg-logo-gotronic"></div>

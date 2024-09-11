@@ -1,0 +1,363 @@
+.side-colored-block {
+    position: fixed;
+}
+
+#intro-section {
+    position: relative;
+    height: fit-content;
+    box-sizing: border-box;
+    padding-top: 190px;
+    padding-bottom: 40px;
+}
+
+#container-partners {
+    position: relative;
+    left: 150px;
+    width: calc(100% - 200px);
+    min-height: 70vh;
+}
+
+#partners-intro {
+    position: relative;
+    margin: 0px 20px 45px 0px;
+
+    max-width: 600px;
+
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 26px;
+
+    color: var(--primary);
+}
+
+#partners-carousel {
+    position: relative;
+    height: 120px;
+    max-width: 880px;
+    overflow: hidden;
+
+    left: -20px;
+    margin-right: 100px;
+}
+
+#partners-carousel::after {
+    content: "";
+
+    position: absolute;
+    top: 0px;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+
+    --side-margin: 10%;
+    background: linear-gradient(to right, var(--accent-hover) 0%, transparent var(--side-margin),
+        transparent calc(100% - var(--side-margin)), var(--accent-hover) 100%);
+}
+
+#carousel-contents {
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+
+    animation: carousel-scroll calc(7s * 4) linear infinite;
+    width: calc(220px * 4 * 2);
+}
+
+.carousel-partner {
+    filter: contrast(0%) brightness(0%);
+    opacity: 0.3;
+
+    width: 220px;
+    height: 80px;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+    
+    box-sizing: border-box;
+    margin: 20px;
+}
+
+html[data-theme="dark"] .carousel-partner {
+    filter: contrast(0%) brightness(0%) invert();
+    opacity: 0.8;
+}
+
+.bg-logo-dvic {
+    background-image: url("/assets/images/dvic_light.webp");
+}
+
+.bg-logo-monday {
+    background-image: url("/assets/images/monday_light.webp");
+}
+
+.bg-logo-synum {
+    background-image: url("/assets/images/sy_numerique_light.svg");
+}
+
+.bg-logo-gotronic {
+    background-image: url("/assets/images/gotronic.webp");
+}
+
+.bg-logo-faulhaber {
+    background-image: url("/assets/images/faulhaber_light.svg");
+}
+
+#discover-link {
+    color: var(--accent-hover);
+    background-color: var(--accent);
+    display: inline-block;
+    width: 230px;
+    margin-top: 20px;
+    
+    text-decoration: none;
+    
+    padding: 14px 20px;
+    border-radius: 10px;
+
+    transition: all 200ms ease;
+}
+
+#discover-link:hover {
+    width: 240px;
+}
+
+#discover-arrow {
+    float: right;
+}
+
+#discover-arrow svg {
+    position: relative;
+    top: 2px;
+    height: 16px;
+}
+
+#discover-arrow path {
+    fill: var(--accent-hover);
+}
+
+#partners-section {
+    height: fit-content;
+
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+
+    margin-top: -18vh;
+    padding: 20vh 100px 20px 100px;
+}
+
+.partner-pres {
+    display: grid;
+    grid-template-columns: 7fr 3fr;
+    grid-template-rows: 1fr;
+
+    min-height: 40vh;
+
+    box-sizing: border-box;
+    padding: 20px;
+
+    font-size: 20px;
+    text-align: justify;
+}
+
+.partner-pres.reverse {
+    grid-template-columns: 3fr 7fr;
+}
+
+.partner-desc {
+    grid-column: 1 / 2;
+}
+
+.partner-pres.reverse .partner-desc {
+    grid-column: 2 / 3;   
+    margin-left: 30px;
+}
+
+.partner-title {
+    font-size: 34px;
+    margin-bottom: 10px;
+    margin-right: 20px;
+    color: var(--primary);
+}
+
+.partner-text {
+    margin: 20px 30px 40px 0px;
+
+    padding-left: 20px;
+    border-left: 6px solid var(--accent);
+    color: var(--primary);
+}
+
+.partner-pres.reverse .partner-text {
+    margin-left: 0px;
+}
+
+.partner-link {
+    color: var(--accent);
+    text-decoration: none;
+    transition: all 200ms ease;
+
+    background: #ffffff00;
+    position: relative;
+    font-weight: bold;
+}
+
+.partner-link:hover {
+    color: var(--secondary);
+}
+
+.partner-logo-container {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2; /* I don't know why, in reverse mode, it creates a 2nd row */
+    position: relative;
+
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+
+    margin: 20px;
+    height: 100%;
+}
+
+.partner-logo-container::before {
+    content: "";
+
+    position: absolute;
+    top: -20px;
+    bottom: -20px;
+    left: -20px;
+    right: -20px;
+
+    z-index: -1;
+    /* background: var(--secondary); */
+}
+
+.partner-pres.reverse .partner-logo-container {
+    grid-column: 1 / 2;
+}
+
+html[data-theme="light"] .partner-logo-container.bg-logo-dvic {
+    background-image: url("/assets/images/dvic_dark.webp");
+}
+
+html[data-theme="light"] .partner-logo-container.bg-logo-monday {
+    background-image: url("/assets/images/monday_dark.webp");
+}
+
+html[data-theme="light"] .partner-logo-container.bg-logo-synum {
+    background-image: url("/assets/images/sy_numerique_dark.svg");
+}
+
+html[data-theme="light"] .partner-logo-container.bg-logo-faulhaber {
+    background-image: url("/assets/images/faulhaber_dark.svg");
+}
+
+
+@keyframes carousel-scroll {
+	0% { transform: translateX(0); }
+	100% { transform: translateX(calc(-220px * 4))}
+}
+
+@media (max-width: 1000px) {
+    #container-partners {
+        left: 120px;
+    }
+
+    #partners-carousel {
+        margin-right: 80px;
+    }
+
+    #partners-section {
+        padding-left: 80px;
+        padding-right: 55px;
+    }
+}
+
+@media (max-width: 930px) {
+    #intro-section {
+        padding-top: 220px;
+    }
+
+    #partners-intro {
+        text-align: justify;
+    }
+}
+
+@media (max-width: 790px) {
+    #container-partners {
+        left: 90px;
+    }
+
+    #partners-carousel {
+        margin-right: 0px;
+    }
+
+    #partners-section {
+        padding-left: 50px;
+        padding-right: 35px;
+    }
+
+    .partner-text {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 630px) {
+    h2#page-title {
+        font-size: 40px;
+        line-height: 45px;
+    }
+
+    #intro-section {
+        padding-top: 210px;
+    }
+
+    .side-colored-block.block-right {
+        display: none;
+    }
+
+    #container-partners {
+        width: calc(100% - 150px);
+    }
+
+    .partner-pres, .partner-pres.reverse {
+        grid-template-columns: 1fr;
+        grid-template-rows: 200px 1fr;
+    }
+
+    .partner-desc, .partner-pres.reverse .partner-desc {
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+        margin-left: 0px;
+    }
+
+    .partner-logo-container, .partner-pres.reverse .partner-logo-container {
+        grid-column: 1 / 2;
+        grid-row: 1 / 2;
+    }
+}
+
+@media (max-width: 580px) {
+    #intro-section {
+        padding-top: 270px;
+    }
+}
+
+@media (max-width: 480px) {
+    h2#page-title {
+        font-size: 32px;
+        line-height: 37px;
+    }
+
+    #container-partners {
+        left: 70px;
+        width: calc(100% - 85px);
+    }
+
+    #partners-section {
+        padding-left: 35px;
+        padding-right: 20px;
+    }
+}

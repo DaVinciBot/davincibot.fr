@@ -1,0 +1,183 @@
+section {
+    position: relative;
+    height: fit-content;
+    box-sizing: border-box;
+    padding-top: 190px;
+    padding-bottom: 40px;
+}
+
+#container-about {
+    position: relative;
+    left: 150px;
+    width: calc(100% - 200px);
+    min-height: 70vh;
+
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 1fr 1fr;
+}
+
+#about {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+}
+
+#about-text {
+    position: relative;
+    margin: 0px 20px 45px 0px;
+
+    max-width: 600px;
+
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 24px;
+
+    color: var(--primary);
+}
+
+#council-pictures {
+    grid-column: 2 / 3;
+    max-width: 50vw;
+    margin-right: 35px;
+
+    display: flex;
+    flex-flow: row wrap;
+    gap: 15px;
+    color: var(--primary);
+}
+
+.council-member {
+    flex-basis: 0;
+    flex-grow: 1;
+
+    min-width: 22%;
+    max-height: 50%;
+    text-align: center;
+
+    max-width: 25%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.council-member .member-picture {
+    width: 100%;
+    height: calc(100% - 55px);
+    min-height: 200px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: grayscale(30%);
+}
+
+/* .m-hortense {
+    background-image: url("/assets/images/people/2022/hortense.webp");
+}
+
+.m-mateo {
+    background-image: url("/assets/images/people/2022/mateo.webp");
+}
+
+.m-rayane {
+    background-image: url("/assets/images/people/2022/rayane.webp");
+}
+
+.m-thomas {
+    background-image: url("/assets/images/people/2022/thomas.webp");
+}
+
+.m-gauthier {
+    background-image: url("/assets/images/people/2022/gauthier.webp");
+}
+
+.m-etienne {
+    background-image: url("/assets/images/people/2022/etienne.webp");
+}
+
+.m-ilies {
+    background-image: url("/assets/images/people/2022/ilies.webp");
+}
+
+.m-basile {
+    background-image: url("/assets/images/people/2022/basile.webp");
+} */
+
+.m-thomasv {
+    background-image: url("/assets/images/people/2023/thomasv.webp");
+}
+
+.m-thomasl {
+    background-image: url("/assets/images/people/2023/thomasl.webp");
+}
+
+.m-benjaminb {
+    background-image: url("/assets/images/people/2023/benjaminb.webp");
+}
+
+.m-noah {
+    background-image: url("/assets/images/people/2023/noah.webp");
+}
+
+.m-julien {
+    background-image: url("/assets/images/people/2023/julien.webp");
+}
+
+.m-lucas {
+    background-image: url("/assets/images/people/2023/lucas.webp");
+}
+
+.m-benjamins {
+    background-image: url("/assets/images/people/2023/benjamins.webp");
+}
+
+.m-jade {
+    background-image: url("/assets/images/people/2023/jade.webp");
+}
+
+.council-member .member-name {
+    margin: 5px 0px 0px;
+    font-size: 14px;
+}
+
+.council-member div {
+    width: 100%;
+    font-size: 12px;
+    line-height: 14px;
+}
+
+
+
+@media (max-width: 950px) {
+    #container-about {
+        width: calc(100% - 230px);
+        grid-template-columns: 1fr;
+        grid-template-rows: min-content min-content;
+    }
+
+    #council-pictures {
+        max-width: unset;
+        grid-column: 1 / 2;
+        grid-row: 2 / 3;
+    }
+}
+
+@media (max-width: 570px) {
+    section {
+        margin-top: 65px;
+    }
+}
+
+@media (max-width: 450px) {
+    .side-colored-block.block-right {
+        display: none;
+    }
+
+    #container-about {
+        left: 50px;
+        width: calc(100% - 45px);
+    }
+
+    .council-member .member-picture {
+        min-height: 220px;
+        background-position-y: top;
+    }
+}

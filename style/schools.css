@@ -1,0 +1,228 @@
+#schools-intro {
+    position: relative;
+    left: 110px;
+    width: calc(100% - 270px);
+    top: 160px;
+}
+
+#intro-grid {
+    display: grid;
+    min-height: 50vh;
+    margin-top: 20px;
+    margin-bottom: 260px;
+
+    column-gap: 60px;
+}
+
+#campus-picture-container {
+    grid-column: 1 / 2;
+    grid-row: 1 / 2;
+
+    /* border-radius: 20px; */
+
+    background: url("/assets/images/campus.webp");
+    background-size: cover;
+    background-position: center;
+
+    width: 65vh;
+    max-width: 35vw;
+}
+
+#intro-text {
+    grid-column: 2 / 3;
+    grid-row: 1 / 2;
+    height: fit-content;
+
+    padding-left: 20px;
+    border-left: 6px solid var(--accent);
+    
+    color: var(--primary);
+    font-size: 20px;
+    text-align: justify;
+}
+
+.side-colored-block.block-left {
+    height: 145vh;
+}
+
+#schools-pres {
+    min-height: unset;
+
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: max-content max-content;
+
+    column-gap: 30px;
+    row-gap: 60px;
+
+    padding: 50px 80px 90px 100px;
+
+    color: var(--primary);
+}
+
+#school-esilv {
+    font-size: 19px;
+    line-height: 23px;
+
+    margin-right: 50px;
+    margin-left: 10px;
+
+    grid-column: 1 / 3;
+    grid-row: 1 / 2;
+}
+
+#school-emlv {
+    grid-column: 1 / 2;
+    grid-row: 2 / 3;
+}
+
+#school-iim {
+    grid-column: 2 / 3;
+    grid-row: 2 / 3;
+}
+
+.school-pres {
+    font-size: 18px;
+    line-height: 22px;
+    text-align: justify;
+
+    height: fit-content;
+}
+
+.school-pres .school-logo {
+    max-height: 24vh;
+    max-width: 15vw;
+    float: left;
+
+    margin-right: 16px;
+    margin-bottom: 10px;
+
+}
+
+#logo-esilv {
+    max-height: 30vh;
+    max-width: 30vw;
+    
+    /* padding-right: 20px;
+    border-right: 6px solid #cf1052; */
+}
+
+
+@media (max-width: 1300px) {
+    #school-esilv {
+        margin-left: 0px;
+        margin-right: 0px;
+    }
+
+    #campus-picture-container {
+        max-width: 30vw;
+    }
+}
+
+@media (max-width: 1150px) {
+    #campus-picture-container {
+        max-width: 25vw;
+    }
+
+    h2#page-title {
+        font-size: 45px;
+    }
+}
+
+@media (max-width: 1060px) {
+    #campus-picture-container {
+        display: none;
+    }
+
+    #intro-grid {
+        column-gap: 10px;
+    }
+
+    h2#page-title {
+        font-size: 42px;
+        line-height: 50px;
+    }
+}
+
+@media (max-width: 930px) {
+    #schools-intro {
+        top: 220px;
+        left: 80px;
+        width: calc(100% - 170px);
+    }
+
+    #intro-text {
+        font-size: 18px;
+    }
+
+    .side-colored-block.block-left {
+        height: 155vh;
+    }
+
+    .short-h2 {
+        display: none;
+    }
+}
+
+@media (max-width: 750px) {
+    #school-esilv {
+        margin-left: 0px;
+    }
+
+    #logo-esilv {
+        padding-right: 0px;
+        border-right: none;
+    }
+
+    #schools-pres {
+        grid-template-rows: max-content max-content max-content;
+        row-gap: 40px;
+    }
+
+    #school-emlv {
+        grid-column: 1 / 3;
+        grid-row: 2 / 3;
+    }
+    
+    #school-iim {
+        grid-column: 1 / 3;
+        grid-row: 3 / 4;
+    }
+
+    .side-colored-block.block-left {
+        height: 195vh;
+    }
+
+    .school-pres .school-logo {
+        max-width: 25vw;
+    }
+}
+
+@media (max-width: 575px) {
+    .side-colored-block.block-right {
+        display: none;
+    }
+
+    #schools-intro {
+        top: 260px;
+        width: calc(100% - 120px);
+    }
+
+    #schools-pres {
+        padding: 50px 30px 90px 60px;
+    }
+}
+
+@media (max-width: 500px) {
+    #intro-section {
+        font-size: 16px;
+        line-height: 19px;
+    }
+}
+
+@media (max-width: 475px) {
+    #schools-intro {
+        left: 50px;
+        width: calc(100% - 75px);
+    }
+}

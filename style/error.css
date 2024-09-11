@@ -1,0 +1,117 @@
+header {
+    background: transparent !important;
+}
+
+section {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+
+    width: 100vw;
+    height: 100vh;
+    box-sizing: border-box;
+
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#title {
+    position: relative;
+    top: 14vh;
+
+    width: 500px;
+    height: fit-content;
+}
+
+h1#error-code {
+    margin: 0px;
+
+    color: var(--backtext);
+    font-size: 16rem;
+}
+
+h2#error-title {
+    margin: 0px;
+
+    position: absolute;
+    top: 7rem;
+    left: 13rem;
+
+    color: var(--primary);
+    font-size: 4rem;
+}
+
+h2#error-message {
+    position: relative;
+    top: 80px;
+
+    color: var(--primary);
+}
+
+#error-button {
+    position: relative;
+    top: 100px;
+
+    background: var(--accent);
+    border: 3px solid var(--accent);
+    border-radius: 12px;
+    padding: 10px 17px;
+
+    font-size: 18px;
+
+    color: var(--accent-hover);
+    text-decoration: none;
+    text-align: center;
+
+    transition: all 0.2s ease-in-out;
+}
+
+#error-button:hover {
+    background: var(--accent-hover);
+    color: var(--accent);
+}
+
+#error-footer {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+
+    padding: 10px 20px;
+    margin: 0px;
+
+    box-sizing: border-box;
+    width: 100vw;
+    height: 70px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 150px;
+
+    background: unset;
+    color: var(--primary);
+}
+
+#error-footer h4 {
+    margin: 0px;
+}
+
+#error-footer a {
+    color: var(--primary);
+}
+
+#error-footer-socials {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+}
+
+#error-footer-socials a {
+    width: 36px;
+}
+
+html:not([data-theme="dark"]) #error-footer-socials a {
+    filter: invert();
+
+}

@@ -19,6 +19,6 @@ jobs:
         port: ${{ secrets.FTP_PORT }}
         username: ${{ secrets.FTP_USER }}
         password: ${{ secrets.FTP_PASS }}
-        server-dir: '/data/'
+        server-dir: '/ftp/dvb/data/'
         protocol: ftps
 

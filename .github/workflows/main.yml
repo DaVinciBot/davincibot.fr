@@ -1,0 +1,22 @@
+on:
+  push:
+    branches:
+    - main
+  workflow_dispatch:
+
+jobs:
+  web-deploy:
+    runs-on: ubuntu-latest
+    name: 🎉 Deploy to OVH server via FTP
+    steps:
+    - name: 🚚 Get latest code
+      uses: actions/checkout@v4
+    
+    - name: 📂 Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        server: ${{ secrets.FTP_URL }}
+        port: ${{ secrets.FTP_PORT }}
+        username: ${{ secrets.FTP_USER }}
+        password: ${{ secrets.FTP_PASS }}
+        server-dir: '/data/'

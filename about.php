@@ -37,15 +37,16 @@
                 </p>
             </div>
 
-            <div id="council-pictures">
-                <div class="council-member"><div class="member-picture m-thomasv"></div><h3 class="member-name">Thomas V.</h3><div>Co-président</div></div>
-                <div class="council-member"><div class="member-picture m-thomasl"></div><h3 class="member-name">Thomas L.</h3><div>Co-président</div></div>
-                <div class="council-member"><div class="member-picture m-benjaminb"></div><h3 class="member-name">Benjamin B.</h3><div>Secrétaire<br>général</div></div>
-                <div class="council-member"><div class="member-picture m-noah"></div><h3 class="member-name">Noah</h3><div>Trésorier</div></div>
-                <div class="council-member"><div class="member-picture m-julien"></div><h3 class="member-name">Julien</h3><div>Responsable<br>projets</div></div>
-                <div class="council-member"><div class="member-picture m-lucas"></div><h3 class="member-name">Lucas</h3><div>Responsable<br>formations</div></div>
-                <div class="council-member"><div class="member-picture m-benjamins"></div><h3 class="member-name">Benjamin S.</h3><div>Responsable<br>communication</div></div>
-                <div class="council-member"><div class="member-picture m-jade"></div><h3 class="member-name">Jade</h3><div>Responsable<br>évènements</div></div>
+            <div id="council-pictures" style="overflow:hidden;">
+                <div class="council-member"><div class="member-picture bg-placeholder"></div><h3 class="member-name">Louis-Amaury</h3><div>Co-président</div></div>
+                <div class="council-member"><div class="member-picture bg-placeholder "></div><h3 class="member-name">Noah.</h3><div>Co-président</div></div>
+                <div class="council-member"><div class="member-picture m-lucas" ></div><h3 class="member-name">Lucas</h3><div>Vice-président</div></div>
+                <div class="council-member"><div class="member-picture bg-placeholder"></div><h3 class="member-name">Elsa</h3><div>Secrétaire<br>général</div></div>
+                <div class="council-member"><div class="member-picture bg-placeholder"></div><h3 class="member-name">Urbain</h3><div>Trésorier</div></div>
+                <div class="council-member"><div class="member-picture bg-placeholder"></div><h3 class="member-name">Florian</h3><div>Responsable<br>projets</div></div>
+                <div class="council-member"><div class="member-picture bg-placeholder "></div><h3 class="member-name">Thomas</h3><div>Responsable<br>formations</div></div>
+                <div class="council-member"><div class="member-picture bg-placeholder"></div><h3 class="member-name">Recherche active</h3><div>Responsable<br>communication</div></div>
+                <div class="council-member"><div class="member-picture bg-placeholder"></div><h3 class="member-name">Gaël</h3><div>Responsable<br>évènements</div></div>
             </div>
         </div>
     </section>

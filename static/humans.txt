@@ -1,0 +1,10 @@
+/* TEAM */
+Developer: Urbain Lantrès, Cyprien Bocqueraz
+Instagram: https://instagram.com/davincibot_pulv/
+From: Pôle Léonard de Vinci, France
+
+/* SITE */
+Standards: HTML5, CSS3, JS, SvelteKit
+Language: French
+Doctype: HTML5
+Software: SvelteKit, Vite

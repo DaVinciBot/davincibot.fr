@@ -1,1 +1,1 @@
-/admin/* https://davincibot-admin.netlify.app/:splat 200!
+/admin/* https://davincibot-admin.netlify.app/admin/:splat 200!

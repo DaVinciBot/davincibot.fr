@@ -1,0 +1,9 @@
+[build]
+	command = "npm run build"
+	publish = "build"
+
+[[redirects]]
+  from = "/admin/*"
+  to = "https://davincibot-admin.netlify.app/:splat"
+  status = 200
+  force = true

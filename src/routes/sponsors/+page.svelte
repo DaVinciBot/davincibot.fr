@@ -78,7 +78,7 @@
 	];
 
 	// Configuration de la grille d'arrière-plan (héros)
-	const BG_COLS = 10;
+	const BG_COLS = 8;
 	const BG_ROWS = 8;
 	const bgTiles = Array.from(
 		{ length: BG_COLS * BG_ROWS },

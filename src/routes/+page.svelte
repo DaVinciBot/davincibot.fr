@@ -15,6 +15,7 @@
 	import AislerLogo from '$lib/components/share/Logo/Aisler.svelte';
 	import IgusLogo from '$lib/components/share/Logo/Igus.svelte';
 	import KJLogo from '$lib/components/share/Logo/KJ.svelte';
+	import MouserLogo from '$lib/components/share/Logo/Mouser.svelte';
 
 	// SSR data from +page.server.js
 	export let data;
@@ -88,10 +89,11 @@
 
 			<Carousel>
 				<HDSLogo />
-				<RSLogo />
+				<MouserLogo />
 				<FaulhaberLogo />
 				<AislerLogo />
 				<AlstomLogo />
+				<RSLogo />
 				<IFTLogo />
 				<GotronicLogo />
 				<IgusLogo />

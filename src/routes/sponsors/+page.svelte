@@ -13,13 +13,6 @@
 				"Leader mondial des solutions de mobilité intelligentes et durables. Notre collaboration est centrée sur l'innovation et l'excellence en ingénierie."
 		},
 		{
-			name: 'RS',
-			logo: '/assets/parte/RS.svg',
-			link: 'https://www.rs-online.com/',
-			blurb:
-				'RS accompagne nos besoins de prototypage et de production avec des composants fiables et une livraison rapide pour nos projets.'
-		},
-		{
 			name: 'Aisler',
 			logo: '/assets/parte/Aisler.svg',
 			link: 'https://aisler.net/',
@@ -27,11 +20,25 @@
 				'Fabrication et assemblage de PCB de haute qualité qui accélèrent nos cycles de développement matériel.'
 		},
 		{
+			name: 'Mouser Electronics',
+			logo: '/assets/parte/Mouser.svg',
+			link: 'https://mouser.fr/',
+			blurb:
+				'Fournisseur de semiconducteur et de composants électronique en tout genre, Mouser est un des plus grand distributeur mondiaux, avec près de 7 millions de références.'
+		},
+		{
 			name: 'Faulhaber',
 			logo: '/assets/parte/faulhaber.svg',
 			link: 'https://www.faulhaber.com/',
 			blurb:
 				"Systèmes d'entraînement de précision permettant un mouvement compact et efficace dans nos travaux de robotique et de mécatronique."
+		},
+		{
+			name: 'RS',
+			logo: '/assets/parte/RS.svg',
+			link: 'https://www.rs-online.com/',
+			blurb:
+				'RS accompagne nos besoins de prototypage et de production avec des composants fiables et une livraison rapide pour nos projets.'
 		},
 		{
 			name: 'Gotronic',

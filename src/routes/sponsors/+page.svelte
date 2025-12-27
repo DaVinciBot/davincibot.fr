@@ -17,7 +17,7 @@
 			logo: '/assets/parte/Aisler.svg',
 			link: 'https://aisler.net/',
 			blurb:
-				'Fabrication et assemblage de PCB de haute qualité qui accélèrent nos cycles de développement matériel.'
+				'Fabrication et assemblage de PCB de haute qualité en Europe, qui accélèrent nos cycles de développement matériel.'
 		},
 		{
 			name: 'Mouser Electronics',

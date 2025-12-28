@@ -30,6 +30,7 @@ export async function load({ setHeaders }) {
     const { data, error } = await supabase
         .from('blog')
         .select('*')
+        .eq('state', 'published')
         .order('publish_date', { ascending: false, nullsFirst: false })
         .limit(10);
 

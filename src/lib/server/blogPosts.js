@@ -69,6 +69,7 @@ export async function fetchBlogPosts({ offset = 0, limit = BLOG_PAGE_SIZE, searc
     let query = supabase
         .from('blog')
         .select('*', { count: 'exact' })
+        .eq('state', 'published')
         .lte('publish_date', nowIso)
         .order('publish_date', { ascending: false })
         .range(offset, offset + cappedLimit - 1);

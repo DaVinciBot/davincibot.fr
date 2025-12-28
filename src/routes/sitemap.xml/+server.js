@@ -47,7 +47,8 @@ export async function GET() {
     try {
         const { data, error } = await supabase
             .from('blog')
-            .select('slug,last_update,publish_date')
+            .select('slug,last_update,publish_date,state')
+            .eq('state', 'published')
             .order('publish_date', { ascending: false, nullsFirst: false });
         if (!error && data) {
             for (const row of data) {

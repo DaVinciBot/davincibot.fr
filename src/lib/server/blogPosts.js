@@ -41,6 +41,8 @@ export function normalizeTags(raw) {
 export function mapRowToPost(row) {
     const meta = row?.data || {};
     const cover = meta?.heroImage || '/assets/article/precoupe.jpg';
+    const coverSmall = meta?.heroImageSmall || cover;
+    const coverSocial = meta?.heroImageSocial || cover;
     const excerpt = meta?.excerpt || toExcerpt(row?.body || '');
     const date = row?.publish_date || row?.last_update || null;
     const tags = normalizeTags(meta?.tag);
@@ -50,6 +52,8 @@ export function mapRowToPost(row) {
         title: row?.title,
         slug: row?.slug,
         cover,
+        coverSmall,
+        coverSocial,
         date,
         author: meta?.author || 'DaVinciBot',
         excerpt,

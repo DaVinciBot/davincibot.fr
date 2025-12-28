@@ -231,7 +231,7 @@
 								href={`/blog/${post.slug}`}
 								class="flex flex-col overflow-hidden transition-colors border border-gray-700 rounded-2xl hover:border-dark-light-blue group"
 							>
-								<img src={post.cover} alt={post.title} class="object-cover w-full h-48" />
+								<img src={post.coverSmall} alt={post.title} class="object-cover w-full h-48" />
 								<div class="flex flex-col gap-2 p-4">
 									<div class="text-xs text-gray-400">{fmt(post.date)}</div>
 									<h4 class="text-lg font-semibold leading-snug group-hover:text-white">
@@ -294,7 +294,7 @@
 									class="flex flex-col flex-shrink-0 w-72 min-w-[18rem] rounded-2xl border border-gray-800 bg-gray-900/40 hover:border-dark-light-blue transition snap-start"
 								>
 									<img
-										src={post.cover}
+										src={post.coverSmall}
 										alt={post.title}
 										class="object-cover w-full h-44 rounded-t-2xl"
 									/>

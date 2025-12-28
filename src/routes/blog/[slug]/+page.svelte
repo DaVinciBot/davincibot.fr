@@ -9,6 +9,7 @@
 	export let data;
 	const { post } = data;
 	const heroImage = post?.meta?.heroImage;
+	const heroImageSocial = post?.meta?.heroImageSocial || heroImage;
 
 	function formatDate(v) {
 		if (!v) return null;
@@ -29,6 +30,11 @@
 	const canonical = `https://davincibot.fr/blog/${post.slug}/`;
 	const heroAbs =
 		heroImage && (heroImage.startsWith('http') ? heroImage : `https://davincibot.fr${heroImage}`);
+	const heroSocialAbs =
+		heroImageSocial &&
+		(heroImageSocial.startsWith('http')
+			? heroImageSocial
+			: `https://davincibot.fr${heroImageSocial}`);
 	const jsonLd = {
 		'@context': 'https://schema.org',
 		'@type': 'BlogPosting',
@@ -71,10 +77,12 @@
 	{#if post?.meta?.excerpt}
 		<meta property="og:description" content={post.meta.excerpt} />
 	{/if}
-	{#if heroImage}
+	{#if heroImageSocial}
 		<meta
 			property="og:image"
-			content={heroImage.startsWith('http') ? heroImage : `https://davincibot.fr${heroImage}`}
+			content={heroImageSocial.startsWith('http')
+				? heroImageSocial
+				: `https://davincibot.fr${heroImageSocial}`}
 		/>
 	{/if}
 	{#if isoPublished}
@@ -89,8 +97,8 @@
 	<meta property="twitter:url" content="https://davincibot.fr/blog/{post.slug}" />
 	<meta name="twitter:title" content={post.title} />
 	{#if post?.meta?.excerpt}
-		<meta name="twitter:description" content={post.meta.excerpt} />
-	{/if}
+		<meta name="tSocial}
+		<meta name="twitter:image" content={heroSocial
 	{#if heroImage}
 		<meta name="twitter:image" content={heroAbs} />
 	{/if}

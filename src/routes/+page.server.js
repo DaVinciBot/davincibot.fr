@@ -42,6 +42,8 @@ export async function load({ setHeaders }) {
     const posts = (data || []).map((row) => {
         const meta = row.data || {};
         const cover = meta?.heroImage || '/assets/article/precoupe.jpg';
+        const coverSmall = meta?.heroImageSmall || cover;
+        const coverSocial = meta?.heroImageSocial || cover;
         const description = toExcerpt(row.body || '');
         const date = row.publish_date || row.last_update || null;
         // normalize tags if present
@@ -64,6 +66,8 @@ export async function load({ setHeaders }) {
             title: row.title,
             slug: row.slug,
             cover,
+            coverSmall,
+            coverSocial,
             description,
             date,
             tags

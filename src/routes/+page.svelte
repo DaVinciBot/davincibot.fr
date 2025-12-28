@@ -119,7 +119,7 @@
 						<Card
 							title={p.title}
 							description={p.description}
-							image={p.cover}
+							image={p.coverSmall}
 							link={`/blog/${p.slug}`}
 						/>
 					{/each}

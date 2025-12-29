@@ -40,7 +40,7 @@
 		'@type': 'BlogPosting',
 		headline: post.title,
 		description: post?.meta?.excerpt || undefined,
-		image: heroAbs || undefined,
+		image: heroSocialAbs || undefined,
 		datePublished: isoPublished || undefined,
 		dateModified: isoUpdated || undefined,
 		mainEntityOfPage: canonical,
@@ -96,13 +96,17 @@
 	<meta property="twitter:domain" content="davincibot.fr" />
 	<meta property="twitter:url" content="https://davincibot.fr/blog/{post.slug}" />
 	<meta name="twitter:title" content={post.title} />
-	{#if post?.meta?.excerpt}
-		<meta name="tSocial}
-		<meta name="twitter:image" content={heroSocial
-	{#if heroImage}
-		<meta name="twitter:image" content={heroAbs} />
+	{#if heroImageSocial}
+		<meta
+			name="twitter:image"
+			content={heroImageSocial.startsWith('http')
+				? heroImageSocial
+				: `https://davincibot.fr${heroImageSocial}`}
+		/>
 	{/if}
-
+	{#if post?.meta?.excerpt}
+		<meta name="twitter:description" content={post.meta.excerpt} />
+	{/if}
 	<!-- JSON-LD Article -->
 	<script type="application/ld+json">
 {JSON.stringify(jsonLd)}

@@ -49,6 +49,8 @@
 	<meta name="twitter:url" content="https://davincibot.fr" />
 	<meta name="twitter:domain" content="davincibot.fr" />
 	<meta name="twitter:card" content="summary_large_image" />
+
+	<link rel="preload" as="image" href="/assets/projets/boombot.webp" fetchpriority="high" />
 </svelte:head>
 
 <Topbar />

@@ -183,7 +183,7 @@
 					<img
 						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
 						alt="Notre robot lors de la Coupe de France de Robotique 2024"
-						src="/assets/projets/CDR.webp"
+						src="/assets/projets/CDR_small.webp"
 					/>
 				</div>
 				<div class="flex flex-col justify-center h-full text-center md:text-left">
@@ -208,7 +208,7 @@
 					<img
 						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
 						alt="Travelers"
-						src="/assets/projets/cohoma.webp"
+						src="/assets/projets/cohoma_small.webp"
 					/>
 				</div>
 				<div
@@ -235,7 +235,7 @@
 					<img
 						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
 						alt="Exodus"
-						src="/assets/projets/exodus.webp"
+						src="/assets/projets/exodus_small.webp"
 					/>
 				</div>
 				<div class="flex flex-col justify-center h-full text-center md:text-left">

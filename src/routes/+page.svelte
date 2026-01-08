@@ -16,6 +16,7 @@
 	import IgusLogo from '$lib/components/share/Logo/Igus.svelte';
 	import KJLogo from '$lib/components/share/Logo/KJ.svelte';
 	import MouserLogo from '$lib/components/share/Logo/Mouser.svelte';
+	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 
 	// SSR data from +page.server.js
 	export let data;
@@ -50,7 +51,12 @@
 	<meta name="twitter:domain" content="davincibot.fr" />
 	<meta name="twitter:card" content="summary_large_image" />
 
-	<link rel="preload" as="image" href="/assets/projets/boombot.webp" fetchpriority="high" />
+	<link
+		rel="preload"
+		as="image"
+		href="/assets/project/cdr/boombot_small.webp"
+		fetchpriority="high"
+	/>
 </svelte:head>
 
 <Topbar />
@@ -76,8 +82,8 @@
 				</div>
 			</div>
 			<img
-				src="/assets/projets/boombot.webp"
-				alt="Robot dessin stylisé pour DaVinciBot"
+				src="/assets/project/cdr/boombot_small.webp"
+				alt="Robot de DaVinciBot pour la Coupe de France de Robotique"
 				width="1280"
 				height="720"
 				loading="eager"
@@ -89,18 +95,7 @@
 		<div class="flex flex-col justify-center w-full mt-8 2xl:mt-0 sm:w-10/12 md:w-9/12 lg:w-7/12">
 			<h2 class="text-base font-bold">Nos soutiens</h2>
 
-			<Carousel>
-				<HDSLogo />
-				<MouserLogo />
-				<FaulhaberLogo />
-				<AislerLogo />
-				<AlstomLogo />
-				<RSLogo />
-				<IFTLogo />
-				<GotronicLogo />
-				<IgusLogo />
-				<KJLogo />
-			</Carousel>
+			<SponsorsCarousel />
 		</div>
 	</section>
 
@@ -183,7 +178,7 @@
 					<img
 						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
 						alt="Notre robot lors de la Coupe de France de Robotique 2024"
-						src="/assets/projets/CDR_small.webp"
+						src="/assets/project/cdr/CDR_small.webp"
 					/>
 				</div>
 				<div class="flex flex-col justify-center h-full text-center md:text-left">
@@ -197,7 +192,7 @@
 						avant les compétences et l'innovation de ses membres.
 					</p>
 					<div class="mt-4 sm:w-44">
-						<CtaButton href="/projets/coupe-de-france-de-robotique">Découvrir</CtaButton>
+						<CtaButton href="/project/coupe-de-robotique">Découvrir</CtaButton>
 					</div>
 				</div>
 			</div>
@@ -208,7 +203,7 @@
 					<img
 						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
 						alt="Travelers"
-						src="/assets/projets/cohoma_small.webp"
+						src="/assets/project/cohoma/cohoma_small.webp"
 					/>
 				</div>
 				<div
@@ -224,7 +219,7 @@
 						charge de l'opérateur.
 					</p>
 					<div class="mt-4 sm:w-44">
-						<CtaButton href="/projets/cohoma">Découvrir</CtaButton>
+						<CtaButton href="/project/cohoma">Découvrir</CtaButton>
 					</div>
 				</div>
 			</div>
@@ -235,7 +230,7 @@
 					<img
 						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
 						alt="Exodus"
-						src="/assets/projets/exodus_small.webp"
+						src="/assets/project/exodus/exodus_small.webp"
 					/>
 				</div>
 				<div class="flex flex-col justify-center h-full text-center md:text-left">
@@ -248,7 +243,7 @@
 						améliorant leur endurance et en diminuant la fatigue.
 					</p>
 					<div class="mt-4 sm:w-44">
-						<CtaButton>Découvrir</CtaButton>
+						<CtaButton href="/project/exodus">Découvrir</CtaButton>
 					</div>
 				</div>
 			</div>

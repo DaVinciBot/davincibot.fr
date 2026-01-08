@@ -5,13 +5,6 @@
 	import Topbar from '$lib/components/share/Topbar.svelte';
 	import CtaButton from '$lib/components/utils/CTAButton.svelte';
 
-	import HDSLogo from '$lib/components/share/Logo/HDS.svelte';
-	import RSLogo from '$lib/components/share/Logo/RS.svelte';
-	import FaulhaberLogo from '$lib/components/share/Logo/Faulhaber.svelte';
-	import AlstomLogo from '$lib/components/share/Logo/Alstom.svelte';
-	import IFTLogo from '$lib/components/share/Logo/IFT.svelte';
-	import GotronicLogo from '$lib/components/share/Logo/Gotronic.svelte';
-	import AislerLogo from '$lib/components/share/Logo/Aisler.svelte';
 	import TheShowMustGoOnLogo from '$lib/components/share/Logo/TheShowMustGoOnLogo.svelte';
 	import FarmingMars from '$lib/components/share/Logo/FarmingMars.svelte';
 	import TheCherryOnTheCake from '$lib/components/share/Logo/TheCherryOnTheCake.svelte';
@@ -22,19 +15,20 @@
 	import FindUsLogo from '$lib/components/share/icon/FindUsLogo.svelte';
 	import Activity from '$lib/components/share/icon/Activity.svelte';
 	import Compass from '$lib/components/share/icon/Compass.svelte';
+	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 
-	let cdrImg = '/assets/projets/CDR.webp';
+	let cdrImg = '/assets/project/cdr/CDR.webp';
 	let precoupeImg = '/assets/article/precoupe.webp';
-	let coupe23Img = '/assets/img/IMG_1179.webp';
+	let coupe23Img = '/assets/project/cdr/IMG_1179.webp';
 </script>
 
 <svelte:head>
 	<title>Projet Coupe de France de Robotique — DaVinciBot</title>
 	<meta
 		name="description"
-		content="Découvrez nos robots développés par DaVinciBot pour la Coupe de France de Robotique"
+		content="Découvrez les robots développés par DaVinciBot pour la Coupe de France de Robotique"
 	/>
-	<meta name="keywords" content="DaVinciBot, Coue de France de Robotique, étudiant." />
+	<meta name="keywords" content="DaVinciBot, Coupe de France de Robotique, étudiant." />
 	<meta name="author" content="DaVinciBot" />
 	<meta name="robots" content="index, follow" />
 
@@ -44,7 +38,7 @@
 		property="og:description"
 		content="DaVinciBot participe à la Coupe de France de Robotique"
 	/>
-	<meta property="og:image" content="/assets/projets/CDR.jpg" />
+	<meta property="og:image" content="/assets/project/cdr/CDR.jpg" />
 	<meta property="og:url" content="https://davincibot.fr/project/coupe-de-robotique" />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="DaVinciBot" />
@@ -57,7 +51,14 @@
 		name="twitter:description"
 		content="Focus sur notre participation à la Coupe de France de Robotique."
 	/>
-	<meta name="twitter:image" content="/assets/projets/CDR.jpg" />
+	<meta name="twitter:image" content="/assets/project/cdr/CDR.jpg" />
+
+	<link
+		rel="preload"
+		as="image"
+		href="/assets/project/cdr/boombot_small.webp"
+		fetchpriority="high"
+	/>
 </svelte:head>
 
 <Topbar />
@@ -84,8 +85,8 @@
 				</div>
 			</div>
 			<img
-				src="/assets/projets/rob_shadows.webp"
-				alt="Robot dessin stylisé pour DaVinciBot"
+				src="/assets/project/cdr/boombot_small.webp"
+				alt="Robot de DaVinciBot pour la Coupe de France de Robotique"
 				width="1280"
 				height="720"
 				loading="eager"
@@ -97,15 +98,7 @@
 		<div class="flex flex-col justify-center w-full mt-8 2xl:mt-0 sm:w-10/12 md:w-9/12 lg:w-7/12">
 			<h2 class="text-base font-bold">Nos soutiens</h2>
 
-			<Carousel>
-				<HDSLogo />
-				<RSLogo />
-				<FaulhaberLogo />
-				<AislerLogo />
-				<AlstomLogo />
-				<IFTLogo />
-				<GotronicLogo />
-			</Carousel>
+			<SponsorsCarousel />
 		</div>
 	</div>
 	<section class="flex flex-col w-full gap-6 px-2 py-10 sm:px-0">
@@ -234,7 +227,7 @@
 							class="absolute inset-x-12 bottom-1.5 h-[4.2rem] rounded-full bg-dark-blue-gray/15 blur-lg sm:bottom-2 sm:h-[4.8rem] lg:h-[5.6rem]"
 						></div>
 						<img
-							src="/assets/projets/rob_shadows.webp"
+							src="/assets/project/cdr/boombot_small.webp"
 							alt="Robot bleu DaVinciBot"
 							class="relative z-10 h-full w-full object-contain drop-shadow-[0_30px_45px_rgba(2,50,255,0.28)]"
 							loading="lazy"

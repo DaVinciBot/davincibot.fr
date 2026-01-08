@@ -137,6 +137,13 @@
 		content="Focus sur notre exosquelette robotique assistant les ouvriers."
 	/>
 	<meta name="twitter:image" content="" />
+
+	<link
+		rel="preload"
+		as="image"
+		href="/assets/project/exodus/future_exodus.webp"
+		fetchpriority="high"
+	/>
 </svelte:head>
 
 <Topbar />
@@ -169,10 +176,11 @@
 					aria-hidden="true"
 				></div>
 				<img
-					src="/assets/projets/future_exodus.webp"
+					src="/assets/project/exodus/future_exodus.webp"
 					alt="Objectif d'Exodus"
 					class="relative w-full max-w-md border shadow-2xl rounded-3xl border-white/10 shadow-dark-light-blue/40"
 					loading="lazy"
+					fetchpriority="high"
 				/>
 			</div>
 		</div>

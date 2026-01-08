@@ -9,25 +9,25 @@
 
 	const heroImages = [
 		{
-			src: '/assets/projets/CDR.webp',
+			src: '/assets/project/cdr/CDR_small.webp',
 			alt: 'Rob, le robot de DaVinciBot pour la Coupe 2024, aligné sur la table de la Coupe de France de Robotique',
 			caption: 'Coupe de France de Robotique',
 			details: 'Autonomie · Formation · Compétition'
 		},
 		{
-			src: '/assets/projets/cohoma.webp',
+			src: '/assets/project/cohoma/cohoma_small.webp',
 			alt: "Le projet CoHoMa en démonstration lors d'un événement",
 			caption: "Challenge CoHoMa, organisé par L'Armée de Terre française",
 			details: 'IA · Interaction · Robotique mobile'
 		},
 		{
-			src: '/assets/projets/exodus.webp',
+			src: '/assets/project/exodus/exodus_small.webp',
 			alt: "Prototype de l'exosquelette Exodus en phase de validation",
 			caption: "Exodus, exosquelette d'assistance à la mobilité",
 			details: 'Mécatronique · Ergonomie · Santé'
 		},
 		{
-			src: '/assets/projets/Travelers.webp',
+			src: '/assets/project/travelers/Travelers.webp',
 			alt: "Le robot Travelers lors d'une séance de tests",
 			caption: 'Travelers, version Delta, 2024',
 			details: 'Exploration · Vision embarquée · Amphibie'

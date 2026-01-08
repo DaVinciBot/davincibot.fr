@@ -140,7 +140,7 @@
 		name="description"
 		content="Découvrez la plateforme semi-autonome développée par DaVinciBot pour le challenge CoHoMa : perception 3D, navigation adaptative et cohabitation homme-machine."
 	/>
-	<link rel="canonical" href="https://davincibot.fr/projets/cohoma" />
+	<link rel="canonical" href="https://davincibot.fr/project/cohoma" />
 	<meta
 		name="keywords"
 		content="CoHoMa, Cohabitation Homme Machine, DaVinciBot, robotique défense, Armée de Terre"
@@ -152,8 +152,8 @@
 		property="og:description"
 		content="Plateforme robotique semi-autonome conçue avec l'Armée de Terre pour le challenge CoHoMa."
 	/>
-	<meta property="og:image" content="https://davincibot.fr/assets/projets/cohoma.png" />
-	<meta property="og:url" content="https://davincibot.fr/projets/cohoma" />
+	<meta property="og:image" content="https://davincibot.fr/assets/project/cohoma/cohoma.png" />
+	<meta property="og:url" content="https://davincibot.fr/project/cohoma" />
 	<meta property="og:type" content="website" />
 	<meta property="og:site_name" content="DaVinciBot" />
 	<meta property="og:locale" content="fr_FR" />
@@ -164,7 +164,9 @@
 		name="twitter:description"
 		content="Focus sur notre système robotique cohabitant homme-machine développé avec le Battle Lab Terre."
 	/>
-	<meta name="twitter:image" content="https://davincibot.fr/assets/projets/cohoma.png" />
+	<meta name="twitter:image" content="https://davincibot.fr/assets/project/cohoma/cohoma.png" />
+
+	<link rel="preload" as="image" href="/assets/project/cohoma/cohoma.webp" fetchpriority="high" />
 </svelte:head>
 
 <Topbar />
@@ -202,7 +204,7 @@
 					aria-hidden="true"
 				></div>
 				<img
-					src="/assets/projets/cohoma.webp"
+					src="/assets/project/cohoma/cohoma.webp"
 					alt="Rendu 3D du robot CoHoMa développé par DaVinciBot"
 					class="relative w-full max-w-md border shadow-2xl rounded-3xl border-white/10 shadow-dark-light-blue/40"
 					loading="lazy"

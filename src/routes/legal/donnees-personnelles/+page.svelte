@@ -2,7 +2,7 @@
 	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
 	import { canonicalFor } from '$lib/config/site.js';
 
-	const updatedAt = '2025-11-15';
+	const updatedAt = '2026-01-15';
 	const canonical = canonicalFor('/legal/donnees-personnelles');
 	const title = 'Données personnelles et RGPD';
 	const intro =
@@ -33,7 +33,7 @@
 	<meta property="og:title" content="Données personnelles — DaVinciBot" />
 	<meta
 		property="og:description"
-		content="Politique RGPD de DaVinciBot : finalités, durées de conservation, destinataires et hébergement Netlify."
+		content="Politique RGPD de DaVinciBot : finalités, durées de conservation, destinataires et hébergement."
 	/>
 	<meta property="og:type" content="article" />
 	<meta property="og:url" content={canonical} />
@@ -112,10 +112,10 @@
 		<section id="hebergement" aria-labelledby="heading-hebergement">
 			<h2 id="heading-hebergement">5. Hébergement et transferts internationaux</h2>
 			<p>
-				Le Site statique est servi par <a href="https://www.netlify.com" rel="external"
-					>Netlify, Inc.</a
+				Le Site statique est servi par <a href="https://www.hetzner.com" rel="external"
+					>Hetzner Online GmbH</a
 				>
-				(États-Unis). Les données relatives aux membres sont hébergées dans notre base Supabase installée
+				(Allemagne). Les données relatives aux membres sont hébergées dans notre base Supabase installée
 				sur l'infrastructure AWS Francfort (eu-central-1). Supabase Pte. Ltd. opère ce service depuis
 				Singapour. Les flux hors UE sont encadrés par des clauses contractuelles types et les données
 				sont chiffrées en transit et au repos.
@@ -168,9 +168,9 @@
 			<h2 id="heading-cookies">9. Cookies et mesure d'audience</h2>
 			<p>
 				davincibot.fr n'utilise que des cookies techniques indispensables au chargement du Site. Les
-				statistiques fournies par Netlify sont agrégées et ne permettent pas d'identifier les
-				visiteurs. Si de nouveaux traceurs nécessitant votre consentement étaient déployés, une
-				bannière et un module de gestion des préférences seraient mis en place avant tout dépôt.
+				statistiques sont agrégées et ne permettent pas d'identifier les visiteurs. Si de nouveaux
+				traceurs nécessitant votre consentement étaient déployés, une bannière et un module de
+				gestion des préférences seraient mis en place avant tout dépôt.
 			</p>
 		</section>
 

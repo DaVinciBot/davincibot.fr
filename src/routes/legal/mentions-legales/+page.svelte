@@ -2,7 +2,7 @@
 	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
 	import { canonicalFor } from '$lib/config/site.js';
 
-	const updatedAt = '2025-11-15';
+	const updatedAt = '2026-01-15';
 	const canonical = canonicalFor('/legal/mentions-legales');
 	const title = 'Mentions légales';
 	const intro =
@@ -24,7 +24,7 @@
 	<link rel="canonical" href={canonical} />
 	<meta
 		name="description"
-		content="Mentions légales du site davincibot.fr : identification de l'éditeur, hébergeur Netlify, coordonnées et droits de propriété intellectuelle."
+		content="Mentions légales du site davincibot.fr : identification de l'éditeur, hébergeur, coordonnées et droits de propriété intellectuelle."
 	/>
 	<meta name="robots" content="index,follow" />
 	<meta property="og:title" content="Mentions légales — DaVinciBot" />
@@ -60,17 +60,15 @@
 		<section id="hebergeur" aria-labelledby="heading-hebergeur">
 			<h2 id="heading-hebergeur">3. Hébergement</h2>
 			<p>
-				Le front statique est assuré par <a href="https://www.netlify.com" rel="external"
-					>Netlify, Inc.</a
-				>, 512 2nd Street, Fl 2, San Francisco, CA 94107, États-Unis (<a
-					href="https://www.netlify.com/legal/terms-of-use/"
-					rel="external">terms of use</a
-				>
-				• <a href="https://www.netlify.com/privacy/" rel="external">privacy</a>). Notre base de
-				données Supabase est hébergée sur Infrastructure AWS Francfort (eu-central-1) et opérée par
-				Supabase Pte. Ltd., 65 Chulia Street, Level 38 Unit 02/03, OCBC Centre, Singapore 049513.
-				L'association reste pleinement responsable des contenus publiés ainsi que des traitements de
-				données.
+				Notre site est hébergé sur une machine virtuelle fournie par Hetzner Online GmbH, un
+				fournisseur d'hébergement allemand dont le siège social est situé à Industriestr. 25, 91710
+				Gunzenhausen, Germany • <a
+					href="https://www.hetzner.com/legal/privacy-policy/"
+					rel="external">Voir leur politique de confidentialité</a
+				>). Notre base de données Supabase est hébergée sur Infrastructure AWS Francfort
+				(eu-central-1) et opérée par Supabase Pte. Ltd., 65 Chulia Street, Level 38 Unit 02/03, OCBC
+				Centre, Singapore 049513. L'association reste pleinement responsable des contenus publiés
+				ainsi que des traitements de données.
 			</p>
 		</section>
 
@@ -81,8 +79,8 @@
 				contactez DaVinciBot par e-mail à <a href="mailto:davincibot@devinci.fr"
 					>davincibot@devinci.fr</a
 				>
-				ou par courrier au siège social. Les demandes impliquant des données personnelles sont
-				traitées conformément à la page
+				ou par courrier au siège social. Les demandes impliquant des données personnelles sont traitées
+				conformément à la page
 				<a href="/legal/donnees-personnelles">Données personnelles</a>.
 			</p>
 		</section>

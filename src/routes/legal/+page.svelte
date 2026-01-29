@@ -2,7 +2,7 @@
 	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
 	import { canonicalFor } from '$lib/config/site.js';
 
-	const updatedAt = '2025-11-15';
+	const updatedAt = '2026-01-15';
 	const canonical = canonicalFor('/legal');
 	const title = "Centre d'informations juridiques";
 	const intro =
@@ -20,15 +20,14 @@
 			title: "Conditions générales d'utilisation",
 			description:
 				"Règles d'accès au blog public, fonctionnement de l'espace membre et responsabilités associées.",
-			updatedLabel: '15 novembre 2025'
+			updatedLabel: '15 janvier 2026'
 		},
 		{
 			href: '/legal/mentions-legales',
 			tag: 'Mentions légales',
 			title: "Identification de l'éditeur",
-			description:
-				'Coordonnées officielles, rôle de Netlify et Supabase et modalités de contact (sans formulaire).',
-			updatedLabel: '15 novembre 2025'
+			description: 'Coordonnées officielles, rôle de Hetzner et Supabase et modalités de contact.',
+			updatedLabel: '15 janvier 2026'
 		},
 		{
 			href: '/legal/donnees-personnelles',
@@ -36,7 +35,7 @@
 			title: 'Données personnelles',
 			description:
 				'Politique RGPD : absence de collecte pour les visiteurs et détails des données traitées pour les membres.',
-			updatedLabel: '15 novembre 2025'
+			updatedLabel: '15 janvier 2026'
 		}
 	];
 </script>
@@ -70,9 +69,10 @@
 				données réellement traitées.
 			</p>
 			<p>
-				Nos fournisseurs sont <a href="https://www.netlify.com" rel="external">Netlify, Inc.</a> pour
-				l'hébergement statique du site public et Supabase (65 Chulia Street, Level 38 Unit 02/03, OCBC
-				Centre, Singapore 049513) exploitant AWS Francfort (eu-central-1) pour notre base de données
+				Nos fournisseurs sont <a href="https://www.hetzner.com" rel="external"
+					>Hetzner Online GmbH</a
+				> pour l'hébergement statique du site public et Supabase (65 Chulia Street, Level 38 Unit 02/03,
+				OCBC Centre, Singapore 049513) exploitant AWS Francfort (eu-central-1) pour notre base de données
 				membres.
 			</p>
 		</section>
@@ -124,9 +124,9 @@
 				</li>
 				<li>
 					<strong>Hébergeur :</strong>
-					<a href="https://www.netlify.com" rel="external">Netlify, Inc.</a>, 512 2nd Street, Fl 2,
-					San Francisco, CA 94107, États-Unis (site public) et Supabase / AWS Francfort
-					(eu-central-1) pour les données membres.
+					<a href="https://www.hetzner.com" rel="external">Hetzner Online GmbH</a>, Industriestr.
+					25, 91710 Gunzenhausen, Germany (site public) et Supabase / AWS Francfort (eu-central-1)
+					pour les données membres.
 				</li>
 				<li>
 					<strong>Autorité de contrôle :</strong>

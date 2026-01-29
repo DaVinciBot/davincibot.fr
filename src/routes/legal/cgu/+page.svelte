@@ -2,7 +2,7 @@
 	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
 	import { canonicalFor } from '$lib/config/site.js';
 
-	const updatedAt = '2025-11-15';
+	const updatedAt = '2026-01-15';
 	const canonical = canonicalFor('/legal/cgu');
 	const title = "Conditions générales d'utilisation";
 	const intro =
@@ -87,16 +87,31 @@
 			<p>
 				Le Site public (articles de blog, pages de présentation et informations sur les sponsors)
 				est librement accessible sans création de compte. L'espace membre, destiné aux bénévoles de
-				DaVinciBot, nécessite une authentification individuelle fournie par l'association. Le Site
-				est disponible 24 h/24 et 7 j/7, sous réserve des opérations de maintenance ou
-				indisponibilités de nos prestataires : <a
-					href="https://www.netlify.com/legal/terms-of-use/"
-					rel="external">Netlify, Inc.</a
+				DaVinciBot, nécessite une authentification individuelle fournie par l'association. <br />
+				Le Site est disponible 24 h/24 et 7 j/7, sous réserve des opérations de maintenance ou indisponibilités
+				de nos prestataires :
+				<a href="https://www.hetzner.com/legal/terms-and-conditions/" rel="external"
+					>Hetzner Online GmbH</a
 				>
 				pour l'hébergement statique et Supabase (Infrastructure AWS Francfort eu-central-1) pour la base
 				de données. DaVinciBot ne saurait être tenue responsable des interruptions de service imputables
 				à ces fournisseurs ou aux réseaux de communication.
+
+				<br /> <br />
+
+				Vous pouvez consulter les statuts de nos services en temps réel sur les pages :
 			</p>
+			<ul>
+				<li>
+					<a href="https://status.hetzner.com" rel="external">Hetzner Status</a>
+				</li>
+				<li>
+					<a href="https://status.supabase.com" rel="external">Supabase Status</a>
+				</li>
+				<li>
+					<a href="https://uptime.davincibot.fr" rel="external">DaVinciBot Uptime</a>.
+				</li>
+			</ul>
 		</section>
 
 		<section id="services" aria-labelledby="heading-services">

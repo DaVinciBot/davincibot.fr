@@ -22,9 +22,9 @@
 		{
 			name: 'Mouser Electronics',
 			logo: '/assets/parte/Mouser.svg',
-			link: 'https://mouser.fr/',
+			link: 'https://eu.mouser.com/educationalsales-emea/',
 			blurb:
-				'Fournisseur de semiconducteur et de composants électronique en tout genre, Mouser est un des plus grand distributeur mondiaux, avec près de 7 millions de références.'
+				"Fournisseur de semiconducteur et de composants électronique en tout genre, Mouser est un des plus grand distributeur mondiaux, avec près de 7 millions de références. Pour plus d'informations sur le programme de parrainage universitaire de Mouser Electronics, veuillez visiter le site ci-dessous !"
 		},
 		{
 			name: 'Faulhaber',

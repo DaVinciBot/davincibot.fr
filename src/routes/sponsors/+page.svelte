@@ -27,6 +27,13 @@
 				"Fournisseur de semiconducteur et de composants électronique en tout genre, Mouser est un des plus grand distributeur mondiaux, avec près de 7 millions de références. Pour plus d'informations sur le programme de parrainage universitaire de Mouser Electronics, veuillez visiter le site ci-dessous !"
 		},
 		{
+			name: 'Kurokesu',
+			logo: '/assets/parte/Kurokesu.svg',
+			link: 'https://www.kurokesu.com/home/',
+			blurb:
+				"Fabricant Lithuanien d'optiques, de capteurs et de caméras de haute performance, qui nous accompagne dans nos projets d'exploration visuelle et de vision par ordinateur."
+		},
+		{
 			name: 'Faulhaber',
 			logo: '/assets/parte/faulhaber.svg',
 			link: 'https://www.faulhaber.com/',

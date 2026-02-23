@@ -9,10 +9,6 @@
 	export let data;
 
 	onMount(async () => {
-		} catch (e) {
-			// Ignore cache errors
-		}
-
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange(async (event, _session) => {
@@ -26,7 +22,7 @@
 				localStorage.removeItem('userdata_cache');
 			}
 		});
-		
+
 		await loadUserdata();
 
 		return () => subscription.unsubscribe();

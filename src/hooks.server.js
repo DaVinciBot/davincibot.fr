@@ -10,16 +10,20 @@ export async function handle({ event, resolve }) {
         cookies: {
             getAll: () => event.cookies.getAll(),
             setAll: (cookiesToSet) => {
-                cookiesToSet.forEach(({ name, value, options }) => {
-                    event.cookies.set(name, value, {
-                        ...options,
-                        path: '/',
-                        // Use .davincibot.fr for production shared cookies, omit for localhost
-                        domain: process.env.NODE_ENV === 'development' || event.url.hostname === 'localhost' ? undefined : '.davincibot.fr',
-                        sameSite: 'lax',
-                        secure: process.env.NODE_ENV === 'production'
+                try {
+                    cookiesToSet.forEach(({ name, value, options }) => {
+                        event.cookies.set(name, value, {
+                            ...options,
+                            path: '/',
+                            // Use .davincibot.fr for production shared cookies, omit for localhost
+                            domain: process.env.NODE_ENV === 'development' || event.url.hostname === 'localhost' ? undefined : '.davincibot.fr',
+                            sameSite: 'lax',
+                            secure: process.env.NODE_ENV === 'production'
+                        })
                     })
-                })
+                } catch {
+                    // Safe to ignore if response is already started
+                }
             },
         },
     })

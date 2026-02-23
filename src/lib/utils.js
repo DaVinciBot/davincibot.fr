@@ -1,5 +1,6 @@
 import { userdata } from '$lib/store';
 import { supabase } from '$lib/supabaseClient';
+import { PERMISSIONS, hasPermission } from '$lib/permissions';
 import md5 from 'crypto-js/md5';
 
 export async function loadUserdata() {
@@ -28,11 +29,26 @@ export async function loadUserdata() {
     }
     if (session) {
         // fetch user data
-        const { data, error } = await supabase
+        let { data, error } = await supabase
             .from('profiles')
-            .select('username,avatar_url,role, member_of(project(id, name, debut))')
+            .select('username,avatar_url,role, permissions, member_of(project(id, name, debut))')
             .eq('id', session.user.id)
             .single();
+
+        if (error) {
+            // If column permissions explicitly disallowed or missing
+            if (error.code === '42703' || error.message.includes('permissions')) {
+                const res = await supabase
+                    .from('profiles')
+                    .select('username,avatar_url,role, member_of(project(id, name, debut))')
+                    .eq('id', session.user.id)
+                    .single();
+                data = res.data;
+                error = res.error;
+                if (data) data.permissions = [];
+            }
+        }
+
         if (error) {
             console.error(error);
             return;
@@ -53,7 +69,9 @@ export async function loadUserdata() {
             });
         });
         user.role = data.role || user.role;
-        if (user.role === 'bureau' || user.role === 'admin') {
+        user.permissions = data.permissions || [];
+
+        if (hasPermission(user, PERMISSIONS.VIEW_ADMIN)) {
             user.projects.push({
                 id: 0,
                 name: 'Association',

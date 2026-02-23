@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { SITE, canonicalFor } from '$lib/config/site.js';
-import { supabase } from '$lib/supabaseClient.js';
 
 export const prerender = false; // depends on DB content
 
@@ -18,7 +17,7 @@ function urlTag(loc, lastmod, changefreq = 'weekly', priority = '0.7') {
         }    <changefreq>${changefreq}</changefreq>\n    <priority>${priority}</priority>\n  </url>`;
 }
 
-export async function GET() {
+export async function GET({ locals: { supabase } }) {
     // Static routes to include
     const staticPaths = [
         '/',

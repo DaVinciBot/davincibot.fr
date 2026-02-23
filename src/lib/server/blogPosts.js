@@ -1,4 +1,3 @@
-import { supabase } from '$lib/supabaseClient.js';
 
 export const BLOG_PAGE_SIZE = 20;
 
@@ -67,7 +66,7 @@ function sanitiseLikeValue(value = '') {
     return value.replace(/%/g, '').replace(/_/g, '').trim();
 }
 
-export async function fetchBlogPosts({ offset = 0, limit = BLOG_PAGE_SIZE, search = '', tag = '' } = {}) {
+export async function fetchBlogPosts(supabase, { offset = 0, limit = BLOG_PAGE_SIZE, search = '', tag = '' } = {}) {
     const nowIso = new Date().toISOString();
     const cappedLimit = Math.min(Math.max(limit, 1), 50);
     let query = supabase

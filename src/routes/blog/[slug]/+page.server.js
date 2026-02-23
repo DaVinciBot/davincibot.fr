@@ -1,6 +1,5 @@
 // @ts-nocheck
 import { error } from '@sveltejs/kit';
-import { supabase } from '$lib/supabaseClient.js';
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';
 import { parseMarkdownToAst } from '$lib/markdown/parse.js';
@@ -40,7 +39,7 @@ function renderMarkdown(md) {
     });
 }
 
-export async function load({ params, setHeaders }) {
+export async function load({ params, setHeaders, locals: { supabase } }) {
     const { slug } = params;
 
     const { data, error: dbError } = await supabase

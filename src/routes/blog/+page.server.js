@@ -1,9 +1,9 @@
 // @ts-nocheck
 import { BLOG_PAGE_SIZE, fetchBlogPosts } from '$lib/server/blogPosts.js';
 
-export async function load({ setHeaders }) {
+export async function load({ setHeaders, locals: { supabase } }) {
     try {
-        const { posts, count } = await fetchBlogPosts({ offset: 0, limit: BLOG_PAGE_SIZE });
+        const { posts, count } = await fetchBlogPosts(supabase, { offset: 0, limit: BLOG_PAGE_SIZE });
         const tags = Array.from(new Set(posts.flatMap((post) => post.tags || [])));
 
         setHeaders({ 'cache-control': 'public, max-age=60' });

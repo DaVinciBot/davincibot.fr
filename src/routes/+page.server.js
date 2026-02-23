@@ -1,5 +1,4 @@
 // @ts-nocheck
-import { supabase } from '$lib/supabaseClient.js';
 
 export const csr = true;
 export const ssr = false;
@@ -26,7 +25,7 @@ function toExcerpt(text = '', len = 160) {
     return clean.length > len ? clean.slice(0, len).trimEnd() + '…' : clean;
 }
 
-export async function load({ setHeaders }) {
+export async function load({ setHeaders, locals: { supabase } }) {
     const { data, error } = await supabase
         .from('blog')
         .select('*')

@@ -1,14 +1,14 @@
 import { json } from '@sveltejs/kit';
 import { BLOG_PAGE_SIZE, fetchBlogPosts } from '$lib/server/blogPosts.js';
 
-export async function GET({ url }) {
+export async function GET({ url, locals: { supabase } }) {
     const offset = Number(url.searchParams.get('offset') ?? '0');
     const limit = Number(url.searchParams.get('limit') ?? BLOG_PAGE_SIZE);
     const search = url.searchParams.get('search') ?? '';
     const tag = url.searchParams.get('tag') ?? '';
 
     try {
-        const { posts, count } = await fetchBlogPosts({
+        const { posts, count } = await fetchBlogPosts(supabase, {
             offset: Number.isFinite(offset) ? Math.max(offset, 0) : 0,
             limit: Number.isFinite(limit) ? limit : BLOG_PAGE_SIZE,
             search,

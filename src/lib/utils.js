@@ -1,9 +1,16 @@
 import { userdata } from '$lib/store';
-import { supabase } from '$lib/supabaseClient';
+import { supabase as supabaseSingleton } from '$lib/supabaseClient';
 import { PERMISSIONS, hasPermission } from '$lib/permissions';
 import md5 from 'crypto-js/md5';
 
-export async function loadUserdata() {
+/**
+ * Loads the current user's profile into the `userdata` store.
+ * @param {import('@supabase/supabase-js').SupabaseClient} [client] - Optional supabase client.
+ *   When called from +layout.svelte, pass `data.supabase` so auth state is read from the
+ *   SSR-aware client. Falls back to the browser singleton for components that call it directly.
+ */
+export async function loadUserdata(client = supabaseSingleton) {
+    const supabase = client;
     let user = {};
     const CACHE_KEY = 'userdata_cache';
     const CACHE_DURATION = 60 * 60 * 1000; // 1 hour in ms

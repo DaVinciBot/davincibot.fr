@@ -1,0 +1,22 @@
+http:
+  routers:
+    root:
+      rule: "PathPrefix(`/`)"
+      service: root
+      priority: 1
+
+    admin:
+      rule: "PathPrefix(`/admin`)"
+      service: admin
+      priority: 10
+
+  services:
+    root:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:5174"
+
+    admin:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:5175"

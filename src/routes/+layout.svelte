@@ -2,28 +2,29 @@
 	import '../app.css';
 	import { onMount } from 'svelte';
 	import { invalidate } from '$app/navigation';
-	import { supabase } from '$lib/supabaseClient';
 	import { loadUserdata } from '$lib/utils';
 	import { userdata } from '$lib/store';
 
 	export let data;
 
+	$: ({ supabase, session } = data);
+
 	onMount(async () => {
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange(async (event, _session) => {
-			if (_session?.expires_at !== data.session?.expires_at) {
+			if (_session?.expires_at !== session?.expires_at) {
 				invalidate('supabase:auth');
 			}
 			if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-				await loadUserdata();
+				await loadUserdata(supabase);
 			} else if (event === 'SIGNED_OUT') {
 				userdata.set(null);
 				localStorage.removeItem('userdata_cache');
 			}
 		});
 
-		await loadUserdata();
+		await loadUserdata(supabase);
 
 		return () => subscription.unsubscribe();
 	});

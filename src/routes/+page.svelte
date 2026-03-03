@@ -3,19 +3,9 @@
 	import Card from '$lib/components/share/Card.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
-	import CtaButton from '$lib/components/utils/CTAButton.svelte';
 	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
+	import CtaButton from '$lib/components/utils/CTAButton.svelte';
 
-	import HDSLogo from '$lib/components/share/Logo/HDS.svelte';
-	import RSLogo from '$lib/components/share/Logo/RS.svelte';
-	import FaulhaberLogo from '$lib/components/share/Logo/Faulhaber.svelte';
-	import AlstomLogo from '$lib/components/share/Logo/Alstom.svelte';
-	import IFTLogo from '$lib/components/share/Logo/IFT.svelte';
-	import GotronicLogo from '$lib/components/share/Logo/Gotronic.svelte';
-	import AislerLogo from '$lib/components/share/Logo/Aisler.svelte';
-	import IgusLogo from '$lib/components/share/Logo/Igus.svelte';
-	import KJLogo from '$lib/components/share/Logo/KJ.svelte';
-	import MouserLogo from '$lib/components/share/Logo/Mouser.svelte';
 	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 
 	// SSR data from +page.server.js
@@ -76,9 +66,9 @@
 						professionnelle.
 					</p>
 				</div>
-				<div class="flex flex-col w-full gap-4 sm:flex-row sm:gap-8 sm:w-96">
+				<div class="flex flex-col w-full gap-4 sm:flex-row sm:gap-6 sm:w-96">
 					<CtaButton href="#projets">Nos Projets</CtaButton>
-					<CtaButton secondary={true}>Soutenez nous</CtaButton>
+					<CtaButton variant="secondary" href="/soutenir">Soutenez nous</CtaButton>
 				</div>
 			</div>
 			<img

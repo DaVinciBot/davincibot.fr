@@ -1,11 +1,10 @@
 <script>
-	import { onMount, onDestroy } from 'svelte';
-	import { fade } from 'svelte/transition';
-	import Topbar from '$lib/components/share/Topbar.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
-	import CTAButton from '$lib/components/utils/CTAButton.svelte';
+	import Topbar from '$lib/components/share/Topbar.svelte';
 	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
-	import Link from '$lib/components/markdown/Link.svelte';
+	import CTAButton from '$lib/components/utils/CTAButton.svelte';
+	import { onDestroy, onMount } from 'svelte';
+	import { fade } from 'svelte/transition';
 
 	const heroImages = [
 		{
@@ -196,7 +195,7 @@
 				</p>
 				<div class="flex flex-col items-start gap-4 sm:flex-row">
 					<CTAButton href="/contact">Rejoindre l'aventure</CTAButton>
-					<CTAButton href="/nos-ecoles" secondary={true}>Découvrir nos écoles</CTAButton>
+					<CTAButton href="/nos-ecoles" variant="secondary">Découvrir nos écoles</CTAButton>
 				</div>
 			</div>
 			<div class="relative">
@@ -436,7 +435,7 @@
 				</p>
 				<div class="flex flex-col items-start gap-4 sm:flex-row">
 					<CTAButton href="/sponsors">Devenir partenaire</CTAButton>
-					<CTAButton href="/blog" secondary={true}>Suivre nos actus</CTAButton>
+					<CTAButton href="/blog" variant="secondary">Suivre nos actus</CTAButton>
 				</div>
 			</div>
 			<div class="relative">

@@ -1,8 +1,8 @@
 <script>
+	import { browser } from '$app/environment';
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
 	import CTAButton from '$lib/components/utils/CTAButton.svelte';
-	import { browser } from '$app/environment';
 	import { onMount } from 'svelte';
 
 	let isMobile = false;
@@ -88,7 +88,9 @@
 								class="flex flex-col items-center justify-center gap-4 mt-8 sm:flex-row lg:justify-start sm:w-[500px]"
 							>
 								<CTAButton href="#ecoles">Découvrir nos écoles</CTAButton>
-								<CTAButton secondary={true} href="https://www.devinci.fr/">Site du Pôle</CTAButton>
+								<CTAButton variant="secondary" href="https://www.devinci.fr/"
+									>Site du Pôle</CTAButton
+								>
 							</div>
 
 							<p class="mt-6 text-sm text-white/60">

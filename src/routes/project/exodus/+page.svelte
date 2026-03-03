@@ -1,6 +1,6 @@
 <script>
-	import Topbar from '$lib/components/share/Topbar.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
+	import Topbar from '$lib/components/share/Topbar.svelte';
 	import CTAButton from '$lib/components/utils/CTAButton.svelte';
 
 	const keyFigures = [
@@ -165,7 +165,7 @@
 				</p>
 				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 					<CTAButton href="/#projets">Nos Projets</CTAButton>
-					<CTAButton secondary={true} href="https://www.linkedin.com/company/davincibot/"
+					<CTAButton variant="secondary" href="https://www.linkedin.com/company/davincibot/"
 						>Suivre l'avancement</CTAButton
 					>
 				</div>
@@ -296,7 +296,7 @@
 			</p>
 			<div class="grid gap-4 mt-8 sm:grid-cols-3">
 				{#each supportLinks as link}
-					<CTAButton href={link.href} secondary={link.href !== '/contact'}>
+					<CTAButton href={link.href} variant={link.href !== '/contact' ? 'secondary' : 'primary'}>
 						{link.label}
 					</CTAButton>
 				{/each}

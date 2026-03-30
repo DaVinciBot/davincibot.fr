@@ -1,10 +1,7 @@
 <script>
-	import Carousel from '$lib/components/others/Carousel.svelte';
-	import Card from '$lib/components/share/Card.svelte';
-	import Topbar from '$lib/components/share/Topbar.svelte';
-	import CtaButton from '$lib/components/utils/CTAButton.svelte';
-	import Footer from '$lib/components/share/Footer.svelte';
 	import Renderer from '$lib/components/markdown/Renderer.svelte';
+	import Footer from '$lib/components/share/Footer.svelte';
+	import Topbar from '$lib/components/share/Topbar.svelte';
 
 	export let data;
 	const { post } = data;
@@ -113,7 +110,7 @@
 	</script>
 </svelte:head>
 
-<Topbar />
+<Topbar skip={true} />
 
 <div class="-mt-5 md:-mt-8 lg:-mt-32 2xl:-mt-64 4xl:-mt-80">
 	<img

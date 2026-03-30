@@ -164,7 +164,7 @@
 	<meta name="robots" content="index, follow" />
 </svelte:head>
 
-<Topbar />
+<Topbar skip={true} />
 
 <main class="flex flex-col min-h-screen">
 	<section class="relative px-4 pt-32 pb-24 sm:px-10 md:px-20 lg:px-32">

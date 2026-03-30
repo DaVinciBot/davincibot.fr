@@ -1,11 +1,16 @@
-import type { LayoutServerLoad } from './$types'
+import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals: { safeGetSession }, cookies }) => {
-  const { session, user } = await safeGetSession()
+const isPrivatePath = (pathname: string) =>
+	pathname.startsWith('/admin') || pathname.startsWith('/profile');
 
-  return {
-    session,
-    user,
-    cookies: cookies.getAll(),
-  }
-}
+export const load: LayoutServerLoad = async ({ locals, cookies, url }) => {
+	const { session, user } = isPrivatePath(url.pathname)
+		? await locals.safeGetSession()
+		: { session: null, user: null };
+
+	return {
+		session,
+		user,
+		cookies: cookies.getAll()
+	};
+};

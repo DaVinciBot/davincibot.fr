@@ -146,7 +146,7 @@
 	/>
 </svelte:head>
 
-<Topbar />
+<Topbar skip={true} />
 
 <main class="flex flex-col">
 	<section

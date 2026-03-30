@@ -1,6 +1,6 @@
 <script>
-	import Topbar from '$lib/components/share/Topbar.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
+	import Topbar from '$lib/components/share/Topbar.svelte';
 	export let data;
 
 	const pageSize = data?.pageSize ?? 20;
@@ -142,7 +142,7 @@
 	<meta name="twitter:image" content="https://davincibot.fr/dvb_og_img.png" />
 </svelte:head>
 
-<Topbar />
+<Topbar skip={true} />
 
 <section class="pt-24 md:pt-28">
 	<div class="px-6 md:px-16 lg:px-32">

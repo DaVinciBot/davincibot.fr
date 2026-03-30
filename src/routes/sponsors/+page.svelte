@@ -122,7 +122,7 @@
 	<meta name="twitter:creator" content="https://instagram.com/davincibot_pulv" />
 </svelte:head>
 
-<Topbar />
+<Topbar skip={true} />
 
 <!-- Hero -->
 <section

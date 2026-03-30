@@ -169,7 +169,7 @@
 	<link rel="preload" as="image" href="/assets/project/cohoma/cohoma.webp" fetchpriority="high" />
 </svelte:head>
 
-<Topbar />
+<Topbar skip={true} />
 
 <main class="flex flex-col">
 	<section

@@ -60,7 +60,7 @@
 	/>
 </svelte:head>
 
-<Topbar skip={true} />
+<Topbar />
 
 <div
 	class="flex flex-col w-full h-full gap-12 px-4 pt-20 mx-auto max-w-screen-2xl sm:px-6 md:px-10 lg:px-16 md:pt-28 lg:pt-36"

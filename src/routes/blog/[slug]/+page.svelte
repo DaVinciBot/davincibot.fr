@@ -110,7 +110,7 @@
 	</script>
 </svelte:head>
 
-<Topbar skip={true} />
+<Topbar />
 
 <div class="-mt-5 md:-mt-8 lg:-mt-32 2xl:-mt-64 4xl:-mt-80">
 	<img

@@ -142,7 +142,7 @@
 	<meta name="twitter:image" content="https://davincibot.fr/dvb_og_img.png" />
 </svelte:head>
 
-<Topbar skip={true} />
+<Topbar />
 
 <section class="pt-24 md:pt-28">
 	<div class="px-6 md:px-16 lg:px-32">

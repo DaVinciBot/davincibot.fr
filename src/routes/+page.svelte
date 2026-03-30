@@ -49,7 +49,7 @@
 	/>
 </svelte:head>
 
-<Topbar skip={true} />
+<Topbar />
 
 <div class="flex flex-col h-full gap-8 px-4 pt-16 sm:px-8 md:px-16 lg:px-32 md:pt-32 lg:pt-48">
 	<section class="justify-start">

@@ -64,7 +64,7 @@
 	];
 </script>
 
-<Topbar skip={true} />
+<Topbar />
 <div class="flex flex-col min-h-screen">
 	<div class="border-b border-gray-700 landing">
 		<div class="relative h-screen">

@@ -1,8 +1,8 @@
 export const trailingSlash = 'always'
 
 import { PUBLIC_SUPABASE_PUBLISHABLE_KEY, PUBLIC_SUPABASE_URL } from '$env/static/public'
-import type { LayoutLoad } from './$types'
 import { createBrowserClient, createServerClient, isBrowser } from '@supabase/ssr'
+import type { LayoutLoad } from './$types'
 
 export const load: LayoutLoad = async ({ fetch, data, depends }) => {
   depends('supabase:auth')
@@ -25,13 +25,12 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
       })
 
   /**
-   * It's fine to use `getSession` here, because on the client, `getSession` is
-   * safe, and on the server, it reads `session` from the `LayoutData`, which
-   * safely checked the session using `safeGetSession`.
+   * Avoid auth network calls on the server for public pages.
+   * Use the session computed in +layout.server.ts when available.
    */
-  const {
-    data: { session },
-  } = await supabase.auth.getSession()
+  const session = isBrowser()
+    ? (await supabase.auth.getSession()).data.session
+    : data.session
 
   return { supabase, session }
 }

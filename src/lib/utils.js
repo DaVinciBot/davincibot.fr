@@ -45,7 +45,7 @@ export async function loadUserdata(client = supabaseSingleton) {
 			// fetch user data
 			let { data, error } = await supabase
 				.from('profiles')
-				.select('username,avatar_url,role, permissions, member_of(project(id, name, debut))')
+				.select('username, avatar_url, permissions, member_of(project(id, name, debut))')
 				.eq('id', session.user.id)
 				.single();
 
@@ -54,7 +54,7 @@ export async function loadUserdata(client = supabaseSingleton) {
 				if (error.code === '42703' || error.message.includes('permissions')) {
 					const res = await supabase
 						.from('profiles')
-						.select('username,avatar_url,role, member_of(project(id, name, debut))')
+						.select('username, avatar_url, permissions, member_of(project(id, name, debut))')
 						.eq('id', session.user.id)
 						.single();
 					data = res.data;
@@ -82,7 +82,6 @@ export async function loadUserdata(client = supabaseSingleton) {
 					debut: p.project.debut || '0000-00-00'
 				});
 			});
-			user.role = data.role || user.role;
 			user.permissions = data.permissions || [];
 
 			if (hasPermission(user, PERMISSIONS.VIEW_ADMIN)) {

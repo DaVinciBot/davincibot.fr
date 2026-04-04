@@ -1,8 +1,6 @@
 import adapter from '@sveltejs/adapter-node';
 import { vitePreprocess } from '@sveltejs/vite-plugin-svelte';
 
-
-
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
@@ -11,23 +9,10 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		prerender: {
-			entries: [
-				'/',
-				'/robots.txt',
-				'/blog',
-				'/sponsors',
-				'/contact',
-				'/caroussel',
-				'/auth/sign-up',
-				'/auth/login',
-				'/auth/oauth',
-				'/auth/reset',
-				'/auth/reset/callback',
-			]
+			entries: ['/', '/robots.txt', '/blog', '/sponsors', '/contact', '/caroussel']
 		}
 	},
-	preprocess: vitePreprocess(),
-
+	preprocess: vitePreprocess()
 };
 
 export default config;

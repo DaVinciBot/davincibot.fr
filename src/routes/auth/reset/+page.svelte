@@ -1,16 +1,18 @@
 <script lang="ts">
-	import { supabase } from '$lib/supabaseClient';
 	let email = '';
 	let loading = false;
 	let message = '';
 
 	const handleResetRequest = async () => {
 		loading = true;
-		const { data, error } = await supabase.auth.resetPasswordForEmail(email, {
-			redirectTo: `https://davincibot.fr/auth/reset/callback`
+		const response = await fetch('/auth/reset-request', {
+			method: 'POST',
+			headers: { 'Content-Type': 'application/json' },
+			body: JSON.stringify({ email })
 		});
-		if (error) {
-			alert(error.message);
+		if (!response.ok) {
+			const payload = await response.json().catch(() => ({}));
+			alert(payload?.error || 'Erreur lors de la demande de reinitialisation.');
 		} else {
 			message = 'Un e-mail de réinitialisation a été envoyé. Vérifiez votre boîte mail.';
 		}

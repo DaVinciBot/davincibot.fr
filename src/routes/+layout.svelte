@@ -1,33 +1,27 @@
 <script>
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { invalidate } from '$app/navigation';
-	import { loadUserdata } from '$lib/utils';
 	import { userdata } from '$lib/store';
 
 	export let data;
 
-	$: ({ supabase, session } = data);
+	$: userProfile = data.userProfile;
 
-	onMount(async () => {
-		const {
-			data: { subscription }
-		} = supabase.auth.onAuthStateChange(async (event, _session) => {
-			if (_session?.expires_at !== session?.expires_at) {
-				invalidate('supabase:auth');
-			}
-			if (event === 'SIGNED_IN' || event === 'TOKEN_REFRESHED') {
-				await loadUserdata(supabase);
-			} else if (event === 'SIGNED_OUT') {
-				userdata.set(null);
-				localStorage.removeItem('userdata_cache');
-			}
-		});
-
-		await loadUserdata(supabase);
-
-		return () => subscription.unsubscribe();
+	onMount(() => {
+		if (userProfile) {
+			userdata.set(userProfile);
+		} else {
+			userdata.set(null);
+		}
 	});
+
+	$: {
+		if (userProfile) {
+			userdata.set(userProfile);
+		} else {
+			userdata.set(null);
+		}
+	}
 </script>
 
 <svelte:head>

@@ -4,13 +4,15 @@ import { redirect } from '@sveltejs/kit';
 
 export const GET = async (event: any) => {
 	const { url } = event;
-	const token_hash = url.searchParams.get('token_hash') as string;
+	const token_hash =
+		(url.searchParams.get('token_hash') as string) ?? (url.searchParams.get('token') as string);
 	const type = url.searchParams.get('type') as EmailOtpType | null;
 	const next = url.searchParams.get('next') ?? '/';
 
 	const redirectTo = new URL(url);
 	redirectTo.pathname = next;
 	redirectTo.searchParams.delete('token_hash');
+	redirectTo.searchParams.delete('token');
 	redirectTo.searchParams.delete('type');
 
 	if (token_hash && type) {

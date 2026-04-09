@@ -1,6 +1,6 @@
-import { redirect } from '@sveltejs/kit';
-import { type EmailOtpType } from '@supabase/supabase-js';
 import { createAnonClient, createUserClient } from '$lib/server/sso';
+import { type EmailOtpType } from '@supabase/supabase-js';
+import { redirect } from '@sveltejs/kit';
 
 export const GET = async (event: any) => {
 	const { url } = event;
@@ -40,10 +40,10 @@ export const GET = async (event: any) => {
 			}
 
 			redirectTo.searchParams.delete('next');
-			redirect(303, redirectTo);
+			throw redirect(303, redirectTo);
 		}
 	}
 
 	redirectTo.pathname = '/';
-	redirect(303, redirectTo);
+	throw redirect(303, redirectTo);
 };

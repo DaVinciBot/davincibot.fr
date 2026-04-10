@@ -4,13 +4,14 @@
 
 	let initializing = true;
 	let error = '';
+	let access_token = '';
 
 	onMount(async () => {
 		const hash = window.location.hash.startsWith('#') ? window.location.hash.slice(1) : '';
 		const hashParams = new URLSearchParams(hash);
 		const queryParams = new URLSearchParams(window.location.search);
 
-		const access_token = hashParams.get('access_token') ?? queryParams.get('access_token') ?? '';
+		access_token = hashParams.get('access_token') ?? queryParams.get('access_token') ?? '';
 		const refresh_token = hashParams.get('refresh_token') ?? queryParams.get('refresh_token') ?? '';
 		const expires_in = hashParams.get('expires_in') ?? queryParams.get('expires_in');
 		const expires_at = hashParams.get('expires_at') ?? queryParams.get('expires_at');
@@ -67,7 +68,7 @@
 			<a class="text-blue-300 hover:underline" href="/auth/login">Retour a la connexion</a>
 		</div>
 	{:else}
-		<AuthForm auth_type="register" />
+		<AuthForm auth_type="register" {access_token} />
 	{/if}
 </section>
 

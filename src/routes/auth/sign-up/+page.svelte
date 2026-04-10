@@ -29,7 +29,7 @@
 		}
 
 		if (!access_token || !refresh_token) {
-			error = "Le lien d'invitation est invalide ou expire. Veuillez demander un nouveau lien.";
+			error = "Le lien d'invitation est invalide ou expiré. Veuillez demander un nouveau lien.";
 			initializing = false;
 			return;
 		}
@@ -66,7 +66,7 @@
 	{:else if error}
 		<div class="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
 			<p class="text-white">{error}</p>
-			<a class="text-blue-300 hover:underline" href="/auth/login">Retour a la connexion</a>
+			<a class="text-blue-300 hover:underline" href="/auth/login">Retour à la connexion</a>
 		</div>
 	{:else}
 		<AuthForm auth_type="register" {access_token} {refresh_token} />

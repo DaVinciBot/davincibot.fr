@@ -12,6 +12,7 @@
 	onMount(async () => {
 		const nextParam = sanitizeNext($page.url.searchParams.get('next'));
 		const target = new URL(nextParam, window.location.origin);
+		const hash = window.location.hash;
 
 		const params = new URLSearchParams(window.location.hash.slice(1));
 		const accessToken = params.get('access_token');
@@ -44,7 +45,7 @@
 			status = 'Erreur réseau. Redirection en cours...';
 		}
 
-		window.location.replace(target.toString());
+		window.location.replace(`${target.toString()}${hash || ''}`);
 	});
 </script>
 

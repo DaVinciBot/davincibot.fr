@@ -1,11 +1,10 @@
 <script>
-	import '../app.css';
-	import { onMount } from 'svelte';
 	import { userdata } from '$lib/store';
+	import { onMount } from 'svelte';
+	import '../app.css';
 
 	export let data;
 
-	$: userProfile = data.userProfile;
 	$: userFallback = data.user
 		? {
 				id: data.user.id,
@@ -13,7 +12,7 @@
 				name: data.user.email ? data.user.email.split('@')[0] : ''
 			}
 		: null;
-	$: authUser = userProfile || userFallback;
+	$: authUser = userFallback;
 
 	onMount(() => {
 		if (authUser) {

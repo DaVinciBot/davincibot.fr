@@ -4,14 +4,12 @@ const isPrivatePath = (pathname: string) =>
 	pathname.startsWith('/admin') || pathname.startsWith('/profile');
 
 export const load: LayoutServerLoad = async ({ locals, cookies, url }) => {
-	const { session, user } = isPrivatePath(url.pathname)
-		? await locals.safeGetSession()
-		: { session: null, user: null };
+	const { session, user } = await locals.safeGetSession();
 
 	let userProfile = null;
 	let permissions: string[] = [];
 
-	if (user?.id) {
+	if (user?.id && isPrivatePath(url.pathname)) {
 		const { data, error } = await locals.supabase
 			.from('profiles')
 			.select('username, avatar_url, permissions, member_of(project(id, name, debut))')

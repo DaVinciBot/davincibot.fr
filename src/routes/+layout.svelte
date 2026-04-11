@@ -6,18 +6,26 @@
 	export let data;
 
 	$: userProfile = data.userProfile;
+	$: userFallback = data.user
+		? {
+				id: data.user.id,
+				email: data.user.email || '',
+				name: data.user.email ? data.user.email.split('@')[0] : ''
+			}
+		: null;
+	$: authUser = userProfile || userFallback;
 
 	onMount(() => {
-		if (userProfile) {
-			userdata.set(userProfile);
+		if (authUser) {
+			userdata.set(authUser);
 		} else {
 			userdata.set(null);
 		}
 	});
 
 	$: {
-		if (userProfile) {
-			userdata.set(userProfile);
+		if (authUser) {
+			userdata.set(authUser);
 		} else {
 			userdata.set(null);
 		}

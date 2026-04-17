@@ -9,7 +9,7 @@
 	"scripts": {
 		"dev": "vite dev --host",
 		"dev:proxy": "docker compose -f docker-compose.dev.yml up",
-		"build": "vite build",
+		"build": "svelte-kit sync && vite build",
 		"preview": "vite preview --host 127.0.0.1 --port 4173",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"lint": "prettier --check . && eslint . --max-warnings=0",

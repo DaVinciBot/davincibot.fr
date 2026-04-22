@@ -1,4 +1,5 @@
 import { createAnonClient, createUserClient, decodeJwt } from '$lib/server/sso';
+import { building } from '$app/environment';
 
 type CachedSession = {
 	session: any;
@@ -25,6 +26,20 @@ const clearSessionCookie = (event: any) => {
 };
 
 export const handle = async ({ event, resolve }: any) => {
+	if (building) {
+		event.locals.supabase = null;
+		event.locals.session = null;
+		event.locals.user = null;
+		(event.locals as any).permissions = [];
+		event.locals.safeGetSession = async () => ({ session: null, user: null });
+
+		return resolve(event, {
+			filterSerializedResponseHeaders(name: string) {
+				return name === 'content-range' || name === 'x-supabase-api-version';
+			}
+		});
+	}
+
 	const rawSid = event.cookies.get('sid');
 	const [sessionId, sessionSecret] = rawSid ? rawSid.split('.') : [null, null];
 	let session: any = null;

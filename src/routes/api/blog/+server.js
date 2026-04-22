@@ -1,6 +1,8 @@
 import { json } from '@sveltejs/kit';
 import { BLOG_PAGE_SIZE, fetchBlogPosts } from '$lib/server/blogPosts.js';
 
+export const prerender = false;
+
 export async function GET({ url, locals: { supabase } }) {
     const offset = Number(url.searchParams.get('offset') ?? '0');
     const limit = Number(url.searchParams.get('limit') ?? BLOG_PAGE_SIZE);

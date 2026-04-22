@@ -1,6 +1,8 @@
 // @ts-nocheck
 import { BLOG_PAGE_SIZE, fetchBlogPosts } from '$lib/server/blogPosts.js';
 
+export const prerender = false;
+
 export async function load({ setHeaders, locals: { supabase } }) {
     try {
         const { posts, count } = await fetchBlogPosts(supabase, { offset: 0, limit: BLOG_PAGE_SIZE });

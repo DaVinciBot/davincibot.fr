@@ -7,7 +7,27 @@ const config = {
 		// adapter-auto only supports some environments, see https://kit.svelte.dev/docs/adapter-auto for a list.
 		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
-		adapter: adapter()
+		adapter: adapter(),
+		prerender: {
+			handleHttpError: ({ status, path, message }) => {
+				if (path.startsWith('/auth/')) {
+					return;
+				}
+
+				if (
+					status === 404 &&
+					(path === '/formation' ||
+						path === '/formation/' ||
+						path === '/soutenez-nous' ||
+						path === '/soutenez-nous/' ||
+						path === '/og-image.png')
+				) {
+					return;
+				}
+
+				throw new Error(message);
+			}
+		}
 	},
 	preprocess: vitePreprocess()
 };

@@ -1,28 +1,51 @@
-export const PERMISSIONS = {
-	VIEW_ADMIN: 'view_admin',
-	VIEW_ALL_ORDERS: 'view_all_orders',
-	VIEW_MEMBERS: 'view_members',
-	VIEW_PROJECTS_ORDERS: 'view_projects_orders',
-	VIEW_TRAININGS: 'view_trainings',
-	VIEW_TRESO: 'view_treso',
-	EDIT_BLOG: 'edit_blog',
-	EDIT_BLOG_DRAFT: 'edit_blog_draft',
-	EDIT_MEMBERS: 'edit_members',
-	EDIT_ORDERS: 'edit_orders',
-	EDIT_PROJECTS_ORDERS: 'edit_projects_orders',
-	EDIT_TRAININGS: 'edit_trainings',
-	EDIT_TRESO: 'edit_treso'
-};
+export const PERMISSIONS = [
+	'members.profile.read.all',
+	'members.profile.create',
+	'members.profile.update.all',
+	'members.projects.read.all',
+	'members.projects.update.all',
+	'members.invite.send',
+	'members.profile.status.update',
+	'iam.permissions.catalog.read',
+	'iam.permissions.read.all',
+	'iam.permissions.assign.all',
+	'iam.permissions.assign.owned',
+	'iam.permissions.revoke.all',
+	'iam.permissions.revoke.owned',
+	'training.catalog.read',
+	'training.slot.read',
+	'training.slot.cu',
+	'training.registration.cru.self',
+	'training.registration.read.all',
+	'training.registration.cu.all',
+	'training.presence.update',
+	'training.summary_email.receive',
+	'orders.cru.self',
+	'orders.read.all',
+	'orders.create.all',
+	'orders.lifecycle.update.all',
+	'projects.stats.read.all',
+	'finance.read',
+	'finance.write',
+	'blog.draft.write',
+	'blog.publish',
+	'integration.smartshare.cast',
+	'integration.discord.summary_webhook.send',
+	'audit.logs.read',
+	'audit.logs.read.security',
+	'audit.events.export'
+];
 
-/**
- * Check if a user has a specific permission.
- * @param {Object} user - The user object from userdata store.
- * @param {string} permission - The permission to check.
- * @returns {boolean} True if the user has the permission.
- */
 export function hasPermission(user, permission) {
-	if (!user || !user.permissions) {
+	if (!user || !Array.isArray(user.permissions)) {
 		return false;
 	}
 	return user.permissions.includes(permission);
+}
+
+export function hasAnyPermission(userPermissions = [], requiredPermissions = []) {
+	if (!Array.isArray(requiredPermissions) || requiredPermissions.length === 0) return true;
+	if (!Array.isArray(userPermissions) || userPermissions.length === 0) return false;
+	const permissionsSet = new Set(userPermissions);
+	return requiredPermissions.some((permission) => permissionsSet.has(permission));
 }

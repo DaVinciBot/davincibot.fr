@@ -10,6 +10,11 @@ http:
       service: admin
       priority: 10
 
+    formation:
+      rule: "PathPrefix(`/formation`)"
+      service: formation
+      priority: 9
+
   services:
     root:
       loadBalancer:
@@ -20,3 +25,8 @@ http:
       loadBalancer:
         servers:
           - url: "http://host.docker.internal:5175"
+
+    formation:
+      loadBalancer:
+        servers:
+          - url: "http://host.docker.internal:5176"

@@ -16,6 +16,29 @@ bun create svelte@latest my-app
 
 ## Developing
 
+Pour lancer les 3 apps (`davincibot.fr`, `cash`, `formation`) sur un seul port local:
+
+```bash
+npm run dev:all
+```
+
+Depuis `http://localhost:5174`:
+- `/` -> `davincibot.fr`
+- `/admin` -> `cash`
+- `/formation` -> `formation`
+
+Si tu veux utiliser la variante Traefik Docker:
+
+```bash
+npm run dev:all:docker
+```
+
+Pour stopper les conteneurs Docker de dev:
+
+```bash
+npm run dev:proxy:down
+```
+
 Once you've created a project and installed dependencies with `bun install`, start a development server:
 
 ```bash

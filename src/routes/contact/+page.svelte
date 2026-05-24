@@ -40,7 +40,7 @@
 		return () => mql.removeEventListener('change', handler);
 	});
 
-	// // Dark theme aligned with site colors (see tailwind.config.js)
+	// // Dark theme aligned with site colors (see src/app.css)
 	// const mapStyles = [
 	// 	'element:geometry|color:0x010128', // deep navy background
 	// 	'element:labels.text.fill|color:0xB3C2FF', // light blue labels

@@ -60,14 +60,16 @@
 					<h1 class="text-4xl font-extrabold sm:text-5xl lg:text-6xl">
 						Ingénieur par vocation <wbr /> Robotique par passion
 					</h1>
-					<p class="self-stretch text-lg tracking-wider sm:text-xl text-dark-blue-gray">
+					<p
+						class="self-stretch text-lg tracking-wider sm:text-xl text-dark-blue-gray text-justify"
+					>
 						DaVinciBot rassemble des étudiants de l'ESILV, de l'EMLV et de l'IIM du Pôle
 						Universitaire Léonard de Vinci autour d'activités, de projets innovants et de nombreuses
 						formations, dans le but de faire exceller ses membres dans leurs études et leur vie
 						professionnelle.
 					</p>
 				</div>
-				<div class="flex flex-col w-full gap-4 sm:flex-row sm:gap-6 sm:w-96">
+				<div class="flex flex-col w-full gap-4 sm:flex-row sm:gap-6 sm:w-102">
 					<CtaButton href="#projets">Nos Projets</CtaButton>
 					<CtaButton variant="secondary" href="/soutenir">Soutenez nous</CtaButton>
 				</div>

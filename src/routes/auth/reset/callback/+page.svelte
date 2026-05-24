@@ -2,8 +2,8 @@
 	import AuthForm from '$lib/components/utils/AuthForm.svelte';
 	import { onMount } from 'svelte';
 
-	let accessToken = '';
-	let refreshToken = '';
+	let accessToken = $state('');
+	let refreshToken = $state('');
 
 	onMount(() => {
 		const params = new URLSearchParams(window.location.hash.slice(1));

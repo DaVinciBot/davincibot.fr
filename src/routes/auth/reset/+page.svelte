@@ -1,7 +1,9 @@
 <script lang="ts">
-	let email = '';
-	let loading = false;
-	let message = '';
+	import { preventDefault } from 'svelte/legacy';
+
+	let email = $state('');
+	let loading = $state(false);
+	let message = $state('');
 
 	const handleResetRequest = async () => {
 		loading = true;
@@ -29,7 +31,7 @@
 		{#if message}
 			<p class="text-green-500">{message}</p>
 		{:else}
-			<form on:submit|preventDefault={handleResetRequest} class="space-y-4">
+			<form onsubmit={preventDefault(handleResetRequest)} class="space-y-4">
 				<div>
 					<label for="email" class="block mb-2 text-sm font-medium text-white">Votre email</label>
 					<input

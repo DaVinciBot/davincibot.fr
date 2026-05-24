@@ -3,7 +3,8 @@
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
 
-	export let data;
+	/** @type {{data: any}} */
+	let { data } = $props();
 	const { post } = data;
 	const heroImage = post?.meta?.heroImage;
 	const heroImageSocial = post?.meta?.heroImageSocial || heroImage;

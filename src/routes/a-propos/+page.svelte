@@ -34,7 +34,7 @@
 	];
 
 	const heroRotationDelay = 6000;
-	let activeHero = 0;
+	let activeHero = $state(0);
 	let heroTimer;
 
 	function stopHeroTimer() {
@@ -200,9 +200,10 @@
 			</div>
 			<div class="relative">
 				<div
+					role="group"
 					class="relative w-full overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-15px_rgba(9,88,239,0.35)] aspect-[16/10] bg-white/5"
-					on:mouseenter={stopHeroTimer}
-					on:mouseleave={startHeroTimer}
+					onmouseenter={stopHeroTimer}
+					onmouseleave={startHeroTimer}
 					aria-live="polite"
 					aria-label="Moments de la vie DaVinciBot"
 				>
@@ -248,7 +249,7 @@
 							<button
 								type="button"
 								class={`h-1.5 w-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-dark-light-blue hover:bg-white/50 ${idx === activeHero ? 'bg-dark-light-blue  ' : 'bg-white/30'}`}
-								on:click={() => selectHero(idx)}
+								onclick={() => selectHero(idx)}
 								aria-label={`Afficher ${image.caption}`}
 								aria-current={idx === activeHero ? 'true' : 'false'}
 							></button>

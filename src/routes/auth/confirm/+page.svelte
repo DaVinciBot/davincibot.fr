@@ -1,8 +1,8 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 
-	let status = 'Confirmation en cours...';
+	let status = $state('Confirmation en cours...');
 
 	const sanitizeNext = (value) => {
 		if (!value || typeof value !== 'string') return '/';
@@ -10,7 +10,7 @@
 	};
 
 	onMount(async () => {
-		const nextParam = sanitizeNext($page.url.searchParams.get('next'));
+		const nextParam = sanitizeNext(page.url.searchParams.get('next'));
 		const target = new URL(nextParam, window.location.origin);
 		const hash = window.location.hash;
 

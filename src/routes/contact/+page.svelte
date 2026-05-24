@@ -7,7 +7,7 @@
 	import { onMount } from 'svelte';
 
 	const email = 'davincibot@devinci.fr';
-	let copied = false;
+	let copied = $state(false);
 
 	async function copyEmail() {
 		try {
@@ -28,7 +28,7 @@
 	// const MAP_SCALE = 2;
 
 	// Track viewport to adjust map centering on mobile
-	let isMobile = false;
+	let isMobile = $state(false);
 	if (browser) {
 		isMobile = window.matchMedia('(max-width: 768px)').matches;
 	}
@@ -91,7 +91,7 @@
 									<span class="font-mono select-all text-white/95">{email}</span>
 									<button
 										type="button"
-										on:click={copyEmail}
+										onclick={copyEmail}
 										class="px-3 py-2 text-sm transition bg-transparent border text-dark-light-blue rounded-xl border-white/20 text-white/90 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
 										aria-live="polite"
 									>

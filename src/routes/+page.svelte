@@ -9,7 +9,8 @@
 	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 
 	// SSR data from +page.server.js
-	export let data;
+	/** @type {{data: any}} */
+	let { data } = $props();
 	const posts = data?.posts ?? [];
 </script>
 

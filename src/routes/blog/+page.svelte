@@ -1,17 +1,20 @@
 <script>
+	import { run } from 'svelte/legacy';
+
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
-	export let data;
+	/** @type {{data: any}} */
+	let { data } = $props();
 
 	const pageSize = data?.pageSize ?? 20;
-	let posts = data?.posts ? [...data.posts] : [];
-	let totalCount = data?.totalCount ?? posts.length;
-	let filterTotalCount = null;
-	let filterSignature = '';
-	let loadingMore = false;
-	let loadError = '';
-	let searchQuery = '';
-	let selectedTag = 'all';
+	let posts = $state(data?.posts ? [...data.posts] : []);
+	let totalCount = $state(data?.totalCount ?? posts.length);
+	let filterTotalCount = $state(null);
+	let filterSignature = $state('');
+	let loadingMore = $state(false);
+	let loadError = $state('');
+	let searchQuery = $state('');
+	let selectedTag = $state('all');
 
 	function fmt(dateStr) {
 		if (!dateStr) return '';
@@ -96,28 +99,30 @@
 		}
 	}
 
-	$: derivedTags = Array.from(new Set(posts.flatMap((post) => post.tags || [])));
-	$: tagOptions = ['all', ...derivedTags];
-	$: trimmedSearch = searchQuery.trim().toLowerCase();
-	$: activeTag = selectedTag === 'all' ? null : selectedTag;
-	$: latest = posts.slice(0, Math.min(4, posts.length));
-	$: archiveSource = posts.length > latest.length ? posts.slice(latest.length) : posts;
-	$: filteredLatest = latest.filter((post) => matchesSearch(post, trimmedSearch));
-	$: filteredArchive = archiveSource.filter((post) => matchesTag(post, activeTag));
-	$: matchesForFilter = posts.filter(
+	let derivedTags = $derived(Array.from(new Set(posts.flatMap((post) => post.tags || []))));
+	let tagOptions = $derived(['all', ...derivedTags]);
+	let trimmedSearch = $derived(searchQuery.trim().toLowerCase());
+	let activeTag = $derived(selectedTag === 'all' ? null : selectedTag);
+	let latest = $derived(posts.slice(0, Math.min(4, posts.length)));
+	let archiveSource = $derived(posts.length > latest.length ? posts.slice(latest.length) : posts);
+	let filteredLatest = $derived(latest.filter((post) => matchesSearch(post, trimmedSearch)));
+	let filteredArchive = $derived(archiveSource.filter((post) => matchesTag(post, activeTag)));
+	let matchesForFilter = $derived(posts.filter(
 		(post) => matchesSearch(post, trimmedSearch) && matchesTag(post, activeTag)
-	).length;
-	$: hasMoreBase = posts.length < totalCount;
-	$: hasMoreForFilter =
-		filterTotalCount === null ? hasMoreBase : matchesForFilter < filterTotalCount;
-	$: disableLoadMore = !hasMoreForFilter || loadingMore;
-	$: currentSignature = buildFilterSignature(trimmedSearch, activeTag);
-	$: if (currentSignature !== filterSignature) {
-		filterSignature = currentSignature;
-		filterTotalCount = null;
-		loadError = '';
-	}
-	$: noResults = !filteredLatest.length && !filteredArchive.length;
+	).length);
+	let hasMoreBase = $derived(posts.length < totalCount);
+	let hasMoreForFilter =
+		$derived(filterTotalCount === null ? hasMoreBase : matchesForFilter < filterTotalCount);
+	let disableLoadMore = $derived(!hasMoreForFilter || loadingMore);
+	let currentSignature = $derived(buildFilterSignature(trimmedSearch, activeTag));
+	run(() => {
+		if (currentSignature !== filterSignature) {
+			filterSignature = currentSignature;
+			filterTotalCount = null;
+			loadError = '';
+		}
+	});
+	let noResults = $derived(!filteredLatest.length && !filteredArchive.length);
 </script>
 
 <svelte:head>
@@ -265,7 +270,7 @@
 								{#each tagOptions as tag}
 									<button
 										type="button"
-										on:click={() => (selectedTag = tag)}
+										onclick={() => (selectedTag = tag)}
 										class={`px-4 py-1.5 text-sm rounded-full border transition ${
 											tag === selectedTag
 												? 'border-dark-light-blue bg-dark-light-blue/10 text-dark-light-blue'
@@ -328,7 +333,7 @@
 				{#if hasMoreForFilter}
 					<button
 						type="button"
-						on:click={loadMorePosts}
+						onclick={loadMorePosts}
 						disabled={disableLoadMore}
 						class="px-6 py-2 mt-4 text-sm font-semibold border rounded-full border-dark-light-blue text-dark-light-blue hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
 					>

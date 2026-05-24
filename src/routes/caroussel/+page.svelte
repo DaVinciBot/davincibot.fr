@@ -28,7 +28,7 @@
 			icon: 'waiting'
 		}
 	];
-	let current = 3;
+	let current = $state(3);
 
 	function next() {
 		current = (current + 1) % instructionSlides.length;
@@ -170,15 +170,17 @@
 					class="w-3 h-3 rounded-full transition-all duration-300 {index === current
 						? 'bg-blue-400'
 						: 'bg-gray-600'}"
-					on:click={() => (current = index)}
-				/>
+					onclick={() => (current = index)}
+					aria-label="Go to slide {index + 1}"
+					title="Go to slide {index + 1}"
+				></button>
 			{/each}
 		</div>
 
 		<!-- Manual navigation buttons -->
 		<div class="flex justify-center space-x-4">
 			<button
-				on:click={prev}
+				onclick={prev}
 				class="flex items-center px-6 py-3 transition-colors duration-200 bg-gray-700 rounded-lg hover:bg-gray-600"
 			>
 				<svg
@@ -193,7 +195,7 @@
 				Précédent
 			</button>
 			<button
-				on:click={next}
+				onclick={next}
 				class="flex items-center px-6 py-3 transition-colors duration-200 bg-gray-700 rounded-lg hover:bg-gray-600"
 			>
 				Suivant

@@ -2,10 +2,10 @@
 	import AuthForm from '$lib/components/utils/AuthForm.svelte';
 	import { onMount } from 'svelte';
 
-	let initializing = true;
-	let error = '';
-	let access_token = '';
-	let refresh_token = '';
+	let initializing = $state(true);
+	let error = $state('');
+	let access_token = $state('');
+	let refresh_token = $state('');
 
 	onMount(async () => {
 		const hash = window.location.hash.startsWith('#') ? window.location.hash.slice(1) : '';

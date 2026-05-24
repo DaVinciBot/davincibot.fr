@@ -1,18 +1,21 @@
 <script>
+	import { run } from 'svelte/legacy';
+
 	import { userdata } from '$lib/store';
 	import { onMount } from 'svelte';
 	import '../app.css';
 
-	export let data;
+	/** @type {{data: any, children?: import('svelte').Snippet}} */
+	let { data, children } = $props();
 
-	$: userFallback = data.user
+	let userFallback = $derived(data.user
 		? {
 				id: data.user.id,
 				email: data.user.email || '',
 				name: data.user.email ? data.user.email.split('@')[0] : ''
 			}
-		: null;
-	$: authUser = userFallback;
+		: null);
+	let authUser = $derived(userFallback);
 
 	onMount(() => {
 		if (authUser) {
@@ -22,13 +25,13 @@
 		}
 	});
 
-	$: {
+	run(() => {
 		if (authUser) {
 			userdata.set(authUser);
 		} else {
 			userdata.set(null);
 		}
-	}
+	});
 </script>
 
 <svelte:head>
@@ -48,5 +51,5 @@
 </svelte:head>
 
 <div class="min-h-screen antialiased bg-dark-blue text-white min-w-screen font-['Almarai']">
-	<slot />
+	{@render children?.()}
 </div>

@@ -1,8 +1,12 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { page } from '$app/state';
 
-	let redirect = '/';
-	$: redirect = page.url.searchParams.get('redirect') || '/';
+	let redirect = $state('/');
+	run(() => {
+		redirect = page.url.searchParams.get('redirect') || '/';
+	});
 </script>
 
 <section>

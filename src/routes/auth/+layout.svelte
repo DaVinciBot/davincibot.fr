@@ -1,3 +1,8 @@
+<script>
+	/** @type {{children?: import('svelte').Snippet}} */
+	let { children } = $props();
+</script>
+
 <svelte:head>
 	<title>DaVinciBot - Authentification</title>
 	<meta name="description" content="Page d'authentification de DaVinciBot." />
@@ -30,4 +35,4 @@
 	<meta name="twitter:card" content="summary_large_image" />
 </svelte:head>
 
-<slot />
+{@render children?.()}

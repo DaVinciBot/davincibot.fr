@@ -195,11 +195,10 @@
 			<h2 id="heading-securite">10. Sécurité</h2>
 			<p>
 				DaVinciBot met en œuvre des mesures raisonnables pour sécuriser le Site (chiffrement TLS,
-				surveillance de l'hébergement Netlify, politiques d'accès restreint). Dans le cadre de
-				l'authentification des membres, nous enregistrons l'adresse IP utilisée et l'horodatage de
-				chaque connexion afin de détecter les accès anormaux et protéger les comptes. L'Utilisateur
-				est invité à utiliser des équipements récents, dépourvus de virus et dotés d'un navigateur à
-				jour.
+				politiques d'accès restreint). Dans le cadre de l'authentification des membres, nous
+				enregistrons l'adresse IP utilisée et l'horodatage de chaque connexion afin de détecter les
+				accès anormaux et protéger les comptes. L'Utilisateur est invité à utiliser des équipements
+				récents, dépourvus de virus et dotés d'un navigateur à jour.
 			</p>
 		</section>
 

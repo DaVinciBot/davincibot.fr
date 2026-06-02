@@ -156,7 +156,7 @@
 			</div>
 
 			<div class="flex justify-center gap-8 my-6">
-				<article class="prose prose-invert max-w-[680px] md-article">
+				<article class="prose prose-invert max-w-170 md-article">
 					{#if post?.ast}
 						<Renderer tree={post.ast} />
 					{:else}

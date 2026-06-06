@@ -54,6 +54,8 @@
 			}
 		}
 	};
+	const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
+	const jsonLdScript = `<script type="application/ld+json">${jsonLdString}<` + '/script>';
 </script>
 
 <svelte:head>
@@ -106,9 +108,7 @@
 		<meta name="twitter:description" content={post.meta.excerpt} />
 	{/if}
 	<!-- JSON-LD Article -->
-	<script type="application/ld+json">
-{JSON.stringify(jsonLd)}
-	</script>
+	{@html jsonLdScript}
 </svelte:head>
 
 <Topbar />

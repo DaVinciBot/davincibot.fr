@@ -6,6 +6,7 @@
 		"noImplicitAny": true,
 		"noUncheckedIndexedAccess": true,
 		"noImplicitOverride": true,
-		"noFallthroughCasesInSwitch": true
+		"noFallthroughCasesInSwitch": true,
+		"skipLibCheck": true
 	}
 }

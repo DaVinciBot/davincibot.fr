@@ -106,7 +106,7 @@
 	/>
 	<meta name="robots" content="index, follow" />
 
-	<meta property="og:title" content={`Partenaires — DaVinciBot`} />
+	<meta property="og:title" content="Partenaires — DaVinciBot" />
 	<meta
 		property="og:description"
 		content="Découvrez nos partenaires et sponsors, et téléchargez notre brochure de partenariat."
@@ -126,18 +126,18 @@
 
 <!-- Hero -->
 <section
-	class="relative px-4 pt-24 pb-12 overflow-hidden sm:px-8 md:px-16 lg:px-32 md:pt-32 lg:pt-40 md:h-[600px] flex justify-center"
+	class="relative px-4 pt-24 pb-12 overflow-hidden sm:px-8 md:px-16 lg:px-32 md:pt-32 lg:pt-40 md:h-150 flex justify-center"
 >
 	<!-- Grille d'arrière-plan en tuiles -->
 	<div class="absolute inset-0 z-10 pointer-events-none" aria-hidden="true">
 		<div
-			class="absolute -inset-16 opacity-15 [mask-image:radial-gradient(closest-side,_rgba(0,0,0,.9),_transparent_95%)] bg-drift"
+			class="absolute -inset-16 opacity-15 mask-[radial-gradient(closest-side,rgba(0,0,0,.9),transparent_95%)] bg-drift"
 		>
 			<div
 				class="grid gap-10 place-items-center"
 				style={`grid-template-columns: repeat(${BG_COLS}, minmax(120px, 1fr));`}
 			>
-				{#each bgTiles as t}
+				{#each bgTiles as t (t.id)}
 					<img
 						src={t.logo}
 						alt=""
@@ -177,14 +177,14 @@
 <!-- Sponsors list -->
 <section class="px-4 pb-20 sm:px-8 md:px-16 lg:px-32">
 	<div class="max-w-6xl mx-auto">
-		{#each sponsors as s, i}
+		{#each sponsors as s, i (i)}
 			<article
 				class="grid items-center gap-8 py-10 border-t md:grid-cols-2 md:gap-12 md:py-14 border-white/10"
 			>
 				<!-- Logo -->
 				<div class={`order-1 ${i % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}>
 					<div
-						class="aspect-[3/1] md:aspect-[4/1] w-full max-w-md md:max-w-none mx-auto flex items-center justify-center rounded-lg bg-white/5 border border-white/10 p-6"
+						class="aspect-3/1 md:aspect-4/1 w-full max-w-md md:max-w-none mx-auto flex items-center justify-center rounded-lg bg-white/5 border border-white/10 p-6"
 					>
 						<img
 							src={s.logo}

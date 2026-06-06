@@ -1,11 +1,11 @@
-import { createAnonClient, createUserClient, decodeJwt } from '$lib/server/sso';
 import { building } from '$app/environment';
+import { createAnonClient, createUserClient, decodeJwt } from '$lib/server/sso';
 
-type CachedSession = {
+interface CachedSession {
 	session: any;
 	user: any;
 	timestamp: number;
-};
+}
 
 const SESSION_CACHE_TTL_MS = 5 * 60 * 1000;
 const SESSION_REFRESH_GRACE_MS = 2 * 60 * 1000;
@@ -13,7 +13,9 @@ const sessionCache = new Map<string, CachedSession>();
 
 const getCachedSession = (cacheKey: string) => {
 	const cached = sessionCache.get(cacheKey);
-	if (!cached) return null;
+	if (!cached) {
+		return null;
+	}
 	if (Date.now() - cached.timestamp > SESSION_CACHE_TTL_MS) {
 		sessionCache.delete(cacheKey);
 		return null;
@@ -30,7 +32,7 @@ export const handle = async ({ event, resolve }: any) => {
 		event.locals.supabase = null;
 		event.locals.session = null;
 		event.locals.user = null;
-		(event.locals as any).permissions = [];
+		event.locals.permissions = [];
 		event.locals.safeGetSession = async () => ({ session: null, user: null });
 
 		return resolve(event, {
@@ -141,7 +143,7 @@ export const handle = async ({ event, resolve }: any) => {
 
 	event.locals.session = session;
 	event.locals.user = user;
-	(event.locals as any).permissions = [];
+	event.locals.permissions = [];
 
 	event.locals.safeGetSession = async () => {
 		return { session, user };

@@ -107,12 +107,13 @@
 	let archiveSource = $derived(posts.length > latest.length ? posts.slice(latest.length) : posts);
 	let filteredLatest = $derived(latest.filter((post) => matchesSearch(post, trimmedSearch)));
 	let filteredArchive = $derived(archiveSource.filter((post) => matchesTag(post, activeTag)));
-	let matchesForFilter = $derived(posts.filter(
-		(post) => matchesSearch(post, trimmedSearch) && matchesTag(post, activeTag)
-	).length);
+	let matchesForFilter = $derived(
+		posts.filter((post) => matchesSearch(post, trimmedSearch) && matchesTag(post, activeTag)).length
+	);
 	let hasMoreBase = $derived(posts.length < totalCount);
-	let hasMoreForFilter =
-		$derived(filterTotalCount === null ? hasMoreBase : matchesForFilter < filterTotalCount);
+	let hasMoreForFilter = $derived(
+		filterTotalCount === null ? hasMoreBase : matchesForFilter < filterTotalCount
+	);
 	let disableLoadMore = $derived(!hasMoreForFilter || loadingMore);
 	let currentSignature = $derived(buildFilterSignature(trimmedSearch, activeTag));
 	run(() => {

@@ -4,11 +4,11 @@ services:
   traefik:
     image: traefik:v3.6.9
     command:
-      - "--api.insecure=true"
-      - "--providers.file.filename=/etc/traefik/dynamic.yml"
-      - "--entrypoints.web.address=:5173"
+      - '--api.insecure=true'
+      - '--providers.file.filename=/etc/traefik/dynamic.yml'
+      - '--entrypoints.web.address=:5173'
     ports:
-      - "5173:5173"
-      - "8080:8080"
+      - '5173:5173'
+      - '8080:8080'
     volumes:
       - ./traefik/dynamic.yml:/etc/traefik/dynamic.yml

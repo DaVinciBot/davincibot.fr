@@ -8,13 +8,15 @@
 	/** @type {{data: any, children?: import('svelte').Snippet}} */
 	let { data, children } = $props();
 
-	let userFallback = $derived(data.user
-		? {
-				id: data.user.id,
-				email: data.user.email || '',
-				name: data.user.email ? data.user.email.split('@')[0] : ''
-			}
-		: null);
+	let userFallback = $derived(
+		data.user
+			? {
+					id: data.user.id,
+					email: data.user.email || '',
+					name: data.user.email ? data.user.email.split('@')[0] : ''
+				}
+			: null
+	);
 	let authUser = $derived(userFallback);
 
 	onMount(() => {

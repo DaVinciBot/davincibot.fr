@@ -1,17 +1,17 @@
 http:
   routers:
     root:
-      rule: "PathPrefix(`/`)"
+      rule: 'PathPrefix(`/`)'
       service: root
       priority: 1
 
     admin:
-      rule: "PathPrefix(`/admin`)"
+      rule: 'PathPrefix(`/admin`)'
       service: admin
       priority: 10
 
     formation:
-      rule: "PathPrefix(`/formation`)"
+      rule: 'PathPrefix(`/formation`)'
       service: formation
       priority: 9
 
@@ -19,14 +19,14 @@ http:
     root:
       loadBalancer:
         servers:
-          - url: "http://host.docker.internal:5174"
+          - url: 'http://host.docker.internal:5174'
 
     admin:
       loadBalancer:
         servers:
-          - url: "http://host.docker.internal:5175"
+          - url: 'http://host.docker.internal:5175'
 
     formation:
       loadBalancer:
         servers:
-          - url: "http://host.docker.internal:5176"
+          - url: 'http://host.docker.internal:5176'

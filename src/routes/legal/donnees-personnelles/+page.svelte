@@ -81,12 +81,12 @@
 			<ul>
 				<li>
 					<strong>Gestion des comptes membres et des accès</strong> : création, administration et suppression
-					des comptes des bénévoles (base légale : intérêt légitime de l'association et exécution de
-					la mission associative).
+					des comptes des bénévoles (base légale : intérêt légitime de l'association et exécution de la
+					mission associative).
 				</li>
 				<li>
-					<strong>Suivi des commandes et des services internes</strong> : traitement des demandes de
-					matériel et suivi des statuts (base légale : intérêt légitime et engagement associatif).
+					<strong>Suivi des commandes et des services internes</strong> : traitement des demandes de matériel
+					et suivi des statuts (base légale : intérêt légitime et engagement associatif).
 				</li>
 				<li>
 					<strong>Sécurisation du service</strong> : conservation des journaux de connexion (IP, date,

@@ -12,7 +12,9 @@ export const supabaseKey = publicSupabaseKey;
 let browserClient = null;
 
 function getCookieOptions() {
-	if (!browser) return undefined;
+	if (!browser) {
+		return undefined;
+	}
 
 	const isLocalhost =
 		window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';

@@ -5,6 +5,3 @@
 <section class="min-h-screen min-w-screen">
 	<AuthForm />
 </section>
-
-<style>
-</style>

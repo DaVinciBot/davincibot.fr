@@ -1,6 +1,6 @@
 <script>
 	/** @type {{children?: import('svelte').Snippet}} */
-	let { children } = $props();
+	const { children } = $props();
 </script>
 
 <svelte:head>

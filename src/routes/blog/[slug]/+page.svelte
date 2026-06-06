@@ -4,15 +4,24 @@
 	import Topbar from '$lib/components/share/Topbar.svelte';
 
 	/** @type {{data: any}} */
-	let { data } = $props();
-	const { post } = data;
+	const { data } = $props();
+
+	function getInitialPost() {
+		return data.post;
+	}
+
+	const post = getInitialPost();
 	const heroImage = post?.meta?.heroImage;
 	const heroImageSocial = post?.meta?.heroImageSocial || heroImage;
 
 	function formatDate(v) {
-		if (!v) return null;
+		if (!v) {
+			return null;
+		}
 		const d = new Date(v);
-		if (Number.isNaN(d.getTime())) return null;
+		if (Number.isNaN(d.getTime())) {
+			return null;
+		}
 		return new Intl.DateTimeFormat('fr-FR', {
 			day: '2-digit',
 			month: 'long',

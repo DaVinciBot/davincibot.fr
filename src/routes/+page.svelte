@@ -10,8 +10,13 @@
 
 	// SSR data from +page.server.js
 	/** @type {{data: any}} */
-	let { data } = $props();
-	const posts = data?.posts ?? [];
+	const { data } = $props();
+
+	function getInitialPosts() {
+		return data?.posts ?? [];
+	}
+
+	const posts = getInitialPosts();
 </script>
 
 <svelte:head>
@@ -71,7 +76,7 @@
 				</div>
 				<div class="flex flex-col w-full gap-4 sm:flex-row sm:gap-6 sm:w-102">
 					<CtaButton href="#projets">Nos Projets</CtaButton>
-					<CtaButton variant="secondary" href="/soutenir">Soutenez nous</CtaButton>
+					<CtaButton variant="secondary" href="/soutenez-nous">Soutenez nous</CtaButton>
 				</div>
 			</div>
 			<img
@@ -105,7 +110,7 @@
 		<div class="max-w-full my-10">
 			{#if posts.length}
 				<Carousel time={90}>
-					{#each posts as p}
+					{#each posts as p (p.slug)}
 						<Card
 							title={p.title}
 							description={p.description}

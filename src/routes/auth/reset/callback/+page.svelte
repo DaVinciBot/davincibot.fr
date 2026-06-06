@@ -20,5 +20,3 @@
 		refresh_token={refreshToken}
 	/>
 </section>
-
-<style></style>

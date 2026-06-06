@@ -54,6 +54,3 @@
 		{/if}
 	</div>
 </section>
-
-<style>
-</style>

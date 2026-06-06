@@ -1,5 +1,5 @@
-import { json } from '@sveltejs/kit';
 import { createAnonClient } from '$lib/server/sso';
+import { json } from '@sveltejs/kit';
 
 export const POST = async (event: any) => {
 	const rawSid = event.cookies.get('sid');

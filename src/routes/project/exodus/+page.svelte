@@ -188,7 +188,7 @@
 
 	<section class="px-4 py-12 sm:px-8 md:px-16 lg:px-32">
 		<div class="grid max-w-6xl gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-3">
-			{#each keyFigures as figure}
+			{#each keyFigures as figure (figure.id)}
 				<article class="p-6 border rounded-2xl border-white/10 bg-white/5 backdrop-blur">
 					<h2 class="text-3xl font-extrabold text-dark-light-blue sm:text-4xl">{figure.value}</h2>
 					<p class="mt-2 text-lg font-semibold text-white/80">{figure.label}</p>
@@ -209,7 +209,7 @@
 					avancés, une conception ergonomique et prédiction de mouvements avec l'IA.
 				</p>
 				<ul class="space-y-4">
-					{#each missionPillars as item}
+					{#each missionPillars as item (item.id)}
 						<li class="p-4 border rounded-xl border-white/10 bg-white/5">
 							<h3 class="text-xl font-semibold text-white">{item.title}</h3>
 							<p class="mt-2 text-sm text-white/70">{item.description}</p>
@@ -248,11 +248,11 @@
 				utilisateurs.
 			</p>
 			<div class="grid gap-6 mt-10 lg:grid-cols-3">
-				{#each teamStreams as stream}
+				{#each teamStreams as stream (stream.id)}
 					<article class="p-6 border rounded-2xl border-white/10 bg-white/5">
 						<h3 class="text-xl font-semibold text-white">{stream.title}</h3>
 						<ul class="mt-4 space-y-3 text-sm text-white/70">
-							{#each stream.points as point}
+							{#each stream.points as point (point)}
 								<li>• {point}</li>
 							{/each}
 						</ul>
@@ -266,7 +266,7 @@
 		<div class="max-w-5xl mx-auto">
 			<h2 class="text-3xl font-extrabold sm:text-4xl">Feuille de route du projet</h2>
 			<ol class="mt-10 space-y-8">
-				{#each milestones as milestone, index}
+				{#each milestones as milestone, index (index)}
 					<li class="relative p-6 border rounded-2xl border-white/10 bg-dark-blue/60">
 						<div
 							class="absolute items-center justify-center hidden w-12 h-12 text-xl font-bold border rounded-full -left-8 top-6 border-white/20 bg-dark-light-blue text-dark-blue lg:flex"
@@ -286,7 +286,7 @@
 
 	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
 		<div
-			class="max-w-5xl p-10 mx-auto text-center border rounded-3xl border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur"
+			class="max-w-5xl p-10 mx-auto text-center border rounded-3xl border-white/10 bg-linear-to-br from-white/10 via-white/5 to-white/10 backdrop-blur"
 		>
 			<h2 class="text-3xl font-extrabold sm:text-4xl">Sponsoriser le projet Exodus</h2>
 			<p class="mt-4 text-base leading-relaxed text-white/75 sm:text-lg">
@@ -295,7 +295,7 @@
 				robotisés ? Parlons-en.
 			</p>
 			<div class="grid gap-4 mt-8 sm:grid-cols-3">
-				{#each supportLinks as link}
+				{#each supportLinks as link (link.id)}
 					<CTAButton href={link.href} variant={link.href !== '/contact' ? 'secondary' : 'primary'}>
 						{link.label}
 					</CTAButton>

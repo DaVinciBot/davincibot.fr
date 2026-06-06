@@ -6,9 +6,9 @@
 	import '../app.css';
 
 	/** @type {{data: any, children?: import('svelte').Snippet}} */
-	let { data, children } = $props();
+	const { data, children } = $props();
 
-	let userFallback = $derived(
+	const userFallback = $derived(
 		data.user
 			? {
 					id: data.user.id,
@@ -17,7 +17,7 @@
 				}
 			: null
 	);
-	let authUser = $derived(userFallback);
+	const authUser = $derived(userFallback);
 
 	onMount(() => {
 		if (authUser) {

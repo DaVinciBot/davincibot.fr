@@ -16,9 +16,9 @@
 	import FindUsLogo from '$lib/components/share/icon/FindUsLogo.svelte';
 	import Signal from '$lib/components/share/icon/Signal.svelte';
 
-	let cdrImg = '/assets/project/cdr/CDR.webp';
-	let precoupeImg = '/assets/article/precoupe.webp';
-	let coupe23Img = '/assets/project/cdr/IMG_1179.webp';
+	const cdrImg = '/assets/project/cdr/CDR.webp';
+	const precoupeImg = '/assets/article/precoupe.webp';
+	const coupe23Img = '/assets/project/cdr/IMG_1179.webp';
 </script>
 
 <svelte:head>
@@ -137,28 +137,28 @@
 		<div class="max-w-full my-10">
 			<Carousel time={90}>
 				<ResultCard
-					title={'2025 - The Show Must Go On'}
+					title="2025 - The Show Must Go On"
 					rank_and_points={'36/103 '}
 					image={cdrImg}
 					logo={TheShowMustGoOnLogo}
-					marginLeft={'30'}
-					marginBottom={'20'}
+					marginLeft="30"
+					marginBottom="20"
 				/>
 				<ResultCard
-					title={'2024 - Farming Mars'}
-					rank_and_points={'44e/186 - 157 pts'}
+					title="2024 - Farming Mars"
+					rank_and_points="44e/186 - 157 pts"
 					image={precoupeImg}
 					logo={FarmingMars}
-					marginLeft={'35'}
-					marginBottom={'35'}
+					marginLeft="35"
+					marginBottom="35"
 				/>
 				<ResultCard
-					title={'2023 - The Cherry on the Cake'}
-					rank_and_points={'46e/100 - 150 pts'}
+					title="2023 - The Cherry on the Cake"
+					rank_and_points="46e/100 - 150 pts"
 					image={coupe23Img}
 					logo={TheCherryOnTheCake}
-					marginLeft={'50'}
-					marginBottom={'35'}
+					marginLeft="50"
+					marginBottom="35"
 				/>
 				<!-- <ResultCard
 					title={'2022 - Age of Bots'}
@@ -274,6 +274,3 @@
 </div>
 
 <Footer />
-
-<style>
-</style>

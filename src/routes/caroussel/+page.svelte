@@ -1,7 +1,7 @@
 <script>
 	import { onMount } from 'svelte';
 
-	let instructionSlides = [
+	const instructionSlides = [
 		{
 			title: 'Bienvenue sur SmartShare',
 			content: 'Partagez votre écran facilement avec ce système de diffusion',
@@ -40,7 +40,9 @@
 
 	onMount(() => {
 		const interval = setInterval(next, 8000); // Change slide every 8 seconds
-		return () => clearInterval(interval); // Cleanup on unmount
+		return () => {
+			clearInterval(interval);
+		}; // Cleanup on unmount
 	});
 </script>
 
@@ -54,7 +56,7 @@
 		property="og:description"
 		content="Instructions pour partager votre écran avec SmartShare"
 	/>
-	<meta property="og:image" content="/og-image.png" />
+	<meta property="og:image" content="/dvb_og_img.png" />
 
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>

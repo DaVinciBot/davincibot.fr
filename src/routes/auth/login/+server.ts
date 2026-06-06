@@ -1,5 +1,5 @@
-import { json } from '@sveltejs/kit';
 import { createAnonClient, createUserClient } from '$lib/server/sso';
+import { json } from '@sveltejs/kit';
 
 export const POST = async (event: any) => {
 	let payload: { email?: string; password?: string } = {};

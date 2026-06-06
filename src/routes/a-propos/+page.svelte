@@ -46,14 +46,18 @@
 
 	function startHeroTimer() {
 		stopHeroTimer();
-		if (heroImages.length <= 1) return;
+		if (heroImages.length <= 1) {
+			return;
+		}
 		heroTimer = setInterval(() => {
 			activeHero = (activeHero + 1) % heroImages.length;
 		}, heroRotationDelay);
 	}
 
 	function selectHero(index) {
-		if (index === activeHero) return;
+		if (index === activeHero) {
+			return;
+		}
 		activeHero = index;
 		startHeroTimer();
 	}
@@ -249,7 +253,9 @@
 							<button
 								type="button"
 								class={`h-1.5 w-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-dark-light-blue hover:bg-white/50 ${idx === activeHero ? 'bg-dark-light-blue  ' : 'bg-white/30'}`}
-								onclick={() => selectHero(idx)}
+								onclick={() => {
+									selectHero(idx);
+								}}
 								aria-label={`Afficher ${image.caption}`}
 								aria-current={idx === activeHero ? 'true' : 'false'}
 							></button>

@@ -50,7 +50,9 @@ describe('utils helpers', () => {
 			throw new Error('quota');
 		});
 
-		expect(() => saveSettings('quota', { ok: true })).not.toThrow();
+		expect(() => {
+			saveSettings('quota', { ok: true });
+		}).not.toThrow();
 		expect(errorSpy).toHaveBeenCalled();
 
 		setItemSpy.mockRestore();

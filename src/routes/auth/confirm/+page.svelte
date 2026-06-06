@@ -5,7 +5,9 @@
 	let status = $state('Confirmation en cours...');
 
 	const sanitizeNext = (value) => {
-		if (!value || typeof value !== 'string') return '/';
+		if (!value || typeof value !== 'string') {
+			return '/';
+		}
 		return value.startsWith('/') ? value : '/';
 	};
 

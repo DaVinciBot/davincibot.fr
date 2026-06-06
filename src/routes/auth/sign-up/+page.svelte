@@ -35,8 +35,12 @@
 		}
 
 		const payload = { access_token, refresh_token };
-		if (expires_in) payload.expires_in = Number(expires_in);
-		if (expires_at) payload.expires_at = Number(expires_at);
+		if (expires_in) {
+			payload.expires_in = Number(expires_in);
+		}
+		if (expires_at) {
+			payload.expires_at = Number(expires_at);
+		}
 
 		const response = await fetch('/auth/session-from-tokens', {
 			method: 'POST',
@@ -72,6 +76,3 @@
 		<AuthForm auth_type="register" {access_token} {refresh_token} />
 	{/if}
 </section>
-
-<style>
-</style>

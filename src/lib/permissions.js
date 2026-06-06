@@ -42,8 +42,12 @@ export function hasPermission(user, permission) {
 }
 
 export function hasAnyPermission(userPermissions = [], requiredPermissions = []) {
-	if (!Array.isArray(requiredPermissions) || requiredPermissions.length === 0) return true;
-	if (!Array.isArray(userPermissions) || userPermissions.length === 0) return false;
+	if (!Array.isArray(requiredPermissions) || requiredPermissions.length === 0) {
+		return true;
+	}
+	if (!Array.isArray(userPermissions) || userPermissions.length === 0) {
+		return false;
+	}
 	const permissionsSet = new Set(userPermissions);
 	return requiredPermissions.some((permission) => permissionsSet.has(permission));
 }

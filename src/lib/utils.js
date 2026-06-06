@@ -19,9 +19,13 @@ export function mountClosable(component, options = {}) {
 
 	const close = (event) => {
 		try {
-			if (typeof props.onClose === 'function') props.onClose(event);
+			if (typeof props.onClose === 'function') {
+				props.onClose(event);
+			}
 		} finally {
-			if (instance) unmount(instance);
+			if (instance) {
+				unmount(instance);
+			}
 		}
 	};
 
@@ -61,10 +65,10 @@ export function saveSettings(key, settings) {
 }
 
 export function hashCode(obj) {
-	let str = JSON.stringify(obj);
+	const str = JSON.stringify(obj);
 	let hash = 0;
 	for (let i = 0, len = str.length; i < len; i++) {
-		let chr = str.charCodeAt(i);
+		const chr = str.charCodeAt(i);
 		hash = (hash << 5) - hash + chr;
 		hash |= 0; // Convert to 32bit integer
 	}
@@ -82,7 +86,9 @@ export function hideOnClickOutside(
 		if (!element.contains(event.target) && isVisible(element)) {
 			// or use: event.target.closest(selector) === null
 			destroyHandler(element);
-			if (!permanent) removeClickListener();
+			if (!permanent) {
+				removeClickListener();
+			}
 		}
 	};
 

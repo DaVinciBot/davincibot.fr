@@ -14,21 +14,29 @@ export function stripMarkdown(md = '') {
 }
 
 export function toExcerpt(text = '', len = 180) {
-	if (!text) return '';
+	if (!text) {
+		return '';
+	}
 	const clean = stripMarkdown(text);
 	return clean.length > len ? clean.slice(0, len).trimEnd() + '…' : clean;
 }
 
 export function normalizeTags(raw) {
-	if (typeof raw !== 'string') return [];
+	if (typeof raw !== 'string') {
+		return [];
+	}
 	const seen = new Set();
 	return raw
 		.split(/[#;,|\n\t ]+/)
 		.map((t) => t.trim())
 		.filter((t) => {
-			if (!t) return false;
+			if (!t) {
+				return false;
+			}
 			const key = t.toLowerCase();
-			if (seen.has(key)) return false;
+			if (seen.has(key)) {
+				return false;
+			}
 			seen.add(key);
 			return true;
 		});

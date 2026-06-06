@@ -16,12 +16,18 @@ function stripMarkdown(md = '') {
 }
 
 function toExcerpt(text = '', len = 160) {
-	if (!text) return '';
+	if (!text) {
+		return '';
+	}
 	const clean = stripMarkdown(text);
 	return clean.length > len ? clean.slice(0, len).trimEnd() + '…' : clean;
 }
 
 export async function load({ setHeaders, locals: { supabase } }) {
+	if (!supabase) {
+		return { posts: [] };
+	}
+
 	const { data, error } = await supabase
 		.from('blog')
 		.select('*')
@@ -52,7 +58,9 @@ export async function load({ setHeaders, locals: { supabase } }) {
 			const seen = new Set();
 			tags = tags.filter((t) => {
 				const k = t.toLowerCase();
-				if (seen.has(k)) return false;
+				if (seen.has(k)) {
+					return false;
+				}
 				seen.add(k);
 				return true;
 			});

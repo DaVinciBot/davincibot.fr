@@ -37,7 +37,9 @@
 		const mql = window.matchMedia('(max-width: 768px)');
 		const handler = (e) => (isMobile = e.matches);
 		mql.addEventListener('change', handler);
-		return () => mql.removeEventListener('change', handler);
+		return () => {
+			mql.removeEventListener('change', handler);
+		};
 	});
 
 	// // Dark theme aligned with site colors (see src/app.css)

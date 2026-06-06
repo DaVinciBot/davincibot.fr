@@ -4,11 +4,24 @@
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
 	/** @type {{data: any}} */
-	let { data } = $props();
+	const { data } = $props();
 
-	const pageSize = data?.pageSize ?? 20;
-	let posts = $state(data?.posts ? [...data.posts] : []);
-	let totalCount = $state(data?.totalCount ?? posts.length);
+	function getInitialPageSize() {
+		return data?.pageSize ?? 20;
+	}
+
+	function getInitialPosts() {
+		return data?.posts ? [...data.posts] : [];
+	}
+
+	function getInitialTotalCount(postCount) {
+		return data?.totalCount ?? postCount;
+	}
+
+	const pageSize = getInitialPageSize();
+	const initialPosts = getInitialPosts();
+	let posts = $state(initialPosts);
+	let totalCount = $state(getInitialTotalCount(initialPosts.length));
 	let filterTotalCount = $state(null);
 	let filterSignature = $state('');
 	let loadingMore = $state(false);
@@ -17,7 +30,9 @@
 	let selectedTag = $state('all');
 
 	function fmt(dateStr) {
-		if (!dateStr) return '';
+		if (!dateStr) {
+			return '';
+		}
 		try {
 			return new Date(dateStr).toLocaleDateString('fr-FR', {
 				year: 'numeric',
@@ -30,15 +45,21 @@
 	}
 
 	function matchesSearch(post, searchTerm) {
-		if (!post) return false;
-		if (!searchTerm) return true;
+		if (!post) {
+			return false;
+		}
+		if (!searchTerm) {
+			return true;
+		}
 		const haystack =
 			`${post.title || ''} ${post.excerpt || ''} ${post.plainBody || post.body || ''}`.toLowerCase();
 		return haystack.includes(searchTerm);
 	}
 
 	function matchesTag(post, tag) {
-		if (!tag) return true;
+		if (!tag) {
+			return true;
+		}
 		return (post.tags || []).some((t) => t.toLowerCase() === tag.toLowerCase());
 	}
 
@@ -59,7 +80,9 @@
 	};
 
 	async function loadMorePosts() {
-		if (loadingMore || !hasMoreForFilter) return;
+		if (loadingMore || !hasMoreForFilter) {
+			return;
+		}
 		loadingMore = true;
 		loadError = '';
 		const offset = posts.filter(
@@ -69,8 +92,12 @@
 			offset: String(offset),
 			limit: String(pageSize)
 		});
-		if (trimmedSearch) params.set('search', trimmedSearch);
-		if (activeTag) params.set('tag', activeTag);
+		if (trimmedSearch) {
+			params.set('search', trimmedSearch);
+		}
+		if (activeTag) {
+			params.set('tag', activeTag);
+		}
 
 		try {
 			const res = await fetch(`/api/blog?${params.toString()}`);
@@ -99,23 +126,23 @@
 		}
 	}
 
-	let derivedTags = $derived(Array.from(new Set(posts.flatMap((post) => post.tags || []))));
-	let tagOptions = $derived(['all', ...derivedTags]);
-	let trimmedSearch = $derived(searchQuery.trim().toLowerCase());
-	let activeTag = $derived(selectedTag === 'all' ? null : selectedTag);
-	let latest = $derived(posts.slice(0, Math.min(4, posts.length)));
-	let archiveSource = $derived(posts.length > latest.length ? posts.slice(latest.length) : posts);
-	let filteredLatest = $derived(latest.filter((post) => matchesSearch(post, trimmedSearch)));
-	let filteredArchive = $derived(archiveSource.filter((post) => matchesTag(post, activeTag)));
-	let matchesForFilter = $derived(
+	const derivedTags = $derived(Array.from(new Set(posts.flatMap((post) => post.tags || []))));
+	const tagOptions = $derived(['all', ...derivedTags]);
+	const trimmedSearch = $derived(searchQuery.trim().toLowerCase());
+	const activeTag = $derived(selectedTag === 'all' ? null : selectedTag);
+	const latest = $derived(posts.slice(0, Math.min(4, posts.length)));
+	const archiveSource = $derived(posts.length > latest.length ? posts.slice(latest.length) : posts);
+	const filteredLatest = $derived(latest.filter((post) => matchesSearch(post, trimmedSearch)));
+	const filteredArchive = $derived(archiveSource.filter((post) => matchesTag(post, activeTag)));
+	const matchesForFilter = $derived(
 		posts.filter((post) => matchesSearch(post, trimmedSearch) && matchesTag(post, activeTag)).length
 	);
-	let hasMoreBase = $derived(posts.length < totalCount);
-	let hasMoreForFilter = $derived(
+	const hasMoreBase = $derived(posts.length < totalCount);
+	const hasMoreForFilter = $derived(
 		filterTotalCount === null ? hasMoreBase : matchesForFilter < filterTotalCount
 	);
-	let disableLoadMore = $derived(!hasMoreForFilter || loadingMore);
-	let currentSignature = $derived(buildFilterSignature(trimmedSearch, activeTag));
+	const disableLoadMore = $derived(!hasMoreForFilter || loadingMore);
+	const currentSignature = $derived(buildFilterSignature(trimmedSearch, activeTag));
 	run(() => {
 		if (currentSignature !== filterSignature) {
 			filterSignature = currentSignature;
@@ -123,7 +150,7 @@
 			loadError = '';
 		}
 	});
-	let noResults = $derived(!filteredLatest.length && !filteredArchive.length);
+	const noResults = $derived(!filteredLatest.length && !filteredArchive.length);
 </script>
 
 <svelte:head>

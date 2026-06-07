@@ -1,61 +1,70 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
+import type { Mock } from 'vitest';
 
-/** @typedef {{ data: unknown[] | null, error: Error | null, count: number | null }} QueryResponse */
-/** @typedef {import('vitest').Mock<(...args: unknown[]) => Query>} QueryMock */
-/**
- * @typedef {{
- *   select: QueryMock,
- *   eq: QueryMock,
- *   lte: QueryMock,
- *   order: QueryMock,
- *   range: QueryMock,
- *   ilike: QueryMock,
- *   or: QueryMock,
- *   then: PromiseLike<QueryResponse>['then']
- * }} Query
- */
-
-/** @type {QueryResponse} */
-let nextResponse = { data: [], error: null, count: 0 };
-/** @type {Query | null} */
-let lastQuery = null;
-
-/** @returns {Query} */
-function createQuery() {
-	/** @type {Query} */
-	const query = {
-		select: vi.fn(() => query),
-		eq: vi.fn(() => query),
-		lte: vi.fn(() => query),
-		order: vi.fn(() => query),
-		range: vi.fn(() => query),
-		ilike: vi.fn(() => query),
-		or: vi.fn(() => query),
-		then: (resolve, reject) => Promise.resolve(nextResponse).then(resolve, reject)
-	};
-
-	return query;
-}
-
-const from = vi.fn((_table) => {
-	void _table;
-	lastQuery = createQuery();
-	return lastQuery;
-});
-
-const supabase = {
-	from
-};
-
+import type { BlogRow } from '../../src/database.types';
 import {
 	fetchBlogPosts,
 	mapRowToPost,
 	normalizeTags,
 	stripMarkdown,
-	toExcerpt
-} from '../../src/lib/server/blogPosts.js';
+	toExcerpt,
+	type BlogSupabaseClient
+} from '../../src/lib/server/blogPosts';
 
-function getLastQuery() {
+interface QueryResponse {
+	data: BlogRow[] | null;
+	error: Error | null;
+	count: number | null;
+}
+
+type QueryMock = Mock<(...args: unknown[]) => Query>;
+
+interface Query extends PromiseLike<QueryResponse> {
+	select: QueryMock;
+	eq: QueryMock;
+	lte: QueryMock;
+	order: QueryMock;
+	range: QueryMock;
+	ilike: QueryMock;
+	or: QueryMock;
+}
+
+let nextResponse: QueryResponse = { data: [], error: null, count: 0 };
+let lastQuery: Query | null = null;
+
+class MockQuery implements Query {
+	select: QueryMock = vi.fn((): Query => this);
+	eq: QueryMock = vi.fn((): Query => this);
+	lte: QueryMock = vi.fn((): Query => this);
+	order: QueryMock = vi.fn((): Query => this);
+	range: QueryMock = vi.fn((): Query => this);
+	ilike: QueryMock = vi.fn((): Query => this);
+	or: QueryMock = vi.fn((): Query => this);
+
+	then<TResult1 = QueryResponse, TResult2 = never>(
+		onfulfilled?: ((value: QueryResponse) => TResult1 | PromiseLike<TResult1>) | null,
+		onrejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null
+	): PromiseLike<TResult1 | TResult2> {
+		return Promise.resolve(nextResponse).then(onfulfilled, onrejected);
+	}
+}
+
+function createQuery(): Query {
+	return new MockQuery();
+}
+
+const from = vi.fn((_table: 'blog') => {
+	void _table;
+	const query = createQuery();
+	lastQuery = query;
+	return query;
+});
+
+const supabase = {
+	from
+} satisfies BlogSupabaseClient;
+
+function getLastQuery(): Query {
 	if (!lastQuery) {
 		throw new Error('Expected a query to be created');
 	}
@@ -75,7 +84,7 @@ describe('blog posts helpers', () => {
 	});
 
 	it('toExcerpt truncates and appends ellipsis when needed', () => {
-		expect(toExcerpt('abcdef', 4)).toBe('abcd…');
+		expect(toExcerpt('abcdef', 4)).toBe('abcd\u2026');
 		expect(toExcerpt('', 4)).toBe('');
 	});
 
@@ -110,7 +119,9 @@ describe('blog posts helpers', () => {
 					title: 'A',
 					slug: 'a',
 					body: 'Hello',
+					state: 'published',
 					publish_date: '2025-01-01T00:00:00.000Z',
+					last_update: null,
 					data: {}
 				}
 			],
@@ -118,15 +129,12 @@ describe('blog posts helpers', () => {
 			count: 10
 		};
 
-		const result = await fetchBlogPosts(
-			/** @type {Parameters<typeof fetchBlogPosts>[0]} */ (/** @type {unknown} */ (supabase)),
-			{
-				offset: 2,
-				limit: 500,
-				search: '%robot_',
-				tag: '_code%'
-			}
-		);
+		const result = await fetchBlogPosts(supabase, {
+			offset: 2,
+			limit: 500,
+			search: '%robot_',
+			tag: '_code%'
+		});
 
 		expect(supabase.from).toHaveBeenCalledWith('blog');
 		const query = getLastQuery();
@@ -149,14 +157,23 @@ describe('blog posts helpers', () => {
 
 	it('fetchBlogPosts falls back to posts length when count is null', async () => {
 		nextResponse = {
-			data: [{ id: 1, title: 'A', slug: 'a', body: '', data: {} }],
+			data: [
+				{
+					id: 1,
+					title: 'A',
+					slug: 'a',
+					body: '',
+					state: 'published',
+					publish_date: null,
+					last_update: null,
+					data: {}
+				}
+			],
 			error: null,
 			count: null
 		};
 
-		const result = await fetchBlogPosts(
-			/** @type {Parameters<typeof fetchBlogPosts>[0]} */ (/** @type {unknown} */ (supabase))
-		);
+		const result = await fetchBlogPosts(supabase);
 		expect(result.count).toBe(1);
 	});
 
@@ -167,10 +184,6 @@ describe('blog posts helpers', () => {
 			count: null
 		};
 
-		await expect(
-			fetchBlogPosts(
-				/** @type {Parameters<typeof fetchBlogPosts>[0]} */ (/** @type {unknown} */ (supabase))
-			)
-		).rejects.toThrow('boom');
+		await expect(fetchBlogPosts(supabase)).rejects.toThrow('boom');
 	});
 });

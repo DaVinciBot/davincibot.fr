@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { parseMarkdownToAst } from '../../src/lib/markdown/parse.js';
+import { parseMarkdownToAst } from '../../src/lib/markdown/parse';
 
 describe('markdown parser', () => {
 	it('keeps paragraphs unchanged when no image is present', () => {
@@ -8,7 +8,7 @@ describe('markdown parser', () => {
 
 		expect(tree.type).toBe('root');
 		expect(tree.children).toHaveLength(1);
-		expect(tree.children[0].type).toBe('paragraph');
+		expect(tree.children.at(0)?.type).toBe('paragraph');
 	});
 
 	it('splits image-containing paragraph into paragraph/image/paragraph nodes', () => {
@@ -16,7 +16,9 @@ describe('markdown parser', () => {
 		const nodeTypes = tree.children.map((node) => node.type);
 
 		expect(nodeTypes).toEqual(['paragraph', 'image', 'paragraph']);
-		expect(tree.children[1].url).toBe('https://example.com/img.jpg');
+		const imageNode = tree.children.at(1);
+		expect(imageNode?.type).toBe('image');
+		expect(imageNode?.url).toBe('https://example.com/img.jpg');
 	});
 
 	it('returns an empty root for empty markdown', () => {

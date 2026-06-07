@@ -1,6 +1,6 @@
-import { canonicalFor } from '$lib/config/site.js';
-import { fetchPublishedBlogRows } from '$lib/server/blogPosts.js';
-import type { BlogSupabaseClient } from '$lib/server/blogPosts.js';
+import { canonicalFor } from '$lib/config/site';
+import { fetchPublishedBlogRows } from '$lib/server/blogPosts';
+import type { BlogSupabaseClient } from '$lib/server/blogPosts';
 import type { RequestHandler } from './$types';
 
 export const prerender = false;

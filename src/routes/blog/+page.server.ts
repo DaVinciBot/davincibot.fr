@@ -1,5 +1,5 @@
-import { BLOG_PAGE_SIZE, fetchBlogPosts } from '$lib/server/blogPosts.js';
-import type { BlogSupabaseClient } from '$lib/server/blogPosts.js';
+import { BLOG_PAGE_SIZE, fetchBlogPosts } from '$lib/server/blogPosts';
+import type { BlogSupabaseClient } from '$lib/server/blogPosts';
 import type { PageServerLoad } from './$types';
 
 export const prerender = false;

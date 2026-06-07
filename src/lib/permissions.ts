@@ -32,24 +32,28 @@ export const PERMISSIONS = [
 	'audit.logs.read',
 	'audit.logs.read.security',
 	'audit.events.export'
-];
+] as const;
 
-/**
- * @param {{ permissions?: string[] } | null | undefined} user
- * @param {string} permission
- */
-export function hasPermission(user, permission) {
+export type Permission = (typeof PERMISSIONS)[number];
+
+export interface PermissionUser {
+	permissions?: readonly string[];
+}
+
+export function hasPermission(
+	user: PermissionUser | null | undefined,
+	permission: string
+): boolean {
 	if (!user || !Array.isArray(user.permissions)) {
 		return false;
 	}
 	return user.permissions.includes(permission);
 }
 
-/**
- * @param {readonly string[]} [userPermissions=[]]
- * @param {readonly string[]} [requiredPermissions=[]]
- */
-export function hasAnyPermission(userPermissions = [], requiredPermissions = []) {
+export function hasAnyPermission(
+	userPermissions: readonly string[] = [],
+	requiredPermissions: readonly string[] = []
+): boolean {
 	if (!Array.isArray(requiredPermissions) || requiredPermissions.length === 0) {
 		return true;
 	}

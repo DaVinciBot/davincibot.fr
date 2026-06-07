@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 
-import { PERMISSIONS, hasPermission } from '../../src/lib/permissions.js';
+import { PERMISSIONS, hasPermission } from '../../src/lib/permissions';
 
 const VIEW_ADMIN = 'iam.permissions.read.all';
 const EDIT_MEMBERS = 'members.profile.update.all';

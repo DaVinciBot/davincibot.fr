@@ -1,6 +1,8 @@
 import { browser } from '$app/environment';
 import { env } from '$env/dynamic/public';
 import { createBrowserClient } from '@supabase/ssr';
+import type { SupabaseClient } from '@supabase/supabase-js';
+import type { Database } from '../database.types';
 
 const publicSupabaseUrl = env.PUBLIC_SUPABASE_URL;
 const publicSupabaseKey = env.PUBLIC_SUPABASE_PUBLISHABLE_KEY;
@@ -8,8 +10,9 @@ const publicSupabaseKey = env.PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 export const supabaseUrl = publicSupabaseUrl.replace(/\/$/, '');
 export const supabaseKey = publicSupabaseKey;
 
-/** @type {import('@supabase/supabase-js').SupabaseClient | null} */
-let browserClient = null;
+type BrowserSupabaseClient = SupabaseClient<Database>;
+
+let browserClient: BrowserSupabaseClient | null = null;
 
 function getCookieOptions() {
 	if (!browser) {
@@ -18,18 +21,16 @@ function getCookieOptions() {
 
 	const isLocalhost =
 		window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1';
-	const sameSite = /** @type {'lax'} */ ('lax');
 
 	return {
 		domain: isLocalhost ? undefined : '.davincibot.fr',
 		path: '/',
-		sameSite,
+		sameSite: 'lax' as const,
 		secure: window.location.protocol === 'https:'
 	};
 }
 
-/** @returns {import('@supabase/supabase-js').SupabaseClient} */
-export function getSupabaseBrowserClient() {
+export function getSupabaseBrowserClient(): BrowserSupabaseClient {
 	if (!browser) {
 		throw new Error('Use event.locals.supabase on the server.');
 	}
@@ -38,7 +39,7 @@ export function getSupabaseBrowserClient() {
 		throw new Error('Missing PUBLIC_SUPABASE_URL or PUBLIC_SUPABASE_PUBLISHABLE_KEY');
 	}
 
-	browserClient ??= createBrowserClient(publicSupabaseUrl, publicSupabaseKey, {
+	browserClient ??= createBrowserClient<Database>(publicSupabaseUrl, publicSupabaseKey, {
 		auth: {
 			flowType: 'pkce'
 		},
@@ -51,18 +52,10 @@ export function getSupabaseBrowserClient() {
 /**
  * @deprecated Prefer getSupabaseBrowserClient() in browser code and event.locals.supabase on
  * the server. Kept temporarily for existing browser-only imports.
- * @type {import('@supabase/supabase-js').SupabaseClient}
  */
-export const supabase = /** @type {import('@supabase/supabase-js').SupabaseClient} */ (
-	new Proxy(
-		{},
-		{
-			get(_, property) {
-				const client = /** @type {Record<string | symbol, unknown>} */ (
-					/** @type {unknown} */ (getSupabaseBrowserClient())
-				);
-				return client[property];
-			}
-		}
-	)
-);
+export const supabase = new Proxy({} as BrowserSupabaseClient, {
+	get(_, property: string | symbol): unknown {
+		const client = getSupabaseBrowserClient() as unknown as Record<string | symbol, unknown>;
+		return client[property];
+	}
+});

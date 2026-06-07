@@ -1,6 +1,6 @@
-import { parseMarkdownToAst } from '$lib/markdown/parse.js';
-import type { BlogSupabaseClient } from '$lib/server/blogPosts.js';
-import { fetchBlogPostBySlug } from '$lib/server/blogPosts.js';
+import { parseMarkdownToAst } from '$lib/markdown/parse';
+import type { BlogSupabaseClient } from '$lib/server/blogPosts';
+import { fetchBlogPostBySlug } from '$lib/server/blogPosts';
 import { error as kitError } from '@sveltejs/kit';
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';

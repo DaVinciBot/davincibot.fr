@@ -15,7 +15,7 @@
 		children?: Snippet;
 	}
 
-	const { data, children }: LayoutProps = $props();
+	const { data, children }: LayoutProps = $props() as LayoutProps;
 
 	const userFallback = $derived(
 		data.user

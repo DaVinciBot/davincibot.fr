@@ -4,7 +4,7 @@
 	import Topbar from '$lib/components/share/Topbar.svelte';
 	import type { PageData } from './$types';
 
-	const { data }: { data: PageData } = $props();
+	const { data }: { data: PageData } = $props() as { data: PageData };
 
 	type BlogPost = PageData['posts'][number];
 

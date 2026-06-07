@@ -1,7 +1,7 @@
+import type { Permission } from '$lib/permissions';
 import type { AppSession, AppUser } from '$lib/server/sso';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from './database.types';
-import type { Permission } from './permissions.types';
 
 declare global {
 	namespace App {

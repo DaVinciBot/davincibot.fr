@@ -183,29 +183,29 @@
 
 <Topbar />
 
-<main class="flex flex-col min-h-screen">
+<main class="flex min-h-screen flex-col">
 	<section class="relative px-4 pt-32 pb-24 sm:px-10 md:px-20 lg:px-32">
 		<div
-			class="absolute inset-0 overflow-hidden pointer-events-none -z-10 opacity-30"
+			class="pointer-events-none absolute inset-0 -z-10 overflow-hidden opacity-30"
 			aria-hidden="true"
 		>
 			<div
-				class="absolute inset-y-0 right-[-15%] w-[55%] rounded-full blur-3xl bg-gradient-to-b from-primary-400/40 via-primary-500/40 to-primary-700/40"
+				class="from-primary-400/40 via-primary-500/40 to-primary-700/40 absolute inset-y-0 right-[-15%] w-[55%] rounded-full bg-gradient-to-b blur-3xl"
 			></div>
 			<div
-				class="absolute -top-20 left-[-15%] w-[45%] aspect-square rounded-full blur-3xl bg-gradient-to-r from-dark-light-blue/50 via-primary-400/40 to-transparent"
+				class="from-dark-light-blue/50 via-primary-400/40 absolute -top-20 left-[-15%] aspect-square w-[45%] rounded-full bg-gradient-to-r to-transparent blur-3xl"
 			></div>
 		</div>
 
 		<div class="grid items-center gap-12 md:grid-cols-[1.2fr_1fr]">
 			<div class="space-y-6">
-				<p class="text-sm font-semibold tracking-[0.4rem] uppercase text-dark-light-blue">
+				<p class="text-dark-light-blue text-sm font-semibold tracking-[0.4rem] uppercase">
 					Association de robotique depuis 2014
 				</p>
 				<h1 class="text-4xl font-extrabold sm:text-5xl lg:text-6xl">
 					Ingénieur par vocation <wbr /> Robotique par passion
 				</h1>
-				<p class="max-w-xl text-lg leading-8 text-dark-blue-gray">
+				<p class="text-dark-blue-gray max-w-xl text-lg leading-8">
 					DaVinciBot rassemble des étudiants de l'ESILV, de l'EMLV et de l'IIM pour concevoir des
 					robots ambitieux, apprendre en équipe et repousser leurs limites lors de compétitions &
 					événements. Chaque projet est un parcours humain, technique et entrepreneurial.
@@ -218,7 +218,7 @@
 			<div class="relative">
 				<div
 					role="group"
-					class="relative w-full overflow-hidden rounded-3xl border border-white/10 shadow-[0_30px_60px_-15px_rgba(9,88,239,0.35)] aspect-[16/10] bg-white/5"
+					class="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_30px_60px_-15px_rgba(9,88,239,0.35)]"
 					onmouseenter={stopHeroTimer}
 					onmouseleave={startHeroTimer}
 					aria-live="polite"
@@ -229,7 +229,7 @@
 							<img
 								src={activeHeroImage.src}
 								alt={activeHeroImage.alt}
-								class="absolute inset-0 object-cover w-full h-full"
+								class="absolute inset-0 h-full w-full object-cover"
 								width="960"
 								height="600"
 								loading="eager"
@@ -240,14 +240,14 @@
 					{/if}
 
 					<div
-						class="absolute inset-0 pointer-events-none bg-gradient-to-tr from-dark-blue/50 via-transparent to-transparent"
+						class="from-dark-blue/50 pointer-events-none absolute inset-0 bg-gradient-to-tr via-transparent to-transparent"
 						aria-hidden="true"
 					></div>
 
 					{#if heroImages.length}
-						<div class="absolute bottom-6 left-6 right-6 sm:right-auto">
+						<div class="absolute right-6 bottom-6 left-6 sm:right-auto">
 							<div
-								class="flex flex-col gap-1 p-4 sm:p-5 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 max-w-xs sm:max-w-sm"
+								class="flex max-w-xs flex-col gap-1 rounded-2xl border border-white/20 bg-white/10 p-4 backdrop-blur-lg sm:max-w-sm sm:p-5"
 							>
 								<span class="text-sm font-semibold text-white/90">
 									{activeHeroImage.caption}
@@ -261,11 +261,11 @@
 				</div>
 
 				{#if heroImages.length > 1}
-					<div class="flex flex-wrap items-center justify-center gap-2 mt-6">
+					<div class="mt-6 flex flex-wrap items-center justify-center gap-2">
 						{#each heroImages as image, idx (image.src)}
 							<button
 								type="button"
-								class={`h-1.5 w-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-dark-light-blue hover:bg-white/50 ${idx === activeHero ? 'bg-dark-light-blue  ' : 'bg-white/30'}`}
+								class={`focus:ring-dark-light-blue h-1.5 w-10 rounded-full transition-all duration-300 hover:bg-white/50 focus:ring-2 focus:outline-none ${idx === activeHero ? 'bg-dark-light-blue  ' : 'bg-white/30'}`}
 								onclick={() => {
 									selectHero(idx);
 								}}
@@ -279,10 +279,10 @@
 		</div>
 	</section>
 
-	<section class="px-4 py-20 sm:px-10 md:px-20 lg:px-32 bg-white/5 border-y border-white/5">
+	<section class="border-y border-white/5 bg-white/5 px-4 py-20 sm:px-10 md:px-20 lg:px-32">
 		<div class="max-w-4xl">
 			<h2 class="text-3xl font-extrabold sm:text-4xl">Notre mission</h2>
-			<p class="mt-6 text-lg leading-8 text-dark-blue-gray">
+			<p class="text-dark-blue-gray mt-6 text-lg leading-8">
 				Nous imaginons des robots qui répondent aux défis posés par les concours, mais surtout nous
 				formons des étudiants capables de mener un projet de bout en bout. L'association est un
 				terrain d'entraînement intensif qui allie technique, gestion de projet et collaboration
@@ -290,18 +290,18 @@
 			</p>
 		</div>
 
-		<div class="grid gap-8 mt-12 md:grid-cols-3">
+		<div class="mt-12 grid gap-8 md:grid-cols-3">
 			{#each pillars as pillar (pillar.title)}
 				<article
-					class="flex flex-col h-full p-6 space-y-4 rounded-3xl bg-dark-blue/60 border border-white/10"
+					class="bg-dark-blue/60 flex h-full flex-col space-y-4 rounded-3xl border border-white/10 p-6"
 				>
 					<h3 class="text-2xl font-semibold">{pillar.title}</h3>
 					<p class="text-base leading-7 text-white/80">{pillar.description}</p>
 					<ul class="space-y-2 text-sm text-white/70">
 						{#each pillar.points as point (point)}
-							<li class="flex pl-3 gap-2 items-center">
+							<li class="flex items-center gap-2 pl-3">
 								<span
-									class="inline-flex items-center justify-center flex-none w-1 h-1 rounded-full bg-dark-light-blue"
+									class="bg-dark-light-blue inline-flex h-1 w-1 flex-none items-center justify-center rounded-full"
 								>
 								</span>
 								<span>{point}</span>
@@ -317,7 +317,7 @@
 		<div class="grid items-center gap-12 md:grid-cols-[1.1fr_0.9fr]">
 			<div class="space-y-8">
 				<h2 class="text-3xl font-extrabold sm:text-4xl">Une communauté pluridisciplinaire</h2>
-				<p class="text-lg leading-8 text-dark-blue-gray">
+				<p class="text-dark-blue-gray text-lg leading-8">
 					Derrière nos robots se cachent des élèves ingénieurs, des communicants, des designers et
 					des managers qui partagent une passion commune pour l'innovation. Chaque pôle cultive ses
 					compétences tout en travaillant avec les autres afin de mener à bien des projets
@@ -325,18 +325,18 @@
 				</p>
 				<div class="grid gap-6 sm:grid-cols-2">
 					{#each community as bloc (bloc.title)}
-						<div class="p-5 space-y-3 bg-white/5 border border-white/10 rounded-2xl">
+						<div class="space-y-3 rounded-2xl border border-white/10 bg-white/5 p-5">
 							<h3 class="text-xl font-semibold">{bloc.title}</h3>
-							<p class="text-sm text-white/75 leading-6">{bloc.description}</p>
+							<p class="text-sm leading-6 text-white/75">{bloc.description}</p>
 						</div>
 					{/each}
 				</div>
 			</div>
 			<div
-				class="grid self-stretch grid-cols-1 gap-6 p-8 rounded-3xl bg-gradient-to-b from-white/5 to-white/0 border border-white/10"
+				class="grid grid-cols-1 gap-6 self-stretch rounded-3xl border border-white/10 bg-gradient-to-b from-white/5 to-white/0 p-8"
 			>
 				<div>
-					<p class="text-sm tracking-[0.35rem] uppercase text-dark-light-blue">Nos chiffres</p>
+					<p class="text-dark-light-blue text-sm tracking-[0.35rem] uppercase">Nos chiffres</p>
 					<h3 class="mt-4 text-2xl font-semibold">
 						Un laboratoire étudiant en croissance continue
 					</h3>
@@ -377,13 +377,13 @@
 		</div>
 	</section>
 
-	<section class="px-4 py-20 sm:px-10 md:px-20 lg:px-32 bg-white/5 border-y border-white/5">
+	<section class="border-y border-white/5 bg-white/5 px-4 py-20 sm:px-10 md:px-20 lg:px-32">
 		<div class="max-w-3xl">
-			<p class="text-sm font-semibold tracking-[0.4rem] uppercase text-dark-light-blue">
+			<p class="text-dark-light-blue text-sm font-semibold tracking-[0.4rem] uppercase">
 				Un cycle en quatre temps
 			</p>
 			<h2 class="mt-4 text-3xl font-extrabold sm:text-4xl">La vie d'un membre DaVinciBot</h2>
-			<p class="mt-6 text-lg leading-8 text-dark-blue-gray">
+			<p class="text-dark-blue-gray mt-6 text-lg leading-8">
 				Chaque année suit un rythme précis qui mêle formation, prototypage, compétition et bilan.
 				Rejoindre DaVinciBot, c'est s'engager dans une aventure exigeante où la progression
 				individuelle se mesure à l'impact collectif.
@@ -391,10 +391,10 @@
 		</div>
 
 		<div class="mt-12">
-			<div class="relative pl-8 lg:pl-0 lg:max-w-4xl lg:mx-auto">
+			<div class="relative pl-8 lg:mx-auto lg:max-w-4xl lg:pl-0">
 				<!-- Vertical line - left aligned on mobile, centered on lg -->
 				<div
-					class="absolute left-5 top-[30px] h-[75%] w-0.5 bg-dark-light-blue lg:left-1/2 lg:-translate-x-1/2"
+					class="bg-dark-light-blue absolute top-[30px] left-5 h-[75%] w-0.5 lg:left-1/2 lg:-translate-x-1/2"
 				></div>
 				{#each journey as step, index (step.title)}
 					<div class="relative mb-6 lg:grid lg:grid-cols-2 lg:gap-8">
@@ -404,7 +404,7 @@
 						>
 							{#if index % 2 === 0}
 								<div
-									class="p-6 rounded-3xl bg-dark-blue/60 border border-white/10 space-y-2 lg:mr-8"
+									class="bg-dark-blue/60 space-y-2 rounded-3xl border border-white/10 p-6 lg:mr-8"
 								>
 									<h3 class="text-xl font-semibold">{step.title}</h3>
 									<p class="text-sm leading-6 text-white/75">{step.description}</p>
@@ -414,7 +414,7 @@
 
 						<!-- Badge - always in the middle on lg -->
 						<span
-							class="absolute -left-[2rem] top-6 flex items-center justify-center w-10 h-10 flex-shrink-0 text-lg font-semibold rounded-full bg-dark-light-blue text-dark-blue z-10 lg:left-1/2 lg:-translate-x-1/2"
+							class="bg-dark-light-blue text-dark-blue absolute top-6 -left-[2rem] z-10 flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full text-lg font-semibold lg:left-1/2 lg:-translate-x-1/2"
 						>
 							{index + 1}
 						</span>
@@ -423,7 +423,7 @@
 						<div class="lg:col-start-2 lg:col-end-3 {index % 2 === 1 ? '' : 'lg:order-1'}">
 							{#if index % 2 === 1}
 								<div
-									class="p-6 rounded-3xl bg-dark-blue/60 border border-white/10 space-y-2 lg:ml-8"
+									class="bg-dark-blue/60 space-y-2 rounded-3xl border border-white/10 p-6 lg:ml-8"
 								>
 									<h3 class="text-xl font-semibold">{step.title}</h3>
 									<p class="text-sm leading-6 text-white/75">{step.description}</p>
@@ -435,21 +435,21 @@
 			</div>
 		</div>
 	</section>
-	<section class="px-4 py-20 sm:px-10 md:px-20 lg:px-32 flex-1">
+	<section class="flex-1 px-4 py-20 sm:px-10 md:px-20 lg:px-32">
 		<div class="grid gap-10 md:grid-cols-[1fr_1.1fr]">
 			<div class="space-y-6">
-				<p class="text-sm font-semibold tracking-[0.4rem] uppercase text-dark-light-blue">
+				<p class="text-dark-light-blue text-sm font-semibold tracking-[0.4rem] uppercase">
 					Derrière les robots
 				</p>
 				<h2 class="text-3xl font-extrabold sm:text-4xl">
 					Des projets pour apprendre, inspirer et partager
 				</h2>
-				<p class="text-lg leading-8 text-dark-blue-gray">
+				<p class="text-dark-blue-gray text-lg leading-8">
 					Au sein de DaVinciBot, tout projet est pensé pour être documenté et réutilisé. Nous
 					partageons nos retours d'expérience avec le monde entier afin de démocratiser la robotique
 					auprès du plus grand nombre.
 				</p>
-				<p class="text-lg leading-8 text-dark-blue-gray">
+				<p class="text-dark-blue-gray text-lg leading-8">
 					Que vous soyez étudiant, enseignant ou entreprise, vous démos, proposer un workshop ou
 					soutenir nos équipes pour la prochaine saison.
 				</p>
@@ -460,27 +460,27 @@
 			</div>
 			<div class="relative">
 				<div class="grid gap-6">
-					<div class="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
+					<div class="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
 						<h3 class="text-xl font-semibold">Apprentissage continu</h3>
 						<p class="mt-3 text-sm leading-6 text-white/75">
 							Des sessions techniques ouvertes à tous les niveaux pour progresser en CAD,
 							fabrication additive, électronique embarquée ou vision par ordinateur.
 						</p>
 					</div>
-					<div class="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
+					<div class="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
 						<h3 class="text-xl font-semibold">Culture de la documentation</h3>
 						<p class="mt-3 text-sm leading-6 text-white/75">
 							Chaque équipe rédige fiches techniques, plans et guides afin d'assurer la maintenance
 							des robots et le passage de relais aux nouvelles promotions.
 							<a
 								href="https://docs.davincibot.fr"
-								class="text-dark-light-blue underline font-bold"
+								class="text-dark-light-blue font-bold underline"
 								rel="noopener noreferrer"
 								target="_blank">Découvrez notre documentation en ligne.</a
 							>
 						</p>
 					</div>
-					<div class="p-6 rounded-3xl bg-white/5 border border-white/10 backdrop-blur-sm">
+					<div class="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-sm">
 						<h3 class="text-xl font-semibold">Ouverture vers l'extérieur</h3>
 						<p class="mt-3 text-sm leading-6 text-white/75">
 							Nous animons des ateliers d'initiation pour des lycéens, participons à des salons et

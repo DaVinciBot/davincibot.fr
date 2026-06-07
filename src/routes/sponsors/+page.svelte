@@ -88,17 +88,14 @@
 	// Configuration de la grille d'arrière-plan (héros)
 	const BG_COLS = 8;
 	const BG_ROWS = 8;
-	const bgTiles = Array.from(
-		{ length: BG_COLS * BG_ROWS },
-		(_, i) => {
-			const sponsor = sponsors[i % sponsors.length];
-			return {
-				id: `${sponsor?.name ?? 'sponsor'}-${String(i)}`,
-				logo: sponsor?.logo ?? '',
-				name: sponsor?.name ?? ''
-			};
-		}
-	);
+	const bgTiles = Array.from({ length: BG_COLS * BG_ROWS }, (_, i) => {
+		const sponsor = sponsors[i % sponsors.length];
+		return {
+			id: `${sponsor?.name ?? 'sponsor'}-${String(i)}`,
+			logo: sponsor?.logo ?? '',
+			name: sponsor?.name ?? ''
+		};
+	});
 </script>
 
 <svelte:head>
@@ -134,22 +131,22 @@
 
 <!-- Hero -->
 <section
-	class="relative px-4 pt-24 pb-12 overflow-hidden sm:px-8 md:px-16 lg:px-32 md:pt-32 lg:pt-40 md:h-150 flex justify-center"
+	class="relative flex justify-center overflow-hidden px-4 pt-24 pb-12 sm:px-8 md:h-150 md:px-16 md:pt-32 lg:px-32 lg:pt-40"
 >
 	<!-- Grille d'arrière-plan en tuiles -->
-	<div class="absolute inset-0 z-10 pointer-events-none" aria-hidden="true">
+	<div class="pointer-events-none absolute inset-0 z-10" aria-hidden="true">
 		<div
-			class="absolute -inset-16 opacity-15 mask-[radial-gradient(closest-side,rgba(0,0,0,.9),transparent_95%)] bg-drift"
+			class="bg-drift absolute -inset-16 mask-[radial-gradient(closest-side,rgba(0,0,0,.9),transparent_95%)] opacity-15"
 		>
 			<div
-				class="grid gap-10 place-items-center"
+				class="grid place-items-center gap-10"
 				style={`grid-template-columns: repeat(${String(BG_COLS)}, minmax(120px, 1fr));`}
 			>
 				{#each bgTiles as t (t.id)}
 					<img
 						src={t.logo}
 						alt=""
-						class="object-contain w-auto h-10 md:h-12 lg:h-14 saturate-50 brightness-110 contrast-90"
+						class="h-10 w-auto object-contain brightness-110 contrast-90 saturate-50 md:h-12 lg:h-14"
 						loading="lazy"
 					/>
 				{/each}
@@ -157,24 +154,24 @@
 		</div>
 	</div>
 
-	<div class="relative max-w-5xl m-auto text-center">
+	<div class="relative m-auto max-w-5xl text-center">
 		<h1 class="text-4xl font-extrabold tracking-wide sm:text-5xl md:text-6xl">Nos partenaires</h1>
-		<p class="mt-5 text-base sm:text-lg text-white/80">
+		<p class="mt-5 text-base text-white/80 sm:text-lg">
 			Nous menons des projets ambitieux grâce au soutien de partenaires engagés. Découvrez qui nous
 			accompagne et comment nous collaborons.
 		</p>
-		<div class="flex flex-col justify-center gap-3 mt-8 sm:flex-row">
+		<div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
 			<a
 				href={resolve(brochureUrl as '/')}
 				download
-				class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white transition border rounded-md bg-white/10 hover:bg-white/20 border-white/15 backdrop-blur"
+				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
 				aria-label="Télécharger notre brochure de partenariat"
 			>
 				Télécharger la brochure de partenariat
 			</a>
 			<a
 				href="mailto:davincibot@devinci.fr"
-				class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white transition bg-transparent border rounded-md hover:bg-white/10 border-white/15 backdrop-blur"
+				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
 			>
 				Contactez-nous
 			</a>
@@ -184,20 +181,20 @@
 
 <!-- Sponsors list -->
 <section class="px-4 pb-20 sm:px-8 md:px-16 lg:px-32">
-	<div class="max-w-6xl mx-auto">
+	<div class="mx-auto max-w-6xl">
 		{#each sponsors as s, i (i)}
 			<article
-				class="grid items-center gap-8 py-10 border-t md:grid-cols-2 md:gap-12 md:py-14 border-white/10"
+				class="grid items-center gap-8 border-t border-white/10 py-10 md:grid-cols-2 md:gap-12 md:py-14"
 			>
 				<!-- Logo -->
 				<div class={`order-1 ${i % 2 === 0 ? 'md:order-1' : 'md:order-2'}`}>
 					<div
-						class="aspect-3/1 md:aspect-4/1 w-full max-w-md md:max-w-none mx-auto flex items-center justify-center rounded-lg bg-white/5 border border-white/10 p-6"
+						class="mx-auto flex aspect-3/1 w-full max-w-md items-center justify-center rounded-lg border border-white/10 bg-white/5 p-6 md:aspect-4/1 md:max-w-none"
 					>
 						<img
 							src={s.logo}
 							alt={`${s.name} logo`}
-							class="object-contain w-auto max-h-16 md:max-h-20"
+							class="max-h-16 w-auto object-contain md:max-h-20"
 							loading="lazy"
 						/>
 					</div>
@@ -212,7 +209,7 @@
 							href={s.link}
 							target="_blank"
 							rel="external noopener noreferrer"
-							class="inline-flex mt-4 text-sm font-semibold text-white underline hover:text-white/80 underline-offset-4"
+							class="mt-4 inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80"
 							aria-label={`Visiter le site de ${s.name}`}
 						>
 							Visiter le site
@@ -229,24 +226,24 @@
 
 <!-- CTA -->
 <section class="px-4 pb-24 sm:px-8 md:px-16 lg:px-32">
-	<div class="max-w-4xl mx-auto text-center">
+	<div class="mx-auto max-w-4xl text-center">
 		<h2 class="text-3xl font-extrabold md:text-4xl">Devenir partenaire</h2>
 		<p class="mt-4 text-white/80">
 			Envie de collaborer ? Téléchargez notre brochure pour découvrir les options de partenariat et
 			les offres de visibilité.
 		</p>
-		<div class="flex flex-col justify-center gap-3 mt-6 sm:flex-row">
+		<div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
 			<a
 				href={resolve(brochureUrl as '/')}
 				download
-				class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white transition border rounded-md bg-white/10 hover:bg-white/20 border-white/15 backdrop-blur"
+				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
 				aria-label="Télécharger notre brochure de partenariat"
 			>
 				Télécharger la brochure de partenariat
 			</a>
 			<a
 				href="mailto:davincibot@devinci.fr"
-				class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white transition bg-transparent border rounded-md hover:bg-white/10 border-white/15 backdrop-blur"
+				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
 			>
 				Nous écrire
 			</a>

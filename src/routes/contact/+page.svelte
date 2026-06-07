@@ -73,13 +73,13 @@
 </script>
 
 <Topbar />
-<div class="flex flex-col min-h-screen">
-	<div class="border-b border-gray-700 landing">
+<div class="flex min-h-screen flex-col">
+	<div class="landing border-b border-gray-700">
 		<div class="relative h-screen">
-			<div class="flex items-end justify-center w-full h-full md:items-center md:w-6/12">
+			<div class="flex h-full w-full items-end justify-center md:w-6/12 md:items-center">
 				<div class="mt-16 mb-12 text-center md:mb-0">
 					<div
-						class="flex items-center justify-center order-2 px-6 py-10 left-diagonal lg:order-1 sm:px-10 lg:px-16"
+						class="left-diagonal order-2 flex items-center justify-center px-6 py-10 sm:px-10 lg:order-1 lg:px-16"
 					>
 						<div class="z-20 w-full max-w-2xl text-center lg:text-left">
 							<h1 class="text-5xl font-extrabold tracking-wide sm:text-6xl">Contact</h1>
@@ -89,16 +89,16 @@
 							</p>
 
 							<div
-								class="flex flex-col items-center justify-center gap-4 mt-8 sm:flex-row lg:justify-start"
+								class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
 							>
 								<CTAButton href={`mailto:${email}`}>Envoyer un e-mail</CTAButton>
 
 								<div class="inline-flex items-center gap-3">
-									<span class="font-mono select-all text-white/95">{email}</span>
+									<span class="font-mono text-white/95 select-all">{email}</span>
 									<button
 										type="button"
 										onclick={copyEmail}
-										class="px-3 py-2 text-sm transition bg-transparent border text-dark-light-blue rounded-xl border-white/20 text-white/90 hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
+										class="text-dark-light-blue rounded-xl border border-white/20 bg-transparent px-3 py-2 text-sm text-white/90 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
 										aria-live="polite"
 									>
 										{#if copied}
@@ -121,7 +121,7 @@
 				<img
 					src={isMobile ? '/assets/img/mobilemap.webp' : '/assets/img/lgscreenmap.webp'}
 					alt="Carte statique Google Maps (thème sombre) montrant notre localisation"
-					class="absolute top-0 left-0 object-cover w-full h-full opacity-50 pointer-events-none -z-10"
+					class="pointer-events-none absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-50"
 					loading="lazy"
 				/>
 			</div>

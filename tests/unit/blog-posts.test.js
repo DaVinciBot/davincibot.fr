@@ -121,10 +121,10 @@ describe('blog posts helpers', () => {
 		const result = await fetchBlogPosts(
 			/** @type {Parameters<typeof fetchBlogPosts>[0]} */ (/** @type {unknown} */ (supabase)),
 			{
-			offset: 2,
-			limit: 500,
-			search: '%robot_',
-			tag: '_code%'
+				offset: 2,
+				limit: 500,
+				search: '%robot_',
+				tag: '_code%'
 			}
 		);
 

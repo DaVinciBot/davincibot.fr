@@ -56,16 +56,16 @@
 
 <Topbar />
 
-<div class="flex flex-col h-full gap-8 px-4 pt-16 sm:px-8 md:px-16 lg:px-32 md:pt-32 lg:pt-48">
+<div class="flex h-full flex-col gap-8 px-4 pt-16 sm:px-8 md:px-16 md:pt-32 lg:px-32 lg:pt-48">
 	<section class="justify-start">
-		<div class="grid grid-cols-1 md:grid-cols-[2fr_1.5fr] items-center gap-8">
-			<div class="flex flex-col justify-start order-2 gap-4 overflow-hidden text-start md:order-1">
+		<div class="grid grid-cols-1 items-center gap-8 md:grid-cols-[2fr_1.5fr]">
+			<div class="order-2 flex flex-col justify-start gap-4 overflow-hidden text-start md:order-1">
 				<div class="flex flex-col gap-5">
 					<h1 class="text-4xl font-extrabold sm:text-5xl lg:text-6xl">
 						Ingénieur par vocation <wbr /> Robotique par passion
 					</h1>
 					<p
-						class="self-stretch text-lg tracking-wider sm:text-xl text-dark-blue-gray text-justify"
+						class="text-dark-blue-gray self-stretch text-justify text-lg tracking-wider sm:text-xl"
 					>
 						DaVinciBot rassemble des étudiants de l'ESILV, de l'EMLV et de l'IIM du Pôle
 						Universitaire Léonard de Vinci autour d'activités, de projets innovants et de nombreuses
@@ -73,7 +73,7 @@
 						professionnelle.
 					</p>
 				</div>
-				<div class="flex flex-col w-full gap-4 sm:flex-row sm:gap-6 sm:w-102">
+				<div class="flex w-full flex-col gap-4 sm:w-102 sm:flex-row sm:gap-6">
 					<CtaButton href="#projets">Nos Projets</CtaButton>
 					<CtaButton variant="secondary" href="/soutenez-nous">Soutenez nous</CtaButton>
 				</div>
@@ -85,28 +85,28 @@
 				height="720"
 				loading="eager"
 				fetchpriority="high"
-				class="order-1 w-full mx-auto mb-6 md:mb-0 md:order-2 scale-130"
+				class="order-1 mx-auto mb-6 w-full scale-130 md:order-2 md:mb-0"
 			/>
 		</div>
 
-		<div class="flex flex-col justify-center w-full mt-8 2xl:mt-0 sm:w-10/12 md:w-9/12 lg:w-7/12">
+		<div class="mt-8 flex w-full flex-col justify-center sm:w-10/12 md:w-9/12 lg:w-7/12 2xl:mt-0">
 			<h2 class="text-base font-bold">Nos soutiens</h2>
 
 			<SponsorsCarousel />
 		</div>
 	</section>
 
-	<section class="flex flex-col items-center justify-center mt-12">
-		<div class="flex flex-col gap-12 text-left md:text-center md:w-6/12">
-			<h1 class="text-6xl font-extrabold tracking-[4.10px] pr-5">Nos actualités</h1>
-			<p class="self-stretch text-xl tracking-wider text-dark-blue-gray">
+	<section class="mt-12 flex flex-col items-center justify-center">
+		<div class="flex flex-col gap-12 text-left md:w-6/12 md:text-center">
+			<h1 class="pr-5 text-6xl font-extrabold tracking-[4.10px]">Nos actualités</h1>
+			<p class="text-dark-blue-gray self-stretch text-xl tracking-wider">
 				DaVinciBot organise et participe à des événements de robotique, offrant à ses membres des
 				occasions de se perfectionner et de relever des défis concrets. <br /><br />
 				L'association propose des compétitions internes et externes, ainsi que des ateliers, permettant
 				aux étudiants d'appliquer leurs connaissances et d'innover en robotique.
 			</p>
 		</div>
-		<div class="max-w-full my-10">
+		<div class="my-10 max-w-full">
 			{#if posts.length}
 				<Carousel time={90}>
 					{#each posts as p (p.slug)}
@@ -132,12 +132,12 @@
 	</section>
 	<section class="w-full">
 		<div class="max-w-full px-4 py-12">
-			<div class="flex flex-col items-center justify-between w-full gap-8 text-center md:flex-row">
+			<div class="flex w-full flex-col items-center justify-between gap-8 text-center md:flex-row">
 				<div class="flex-1">
 					<div class="text-4xl leading-none md:text-5xl lg:text-6xl">
 						<AnimatedNumber target={4} duration={1500} />
 					</div>
-					<div class="mt-4 text-sm font-semibold tracking-wider uppercase text-dark-blue-gray">
+					<div class="text-dark-blue-gray mt-4 text-sm font-semibold tracking-wider uppercase">
 						Écoles
 					</div>
 				</div>
@@ -146,7 +146,7 @@
 					<div class="text-4xl leading-none md:text-5xl lg:text-6xl">
 						<AnimatedNumber prefix="+" target={10500} duration={2000} />
 					</div>
-					<div class="mt-4 text-sm font-semibold tracking-wider uppercase text-dark-blue-gray">
+					<div class="text-dark-blue-gray mt-4 text-sm font-semibold tracking-wider uppercase">
 						Étudiants
 					</div>
 				</div>
@@ -155,7 +155,7 @@
 					<div class="text-4xl leading-none md:text-5xl lg:text-6xl">
 						<AnimatedNumber target={7} duration={1500} />
 					</div>
-					<div class="mt-4 text-sm font-semibold tracking-wider uppercase text-dark-blue-gray">
+					<div class="text-dark-blue-gray mt-4 text-sm font-semibold tracking-wider uppercase">
 						Campus
 					</div>
 				</div>
@@ -163,25 +163,25 @@
 		</div>
 	</section>
 
-	<section class="flex flex-col gap-4 pt-4 mb-12 md:pt-0 md:gap-0" id="projets">
-		<div class="w-full mb-12 text-center">
-			<h1 class="text-6xl font-extrabold tracking-[4.10px] pr-5">Nos projets</h1>
+	<section class="mb-12 flex flex-col gap-4 pt-4 md:gap-0 md:pt-0" id="projets">
+		<div class="mb-12 w-full text-center">
+			<h1 class="pr-5 text-6xl font-extrabold tracking-[4.10px]">Nos projets</h1>
 		</div>
 
 		<div class="max-w-full">
 			<!-- Project 1: Coupe de France de Robotique -->
-			<div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] items-center gap-6 py-6">
+			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[1fr_2fr]">
 				<div class="w-full">
 					<img
-						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
+						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						alt="Notre robot lors de la Coupe de France de Robotique 2024"
 						src="/assets/project/cdr/CDR_small.webp"
 					/>
 				</div>
-				<div class="flex flex-col justify-center h-full text-center md:text-left">
+				<div class="flex h-full flex-col justify-center text-center md:text-left">
 					<h1 class="text-2xl font-extrabold md:text-3xl">Coupe de France de Robotique</h1>
 					<p
-						class="py-2 text-justify md:text-xl text-blue-gray dark:text-dark-blue-gray sm:text-left"
+						class="text-blue-gray dark:text-dark-blue-gray py-2 text-justify sm:text-left md:text-xl"
 					>
 						La Coupe de France de Robotique est une compétition annuelle où des équipes d'étudiants
 						conçoivent, construisent et programment des robots pour accomplir des tâches
@@ -195,20 +195,20 @@
 			</div>
 
 			<!-- Project 2: TRAVELERS (image on right for md+ screens) -->
-			<div class="grid grid-cols-1 md:grid-cols-[2fr_1fr] items-center gap-6 py-6">
+			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[2fr_1fr]">
 				<div class="w-full md:order-last">
 					<img
-						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
+						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						alt="Travelers"
 						src="/assets/project/cohoma/cohoma_small.webp"
 					/>
 				</div>
 				<div
-					class="flex flex-col justify-center h-full mt-6 text-center md:text-left md:mt-0 md:order-first"
+					class="mt-6 flex h-full flex-col justify-center text-center md:order-first md:mt-0 md:text-left"
 				>
 					<h1 class="text-2xl font-extrabold md:text-3xl">CoHoMa</h1>
 					<p
-						class="py-2 text-justify md:text-xl text-blue-gray dark:text-dark-blue-gray sm:text-left"
+						class="text-blue-gray dark:text-dark-blue-gray py-2 text-justify sm:text-left md:text-xl"
 					>
 						En collaboration avec l'Armée de Terre Française, nous participons au challenge CoHoMa
 						(Cohabitation Homme-Machine). Ce projet vise à développer un système robotique capable
@@ -222,18 +222,18 @@
 			</div>
 
 			<!-- Project 3: Exodus -->
-			<div class="grid grid-cols-1 md:grid-cols-[1fr_2fr] items-center gap-6 py-6">
+			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[1fr_2fr]">
 				<div class="w-full">
 					<img
-						class="object-cover h-48 mx-auto md:w-full md:h-56 rounded-2xl"
+						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						alt="Exodus"
 						src="/assets/project/exodus/exodus_small.webp"
 					/>
 				</div>
-				<div class="flex flex-col justify-center h-full text-center md:text-left">
+				<div class="flex h-full flex-col justify-center text-center md:text-left">
 					<h1 class="text-2xl font-extrabold md:text-3xl">Exodus</h1>
 					<p
-						class="py-2 text-justify md:text-xl text-blue-gray dark:text-dark-blue-gray sm:text-left"
+						class="text-blue-gray dark:text-dark-blue-gray py-2 text-justify sm:text-left md:text-xl"
 					>
 						Nous entrons dans la deuxième année de développement d'Exodus, notre exosquelette de
 						soutien. Ce projet vise à assister les utilisateurs dans leurs tâches physiques, en

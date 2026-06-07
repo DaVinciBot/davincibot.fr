@@ -55,7 +55,8 @@ const makeUser = (accessToken: string, fallbackUserId: string): AppUser => {
 	};
 };
 
-const getSessionRow = (data: ServerSessionRow[] | null): ServerSessionRow | null => data?.[0] ?? null;
+const getSessionRow = (data: ServerSessionRow[] | null): ServerSessionRow | null =>
+	data?.[0] ?? null;
 
 export const handle: Handle = async ({ event, resolve }) => {
 	if (building) {

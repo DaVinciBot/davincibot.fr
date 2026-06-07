@@ -23,10 +23,7 @@ export function loadUserdata(userFromServer: UserData = null) {
 	userdata.set(userFromServer);
 }
 
-export function mountClosable(
-	component: Component<ClosableProps>,
-	options: MountClosableOptions
-) {
+export function mountClosable(component: Component<ClosableProps>, options: MountClosableOptions) {
 	const props = options.props ?? {};
 	let instance: ReturnType<typeof mount> | null = null;
 

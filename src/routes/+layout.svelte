@@ -53,6 +53,6 @@
 	/>
 </svelte:head>
 
-<div class="min-h-screen antialiased bg-dark-blue text-white min-w-screen font-['Almarai']">
+<div class="bg-dark-blue min-h-screen min-w-screen font-['Almarai'] text-white antialiased">
 	{@render children?.()}
 </div>

@@ -145,7 +145,9 @@ interface SingleQuery<T> {
 
 interface RegistrationTable {
 	select(columns: string): FilterableQuery<RegistrationRow | null>;
-	update(payload: UpdateRegistrationPayload | Pick<RegistrationRow, 'to_excuse'>): MutationQuery<unknown>;
+	update(
+		payload: UpdateRegistrationPayload | Pick<RegistrationRow, 'to_excuse'>
+	): MutationQuery<unknown>;
 }
 
 interface TrainerRegistrationView {

@@ -37,12 +37,12 @@ export const PERMISSIONS = [
 export type Permission = (typeof PERMISSIONS)[number];
 
 export interface PermissionUser {
-	permissions?: readonly string[];
+	permissions?: readonly Permission[];
 }
 
 export function hasPermission(
 	user: PermissionUser | null | undefined,
-	permission: string
+	permission: Permission
 ): boolean {
 	if (!user || !Array.isArray(user.permissions)) {
 		return false;
@@ -51,8 +51,8 @@ export function hasPermission(
 }
 
 export function hasAnyPermission(
-	userPermissions: readonly string[] = [],
-	requiredPermissions: readonly string[] = []
+	userPermissions: readonly Permission[] = [],
+	requiredPermissions: readonly Permission[] = []
 ): boolean {
 	if (!Array.isArray(requiredPermissions) || requiredPermissions.length === 0) {
 		return true;

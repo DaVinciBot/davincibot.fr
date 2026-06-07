@@ -13,11 +13,11 @@ export default defineConfig({
 		coverage: {
 			provider: 'v8',
 			include: [
-				'src/lib/permissions.js',
+				'src/lib/permissions.ts',
 				'src/lib/server/blogPosts.ts',
 				'src/lib/markdown/parse.ts',
 				'src/lib/utils.ts',
-				'src/lib/config/site.js',
+				'src/lib/config/site.ts',
 				'src/lib/server/sso.ts',
 				'src/routes/auth/session/+server.ts',
 				'src/routes/auth/session-from-tokens/+server.ts',

@@ -1,6 +1,7 @@
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type TrainingCategoryValue = 'code' | 'electronics' | 'robotic' | 'other' | 'software';
+export type TrainingCardStatus = 'complete' | 'free' | 'hidden' | 'registered' | 'waiting' | 'my';
 export type RegistrationStatusValue =
 	| 'waitlisted'
 	| 'registered'

@@ -18,5 +18,7 @@
 	"editor.formatOnSave": true,
 	"files.associations": {
 		"*.css": "tailwindcss"
-	}
+	},
+	"js/ts.tsdk.promptToUseWorkspaceVersion": true,
+	"svelte.enable-ts-plugin": true
 }

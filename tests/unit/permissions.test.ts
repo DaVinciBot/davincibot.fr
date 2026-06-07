@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { PERMISSIONS, hasPermission, type Permission, type PermissionUser } from '../../src/lib/permissions';
+import {
+	PERMISSIONS,
+	hasPermission,
+	type Permission,
+	type PermissionUser
+} from '../../src/lib/permissions';
 
 const VIEW_ADMIN: Permission = 'iam.permissions.read.all';
 const EDIT_MEMBERS: Permission = 'members.profile.update.all';

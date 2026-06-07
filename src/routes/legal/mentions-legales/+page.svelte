@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import { resolve } from '$app/paths';
 	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
 	import { canonicalFor } from '$lib/config/site.js';
 
@@ -81,7 +82,7 @@
 				>
 				ou par courrier au siège social. Les demandes impliquant des données personnelles sont traitées
 				conformément à la page
-				<a href="/legal/donnees-personnelles">Données personnelles</a>.
+				<a href={resolve('/legal/donnees-personnelles')}>Données personnelles</a>.
 			</p>
 		</section>
 

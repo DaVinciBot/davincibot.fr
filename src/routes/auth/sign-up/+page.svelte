@@ -1,11 +1,27 @@
-<script>
+<script lang="ts">
+	import { resolve } from '$app/paths';
 	import AuthForm from '$lib/components/utils/AuthForm.svelte';
 	import { onMount } from 'svelte';
+
+	interface SessionPayload {
+		access_token: string;
+		refresh_token: string;
+		expires_in?: number;
+		expires_at?: number;
+	}
+
+	interface ErrorPayload {
+		error?: string;
+	}
 
 	let initializing = $state(true);
 	let error = $state('');
 	let access_token = $state('');
 	let refresh_token = $state('');
+
+	function isErrorPayload(value: unknown): value is ErrorPayload {
+		return typeof value === 'object' && value !== null && 'error' in value;
+	}
 
 	onMount(async () => {
 		const hash = window.location.hash.startsWith('#') ? window.location.hash.slice(1) : '';
@@ -17,9 +33,9 @@
 		const expires_in = hashParams.get('expires_in') ?? queryParams.get('expires_in');
 		const expires_at = hashParams.get('expires_at') ?? queryParams.get('expires_at');
 		const errorParam =
-			hashParams.get('error_description') ||
-			hashParams.get('error') ||
-			queryParams.get('error_description') ||
+			hashParams.get('error_description') ??
+			hashParams.get('error') ??
+			queryParams.get('error_description') ??
 			queryParams.get('error');
 
 		if (errorParam) {
@@ -29,12 +45,12 @@
 		}
 
 		if (!access_token || !refresh_token) {
-			error = "Le lien d'invitation est invalide ou expiré. Veuillez demander un nouveau lien.";
+			error = "Le lien d'invitation est invalide ou expire. Veuillez demander un nouveau lien.";
 			initializing = false;
 			return;
 		}
 
-		const payload = { access_token, refresh_token };
+		const payload: SessionPayload = { access_token, refresh_token };
 		if (expires_in) {
 			payload.expires_in = Number(expires_in);
 		}
@@ -49,12 +65,15 @@
 		});
 
 		if (!response.ok) {
-			const data = await response
+			const data: unknown = await response
 				.json()
 				.catch(async () => ({ error: (await response.text().catch(() => '')).trim() }));
 			error =
-				data?.error ||
-				`Impossible d'initialiser la session (HTTP ${response.status}). Veuillez demander un nouveau lien.`;
+				isErrorPayload(data) && data.error
+					? data.error
+					: `Impossible d'initialiser la session (HTTP ${String(
+							response.status
+						)}). Veuillez demander un nouveau lien.`;
 			initializing = false;
 			return;
 		}
@@ -70,7 +89,9 @@
 	{:else if error}
 		<div class="flex min-h-screen flex-col items-center justify-center gap-4 px-6 text-center">
 			<p class="text-white">{error}</p>
-			<a class="text-blue-300 hover:underline" href="/auth/login">Retour à la connexion</a>
+			<a class="text-blue-300 hover:underline" href={resolve('/auth/login')}>
+				Retour a la connexion
+			</a>
 		</div>
 	{:else}
 		<AuthForm auth_type="register" {access_token} {refresh_token} />

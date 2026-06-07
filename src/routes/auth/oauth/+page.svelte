@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import AuthForm from '$lib/components/utils/AuthForm.svelte';
 </script>
 

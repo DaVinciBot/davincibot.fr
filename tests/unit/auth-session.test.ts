@@ -2,6 +2,8 @@ import { describe, expect, it } from 'vitest';
 
 import { GET } from '../../src/routes/auth/session/+server';
 
+type SessionEvent = Parameters<typeof GET>[0];
+
 describe('GET /auth/session', () => {
 	it('returns sanitized session and user payload', async () => {
 		const response = await GET({
@@ -19,7 +21,7 @@ describe('GET /auth/session', () => {
 					user_metadata: { nickname: 'User' }
 				}
 			}
-		} as any);
+		} as unknown as SessionEvent);
 
 		expect(response.status).toBe(200);
 		expect(await response.json()).toEqual({
@@ -38,7 +40,7 @@ describe('GET /auth/session', () => {
 	});
 
 	it('returns null objects when locals session is missing', async () => {
-		const response = await GET({ locals: {} } as any);
+		const response = await GET({ locals: {} } as unknown as SessionEvent);
 
 		expect(response.status).toBe(200);
 		expect(await response.json()).toEqual({ session: null, user: null });

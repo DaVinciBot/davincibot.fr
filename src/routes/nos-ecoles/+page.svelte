@@ -1,23 +1,7 @@
-<script>
-	import { browser } from '$app/environment';
+<script lang="ts">
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
 	import CTAButton from '$lib/components/utils/CTAButton.svelte';
-	import { onMount } from 'svelte';
-
-	let isMobile = false;
-	if (browser) {
-		isMobile = window.matchMedia('(max-width: 768px)').matches;
-	}
-
-	onMount(() => {
-		const mql = window.matchMedia('(max-width: 768px)');
-		const handler = (e) => (isMobile = e.matches);
-		mql.addEventListener('change', handler);
-		return () => {
-			mql.removeEventListener('change', handler);
-		};
-	});
 
 	// Schools content for alternating sections
 	const schools = [
@@ -67,13 +51,13 @@
 </script>
 
 <Topbar />
-<div class="flex flex-col min-h-screen">
-	<div class="border-b border-gray-700 landing">
+<div class="flex min-h-screen flex-col">
+	<div class="landing border-b border-gray-700">
 		<div class="relative h-screen">
-			<div class="flex items-end justify-center w-full h-full md:items-center md:w-6/12">
+			<div class="flex h-full w-full items-end justify-center md:w-6/12 md:items-center">
 				<div class="mt-16 mb-12 text-center md:mb-0">
 					<div
-						class="flex items-center justify-center order-2 px-6 py-10 left-diagonal lg:order-1 sm:px-10 lg:px-16"
+						class="left-diagonal order-2 flex items-center justify-center px-6 py-10 sm:px-10 lg:order-1 lg:px-16"
 					>
 						<div class="z-20 w-full max-w-2xl text-center lg:text-left">
 							<h1 class="text-5xl font-extrabold tracking-wide sm:text-6xl">
@@ -87,7 +71,7 @@
 							</p>
 
 							<div
-								class="flex flex-col items-center justify-center gap-4 mt-8 sm:flex-row lg:justify-start sm:w-[500px]"
+								class="mt-8 flex flex-col items-center justify-center gap-4 sm:w-125 sm:flex-row lg:justify-start"
 							>
 								<CTAButton href="#ecoles">Découvrir nos écoles</CTAButton>
 								<CTAButton variant="secondary" href="https://www.devinci.fr/"
@@ -107,24 +91,24 @@
 				<img
 					src="/assets/img/pulv_lc.webp"
 					alt="Vue du campus du Pôle Léonard de Vinci"
-					class="absolute top-0 left-0 object-cover w-full h-full opacity-50 pointer-events-none -z-10"
+					class="pointer-events-none absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-50"
 					loading="lazy"
 				/>
 			</div>
 		</div>
 	</div>
 
-	<section id="ecoles" class="container max-w-6xl px-6 py-16 mx-auto space-y-20 sm:py-24">
-		{#each schools as s, i}
+	<section id="ecoles" class="container mx-auto max-w-6xl space-y-20 px-6 py-16 sm:py-24">
+		{#each schools as s, i (s.slug)}
 			<article class="grid items-center gap-10 md:grid-cols-2">
 				<div class={i % 2 === 0 ? '' : 'md:order-2'}>
 					<div
-						class="aspect-[1/1] md:aspect-[2/1] w-full max-w-md md:max-w-none mx-auto flex items-center justify-center rounded-lg bg-white/5 border border-white/10 p-6"
+						class="mx-auto flex aspect-square w-full max-w-md items-center justify-center rounded-lg border border-white/10 bg-white/5 p-6 md:aspect-2/1 md:max-w-none"
 					>
 						<img
 							src={s.image}
 							alt={`Logo ${s.name}`}
-							class="object-contain w-auto max-h-56 md:max-h-52"
+							class="max-h-56 w-auto object-contain md:max-h-52"
 							loading="lazy"
 						/>
 					</div>
@@ -135,10 +119,10 @@
 					<p class="mt-6 text-base leading-7 text-white/85">{s.description}</p>
 
 					<ul class="mt-6 space-y-2 text-white/85">
-						{#each s.highlights as h}
+						{#each s.highlights as h (h)}
 							<li class="flex items-start gap-3">
 								<span
-									class="w-5 h-5 mt-0.5 bg-dark-light-blue"
+									class="bg-dark-light-blue mt-0.5 h-5 w-5"
 									style="-webkit-mask:url('/assets/img/icon/checked-document.svg') no-repeat center / contain; mask:url('/assets/img/icon/checked-document.svg') no-repeat center / contain;"
 									aria-hidden="true"
 								></span>
@@ -149,15 +133,15 @@
 
 					<div class="mt-6">
 						<a
-							class="inline-flex items-center gap-2 text-sm font-semibold text-white underline hover:text-white/80 underline-offset-4"
+							class="inline-flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80"
 							href={s.site}
 							target="_blank"
-							rel="noopener noreferrer"
+							rel="external noopener noreferrer"
 							aria-label={`Visiter le site de ${s.name}`}
 						>
 							En savoir plus sur {s.name}
 							<span
-								class="w-4 h-4 bg-dark-light-blue"
+								class="bg-dark-light-blue h-4 w-4"
 								style="-webkit-mask:url('/assets/img/icon/link.svg') no-repeat center / contain; mask:url('/assets/img/icon/link.svg') no-repeat center / contain;"
 								aria-hidden="true"
 							></span>

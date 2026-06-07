@@ -2,8 +2,8 @@ import { browser } from '$app/environment';
 import { env } from '$env/dynamic/public';
 import { createBrowserClient } from '@supabase/ssr';
 
-const publicSupabaseUrl = env.PUBLIC_SUPABASE_URL ?? '';
-const publicSupabaseKey = env.PUBLIC_SUPABASE_PUBLISHABLE_KEY ?? '';
+const publicSupabaseUrl = env.PUBLIC_SUPABASE_URL;
+const publicSupabaseKey = env.PUBLIC_SUPABASE_PUBLISHABLE_KEY;
 
 export const supabaseUrl = publicSupabaseUrl.replace(/\/$/, '');
 export const supabaseKey = publicSupabaseKey;
@@ -38,14 +38,12 @@ export function getSupabaseBrowserClient() {
 		throw new Error('Missing PUBLIC_SUPABASE_URL or PUBLIC_SUPABASE_PUBLISHABLE_KEY');
 	}
 
-	if (!browserClient) {
-		browserClient = createBrowserClient(publicSupabaseUrl, publicSupabaseKey, {
-			auth: {
-				flowType: 'pkce'
-			},
-			cookieOptions: getCookieOptions()
-		});
-	}
+	browserClient ??= createBrowserClient(publicSupabaseUrl, publicSupabaseKey, {
+		auth: {
+			flowType: 'pkce'
+		},
+		cookieOptions: getCookieOptions()
+	});
 
 	return browserClient;
 }

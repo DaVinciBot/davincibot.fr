@@ -29,16 +29,24 @@ vi.mock('$lib/server/sso', () => ({
 
 import { POST } from '../../src/routes/auth/login/+server';
 
-function makeEvent(payload: unknown, protocol: 'http:' | 'https:' = 'https:') {
+type LoginEvent = Parameters<typeof POST>[0];
+type JsonMock = ReturnType<typeof vi.fn<() => Promise<unknown>>>;
+type CookieSetMock = ReturnType<typeof vi.fn>;
+type LoginTestEvent = LoginEvent & {
+	request: { json: JsonMock };
+	cookies: { set: CookieSetMock };
+};
+
+function makeEvent(payload: unknown, protocol: 'http:' | 'https:' = 'https:'): LoginTestEvent {
 	return {
 		request: {
-			json: vi.fn(async () => payload)
+			json: vi.fn(() => Promise.resolve(payload))
 		},
 		cookies: {
 			set: vi.fn()
 		},
 		url: new URL(`${protocol}//davincibot.fr/auth/login`)
-	};
+	} as unknown as LoginTestEvent;
 }
 
 describe('POST /auth/login', () => {
@@ -52,7 +60,7 @@ describe('POST /auth/login', () => {
 	it('returns 400 for invalid payload', async () => {
 		const event = makeEvent({ email: '', password: '' });
 
-		const response = await POST(event as any);
+		const response = await POST(event);
 		expect(response.status).toBe(400);
 		expect(await response.json()).toEqual({ error: 'Missing email or password' });
 	});
@@ -64,7 +72,7 @@ describe('POST /auth/login', () => {
 		});
 
 		const event = makeEvent({ email: 'USER@EXAMPLE.COM', password: 'secret' });
-		const response = await POST(event as any);
+		const response = await POST(event);
 
 		expect(response.status).toBe(401);
 		expect(await response.json()).toEqual({ error: 'invalid credentials' });
@@ -97,7 +105,7 @@ describe('POST /auth/login', () => {
 		});
 
 		const event = makeEvent({ email: 'user@example.com', password: 'secret' });
-		const response = await POST(event as any);
+		const response = await POST(event);
 
 		expect(response.status).toBe(200);
 		expect(await response.json()).toEqual({
@@ -132,7 +140,7 @@ describe('POST /auth/login', () => {
 		});
 
 		const event = makeEvent({ email: 'user@example.com', password: 'secret' });
-		const response = await POST(event as any);
+		const response = await POST(event);
 
 		expect(response.status).toBe(500);
 		expect(await response.json()).toEqual({ error: 'cannot create session' });

@@ -1,10 +1,10 @@
-<script>
+<script lang="ts">
 	import { page } from '$app/state';
 	import { onMount } from 'svelte';
 
 	let status = $state('Confirmation en cours...');
 
-	const sanitizeNext = (value) => {
+	const sanitizeNext = (value: string | null) => {
 		if (!value || typeof value !== 'string') {
 			return '/';
 		}
@@ -35,8 +35,8 @@
 				body: JSON.stringify({
 					access_token: accessToken,
 					refresh_token: refreshToken,
-					expires_at: expiresAt || undefined,
-					expires_in: expiresIn || undefined
+					expires_at: expiresAt ?? undefined,
+					expires_in: expiresIn ?? undefined
 				})
 			});
 
@@ -47,7 +47,7 @@
 			status = 'Erreur réseau. Redirection en cours...';
 		}
 
-		window.location.replace(`${target.toString()}${hash || ''}`);
+		window.location.replace(`${target.toString()}${hash}`);
 	});
 </script>
 

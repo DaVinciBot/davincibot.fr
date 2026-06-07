@@ -3,6 +3,9 @@ import { defineConfig } from 'vitest/config';
 
 export default defineConfig({
 	plugins: [sveltekit()],
+	resolve: {
+		conditions: ['browser']
+	},
 	test: {
 		environment: 'jsdom',
 		include: ['src/**/*.{test,spec}.{js,ts}', 'tests/unit/**/*.{test,spec}.{js,ts}'],
@@ -11,15 +14,14 @@ export default defineConfig({
 			provider: 'v8',
 			include: [
 				'src/lib/permissions.js',
-				'src/lib/server/blogPosts.js',
-				'src/lib/markdown/parse.js',
-				'src/lib/utils.js',
+				'src/lib/server/blogPosts.ts',
+				'src/lib/markdown/parse.ts',
+				'src/lib/utils.ts',
 				'src/lib/config/site.js',
 				'src/lib/server/sso.ts',
 				'src/routes/auth/session/+server.ts',
 				'src/routes/auth/session-from-tokens/+server.ts',
-				'src/routes/auth/login/+server.ts',
-				'src/lib/components/modals/UserImportModal.svelte'
+				'src/routes/auth/login/+server.ts'
 			],
 			reporter: ['text', 'html', 'lcov'],
 			thresholds: {

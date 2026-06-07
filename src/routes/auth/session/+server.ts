@@ -1,8 +1,9 @@
 import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
-export const GET = async (event: any) => {
-	const session = event.locals?.session ?? null;
-	const user = event.locals?.user ?? null;
+export const GET: RequestHandler = (event) => {
+	const session = event.locals.session;
+	const user = event.locals.user;
 
 	return json({
 		session: session
@@ -16,8 +17,8 @@ export const GET = async (event: any) => {
 			? {
 					id: user.id,
 					email: user.email ?? null,
-					app_metadata: user.app_metadata ?? {},
-					user_metadata: user.user_metadata ?? {}
+					app_metadata: user.app_metadata,
+					user_metadata: user.user_metadata
 				}
 			: null
 	});

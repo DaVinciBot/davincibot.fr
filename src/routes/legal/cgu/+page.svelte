@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
 	import { canonicalFor } from '$lib/config/site.js';
 

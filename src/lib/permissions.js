@@ -34,6 +34,10 @@ export const PERMISSIONS = [
 	'audit.events.export'
 ];
 
+/**
+ * @param {{ permissions?: string[] } | null | undefined} user
+ * @param {string} permission
+ */
 export function hasPermission(user, permission) {
 	if (!user || !Array.isArray(user.permissions)) {
 		return false;
@@ -41,6 +45,10 @@ export function hasPermission(user, permission) {
 	return user.permissions.includes(permission);
 }
 
+/**
+ * @param {readonly string[]} [userPermissions=[]]
+ * @param {readonly string[]} [requiredPermissions=[]]
+ */
 export function hasAnyPermission(userPermissions = [], requiredPermissions = []) {
 	if (!Array.isArray(requiredPermissions) || requiredPermissions.length === 0) {
 		return true;

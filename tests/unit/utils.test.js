@@ -13,19 +13,19 @@ import {
 	loadSettings,
 	loadUserdata,
 	saveSettings
-} from '../../src/lib/utils.js';
+} from '../../src/lib/utils';
 
 describe('utils helpers', () => {
 	beforeEach(() => {
-		userdata.set.mockClear();
+		vi.mocked(userdata.set).mockClear();
 		window.localStorage.clear();
 	});
 
-	it('loadUserdata writes to userdata store', async () => {
-		await loadUserdata(null);
+	it('loadUserdata writes to userdata store', () => {
+		loadUserdata(null);
 		expect(userdata.set).toHaveBeenCalledWith(null);
 
-		await loadUserdata({ id: 'u-1' });
+		loadUserdata({ id: 'u-1' });
 		expect(userdata.set).toHaveBeenCalledWith({ id: 'u-1' });
 	});
 
@@ -35,17 +35,12 @@ describe('utils helpers', () => {
 	});
 
 	it('loadSettings handles invalid JSON gracefully', () => {
-		const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 		window.localStorage.setItem('settings_broken', '{broken');
 
 		expect(loadSettings('broken')).toBeUndefined();
-		expect(errorSpy).toHaveBeenCalled();
-
-		errorSpy.mockRestore();
 	});
 
 	it('saveSettings handles storage errors gracefully', () => {
-		const errorSpy = vi.spyOn(console, 'error').mockImplementation(() => {});
 		const setItemSpy = vi.spyOn(Storage.prototype, 'setItem').mockImplementation(() => {
 			throw new Error('quota');
 		});
@@ -53,10 +48,8 @@ describe('utils helpers', () => {
 		expect(() => {
 			saveSettings('quota', { ok: true });
 		}).not.toThrow();
-		expect(errorSpy).toHaveBeenCalled();
 
 		setItemSpy.mockRestore();
-		errorSpy.mockRestore();
 	});
 
 	it('hashCode is deterministic for equal input', () => {

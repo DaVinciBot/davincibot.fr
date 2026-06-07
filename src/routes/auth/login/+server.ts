@@ -1,24 +1,30 @@
 import { createAnonClient, createUserClient } from '$lib/server/sso';
+import { readJsonRecord, readOptionalString } from '$lib/server/requestPayload';
 import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
-export const POST = async (event: any) => {
-	let payload: { email?: string; password?: string } = {};
+export const POST: RequestHandler = async (event) => {
+	let payload: Record<string, unknown>;
 	try {
-		payload = await event.request.json();
+		const parsed = await readJsonRecord(event.request);
+		if (!parsed) {
+			return json({ error: 'Invalid JSON payload' }, { status: 400 });
+		}
+		payload = parsed;
 	} catch {
 		return json({ error: 'Invalid JSON payload' }, { status: 400 });
 	}
 
-	const email = payload.email?.trim().toLowerCase();
-	const password = payload.password ?? '';
+	const email = readOptionalString(payload, 'email')?.trim().toLowerCase();
+	const password = readOptionalString(payload, 'password') ?? '';
 	if (!email || !password) {
 		return json({ error: 'Missing email or password' }, { status: 400 });
 	}
 
 	const anon = createAnonClient();
 	const { data, error } = await anon.auth.signInWithPassword({ email, password });
-	if (error || !data?.session || !data?.user) {
-		return json({ error: error?.message ?? 'Invalid credentials' }, { status: 401 });
+	if (error) {
+		return json({ error: error.message }, { status: 401 });
 	}
 	const sessionExpiresAt =
 		typeof data.session.expires_at === 'number'
@@ -35,8 +41,9 @@ export const POST = async (event: any) => {
 			p_expires_at: expiresAtIso
 		});
 
-	const sessionId = inserted?.[0]?.session_id ?? inserted?.session_id;
-	const sessionSecret = inserted?.[0]?.session_secret ?? inserted?.session_secret;
+	const createdSession = inserted?.[0];
+	const sessionId = createdSession?.session_id;
+	const sessionSecret = createdSession?.session_secret;
 	if (insertError || !sessionId || !sessionSecret) {
 		return json({ error: insertError?.message ?? 'Failed to create session' }, { status: 500 });
 	}

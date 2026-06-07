@@ -1,20 +1,63 @@
-<script>
+<script lang="ts">
 	import Renderer from '$lib/components/markdown/Renderer.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
+	import type { MarkdownRoot } from '$lib/markdown/parse';
+	import type { Json } from '../../../database.types';
 
-	/** @type {{data: any}} */
-	const { data } = $props();
+	interface ArticlePost {
+		title: string;
+		slug: string;
+		meta: Record<string, Json | undefined>;
+		body: string;
+		ast: MarkdownRoot;
+		updatedAt: string | null;
+		publishedAt: string | null;
+	}
 
-	function getInitialPost() {
+	interface ArticlePageData {
+		post: ArticlePost;
+	}
+
+	const { data }: { data: ArticlePageData } = $props();
+
+	function getInitialPost(): ArticlePost {
 		return data.post;
 	}
 
 	const post = getInitialPost();
-	const heroImage = post?.meta?.heroImage;
-	const heroImageSocial = post?.meta?.heroImageSocial || heroImage;
 
-	function formatDate(v) {
+	const isRecord = (value: Json | undefined): value is Record<string, Json | undefined> =>
+		typeof value === 'object' && value !== null && !Array.isArray(value);
+
+	function stringFromMeta(key: string): string | undefined {
+		const value = post.meta[key];
+		return typeof value === 'string' ? value : undefined;
+	}
+
+	function stringFromRecord(
+		record: Record<string, Json | undefined> | null,
+		key: string
+	): string | undefined {
+		const value = record?.[key];
+		return typeof value === 'string' ? value : undefined;
+	}
+
+	function absoluteUrl(path: string): string {
+		return path.startsWith('http') ? path : `https://davincibot.fr${path}`;
+	}
+
+	const authorMeta = isRecord(post.meta.author) ? post.meta.author : null;
+	const authorName = stringFromRecord(authorMeta, 'name') ?? 'DaVinciBot';
+	const authorRole = stringFromRecord(authorMeta, 'role');
+	const excerpt = stringFromMeta('excerpt');
+	const keywords =
+		stringFromMeta('keywords') ?? 'DaVinciBot, association, robot, robotique, étudiant, esilv';
+	const heroAlt = stringFromMeta('heroAlt') ?? post.title;
+	const heroImage = stringFromMeta('heroImage') ?? '/assets/article/precoupe.jpg';
+	const heroImageSocial = stringFromMeta('heroImageSocial') ?? heroImage;
+
+	function formatDate(v: string | null): string | null {
 		if (!v) {
 			return null;
 		}
@@ -29,31 +72,26 @@
 		}).format(d);
 	}
 
-	const publishedLabel = formatDate(post?.publishedAt);
-	const updatedLabel = formatDate(post?.updatedAt);
-	const isoPublished = post?.publishedAt ? new Date(post.publishedAt).toISOString() : null;
-	const isoUpdated = post?.updatedAt ? new Date(post.updatedAt).toISOString() : null;
+	const publishedLabel = formatDate(post.publishedAt);
+	const updatedLabel = formatDate(post.updatedAt);
+	const isoPublished = post.publishedAt ? new Date(post.publishedAt).toISOString() : null;
+	const isoUpdated = post.updatedAt ? new Date(post.updatedAt).toISOString() : null;
 
 	const canonical = `https://davincibot.fr/blog/${post.slug}/`;
-	const heroAbs =
-		heroImage && (heroImage.startsWith('http') ? heroImage : `https://davincibot.fr${heroImage}`);
-	const heroSocialAbs =
-		heroImageSocial &&
-		(heroImageSocial.startsWith('http')
-			? heroImageSocial
-			: `https://davincibot.fr${heroImageSocial}`);
+	const heroSocialAbs = absoluteUrl(heroImageSocial);
 	const jsonLd = {
 		'@context': 'https://schema.org',
 		'@type': 'BlogPosting',
 		headline: post.title,
-		description: post?.meta?.excerpt || undefined,
-		image: heroSocialAbs || undefined,
-		datePublished: isoPublished || undefined,
-		dateModified: isoUpdated || undefined,
+		description: excerpt,
+		image: heroSocialAbs,
+		datePublished: isoPublished ?? undefined,
+		dateModified: isoUpdated ?? undefined,
 		mainEntityOfPage: canonical,
-		author: post?.meta?.author?.name
-			? { '@type': 'Person', name: post.meta.author.name }
-			: { '@type': 'Organization', name: 'DaVinciBot' },
+		author:
+			authorMeta && authorName
+				? { '@type': 'Person', name: authorName }
+				: { '@type': 'Organization', name: 'DaVinciBot' },
 		publisher: {
 			'@type': 'Organization',
 			name: 'DaVinciBot',
@@ -64,36 +102,25 @@
 		}
 	};
 	const jsonLdString = JSON.stringify(jsonLd).replace(/</g, '\\u003c');
-	const jsonLdScript = `<script type="application/ld+json">${jsonLdString}<` + '/script>';
 </script>
 
 <svelte:head>
 	<link rel="canonical" href={canonical} />
 	<title>{post.title}</title>
-	<meta
-		name="keywords"
-		content={post?.meta?.keywords || 'DaVinciBot, association, robot, robotique, étudiant, esilv'}
-	/>
-	<meta name="author" content={post?.meta?.author?.name || 'DaVinciBot'} />
+	<meta name="keywords" content={keywords} />
+	<meta name="author" content={authorName} />
 	<meta name="robots" content="index, follow" />
-	{#if post?.meta?.excerpt}
-		<meta name="description" content={post.meta.excerpt} />
+	{#if excerpt}
+		<meta name="description" content={excerpt} />
 	{/if}
 
 	<meta property="og:url" content={`https://davincibot.fr/blog/${post.slug}`} />
 	<meta property="og:type" content="article" />
 	<meta property="og:title" content={post.title} />
-	{#if post?.meta?.excerpt}
-		<meta property="og:description" content={post.meta.excerpt} />
+	{#if excerpt}
+		<meta property="og:description" content={excerpt} />
 	{/if}
-	{#if heroImageSocial}
-		<meta
-			property="og:image"
-			content={heroImageSocial.startsWith('http')
-				? heroImageSocial
-				: `https://davincibot.fr${heroImageSocial}`}
-		/>
-	{/if}
+	<meta property="og:image" content={heroSocialAbs} />
 	{#if isoPublished}
 		<meta property="article:published_time" content={isoPublished} />
 	{/if}
@@ -103,55 +130,43 @@
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta property="twitter:domain" content="davincibot.fr" />
-	<meta property="twitter:url" content="https://davincibot.fr/blog/{post.slug}" />
+	<meta property="twitter:url" content={`https://davincibot.fr/blog/${post.slug}`} />
 	<meta name="twitter:title" content={post.title} />
-	{#if heroImageSocial}
-		<meta
-			name="twitter:image"
-			content={heroImageSocial.startsWith('http')
-				? heroImageSocial
-				: `https://davincibot.fr${heroImageSocial}`}
-		/>
+	<meta name="twitter:image" content={heroSocialAbs} />
+	{#if excerpt}
+		<meta name="twitter:description" content={excerpt} />
 	{/if}
-	{#if post?.meta?.excerpt}
-		<meta name="twitter:description" content={post.meta.excerpt} />
-	{/if}
-	<!-- JSON-LD Article -->
-	{@html jsonLdScript}
+	<svelte:element this={'script'} type="application/ld+json">{jsonLdString}</svelte:element>
 </svelte:head>
 
 <Topbar />
 
-<div class="-mt-5 md:-mt-8 lg:-mt-32 2xl:-mt-64 4xl:-mt-80">
-	<img
-		class="w-full bg-gray-500 opacity-50"
-		alt={post?.meta?.heroAlt || post?.title || 'Article'}
-		src={heroImage}
-	/>
+<div class="4xl:-mt-80 -mt-5 md:-mt-8 lg:-mt-32 2xl:-mt-64">
+	<img class="w-full bg-gray-500 opacity-50" alt={heroAlt} src={heroImage} />
 </div>
 <div
-	class="-mt-28 md:-mt-72 pt-12 md:pt-0 absolute w-full bg-gradient-to-b from-white/0 from-0% via-1% via-dark-blue/70 via-2% via-3% via-4% to-5% via-1% via-4% to-dark-blue"
+	class="via-dark-blue/70 to-dark-blue absolute -mt-28 w-full bg-linear-to-b from-white/0 from-0% via-1% to-5% pt-12 md:-mt-72 md:pt-0"
 >
-	<div class="flex flex-col items-center h-full gap-8 pt-5 md:pt-28 md:mx-32">
-		<div class="flex flex-col text-left max-w-[720px] mx-3">
-			<div class="flex flex-col w-full gap-5">
-				<h1 class="text-3xl lg:text-4xl font-extrabold tracking-[4.10px] md:pr-5">
+	<div class="flex h-full flex-col items-center gap-8 pt-5 md:mx-32 md:pt-28">
+		<div class="mx-3 flex max-w-180 flex-col text-left">
+			<div class="flex w-full flex-col gap-5">
+				<h1 class="text-3xl font-extrabold tracking-[4.10px] md:pr-5 lg:text-4xl">
 					{post.title}
 				</h1>
-				{#if post?.meta?.excerpt}
-					<p class="self-stretch tracking-wider md:text-xl text-dark-blue-gray md:pr-24">
-						{post.meta.excerpt}
+				{#if excerpt}
+					<p class="text-dark-blue-gray self-stretch tracking-wider md:pr-24 md:text-xl">
+						{excerpt}
 					</p>
 				{/if}
-				{#if post?.meta?.author}
+				{#if authorMeta}
 					<div class="flex items-center gap-2 text-sm text-gray-300 md:text-base">
-						<span>Par {post.meta.author.name}</span>
-						{#if post.meta.author.role}
-							<span class="opacity-80">— {post.meta.author.role}</span>
+						<span>Par {authorName}</span>
+						{#if authorRole}
+							<span class="opacity-80">— {authorRole}</span>
 						{/if}
 					</div>
 				{/if}
-				{#if publishedLabel || updatedLabel}
+				{#if publishedLabel ?? updatedLabel}
 					<div class="mt-1 text-sm text-gray-400">
 						{#if publishedLabel}
 							<time datetime={isoPublished}>Publié le {publishedLabel}</time>
@@ -164,13 +179,13 @@
 				{/if}
 			</div>
 
-			<div class="flex justify-center gap-8 my-6">
-				<article class="prose prose-invert max-w-170 md-article">
-					{#if post?.ast}
+			<div class="my-6 flex justify-center gap-8">
+				<article class="prose prose-invert md-article max-w-170">
+					{#if post.ast}
 						<Renderer tree={post.ast} />
 					{:else}
-						<div class="text-left" class:sr-only={!post?.html}>
-							{@html post.html}
+						<div class="text-left whitespace-pre-wrap">
+							{post.body}
 						</div>
 					{/if}
 				</article>

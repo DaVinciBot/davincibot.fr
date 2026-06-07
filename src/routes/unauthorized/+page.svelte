@@ -1,12 +1,5 @@
 <script lang="ts">
-	import { run } from 'svelte/legacy';
-
-	import { page } from '$app/state';
-
-	let redirect = $state('/');
-	run(() => {
-		redirect = page.url.searchParams.get('redirect') || '/';
-	});
+	import { resolve } from '$app/paths';
 </script>
 
 <section>
@@ -17,7 +10,7 @@
 			<p class="text-base text-light-blue/80">
 				Vous n'avez pas les droits pour accéder à cette page.
 			</p>
-			<a href="/" class="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md">Retour</a>
+			<a href={resolve('/')} class="px-4 py-2 mt-4 text-white bg-blue-500 rounded-md">Retour</a>
 		</div>
 	</div>
 </section>

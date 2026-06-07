@@ -1,13 +1,13 @@
 import { SITE } from '$lib/config/site.js';
+import type { RequestHandler } from './$types';
 
 export const prerender = false;
 
-export async function GET() {
+export const GET: RequestHandler = () => {
 	const body = [
 		'User-agent: *',
 		'Allow: /',
 		'Disallow: /admin/',
-		// 'Disallow: /auth/', // disabled to allow noindexing of auth-related pages
 		'Disallow: /caroussel/',
 		`Sitemap: ${SITE.origin}/sitemap.xml`
 	].join('\n');
@@ -18,4 +18,4 @@ export async function GET() {
 			'Cache-Control': 'public, max-age=3600'
 		}
 	});
-}
+};

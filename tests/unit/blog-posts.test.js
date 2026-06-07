@@ -1,9 +1,28 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-let nextResponse;
-let lastQuery;
+/** @typedef {{ data: unknown[] | null, error: Error | null, count: number | null }} QueryResponse */
+/** @typedef {import('vitest').Mock<(...args: unknown[]) => Query>} QueryMock */
+/**
+ * @typedef {{
+ *   select: QueryMock,
+ *   eq: QueryMock,
+ *   lte: QueryMock,
+ *   order: QueryMock,
+ *   range: QueryMock,
+ *   ilike: QueryMock,
+ *   or: QueryMock,
+ *   then: PromiseLike<QueryResponse>['then']
+ * }} Query
+ */
 
+/** @type {QueryResponse} */
+let nextResponse = { data: [], error: null, count: 0 };
+/** @type {Query | null} */
+let lastQuery = null;
+
+/** @returns {Query} */
 function createQuery() {
+	/** @type {Query} */
 	const query = {
 		select: vi.fn(() => query),
 		eq: vi.fn(() => query),
@@ -18,11 +37,14 @@ function createQuery() {
 	return query;
 }
 
+const from = vi.fn((_table) => {
+	void _table;
+	lastQuery = createQuery();
+	return lastQuery;
+});
+
 const supabase = {
-	from: vi.fn(() => {
-		lastQuery = createQuery();
-		return lastQuery;
-	})
+	from
 };
 
 import {
@@ -33,11 +55,18 @@ import {
 	toExcerpt
 } from '../../src/lib/server/blogPosts.js';
 
+function getLastQuery() {
+	if (!lastQuery) {
+		throw new Error('Expected a query to be created');
+	}
+	return lastQuery;
+}
+
 describe('blog posts helpers', () => {
 	beforeEach(() => {
 		nextResponse = { data: [], error: null, count: 0 };
 		lastQuery = null;
-		supabase.from.mockClear();
+		from.mockClear();
 	});
 
 	it('stripMarkdown removes markdown syntax', () => {
@@ -89,22 +118,30 @@ describe('blog posts helpers', () => {
 			count: 10
 		};
 
-		const result = await fetchBlogPosts(supabase, {
+		const result = await fetchBlogPosts(
+			/** @type {Parameters<typeof fetchBlogPosts>[0]} */ (/** @type {unknown} */ (supabase)),
+			{
 			offset: 2,
 			limit: 500,
 			search: '%robot_',
 			tag: '_code%'
-		});
+			}
+		);
 
 		expect(supabase.from).toHaveBeenCalledWith('blog');
-		expect(lastQuery.eq).toHaveBeenCalledWith('state', 'published');
-		expect(lastQuery.range).toHaveBeenCalledWith(2, 51);
-		expect(lastQuery.ilike).toHaveBeenCalledWith('data->>tag', '%code%');
-		expect(lastQuery.or).toHaveBeenCalledWith(
+		const query = getLastQuery();
+		expect(query.eq).toHaveBeenCalledWith('state', 'published');
+		expect(query.range).toHaveBeenCalledWith(2, 51);
+		expect(query.ilike).toHaveBeenCalledWith('data->>tag', '%code%');
+		expect(query.or).toHaveBeenCalledWith(
 			'title.ilike.%robot%,body.ilike.%robot%,data->>excerpt.ilike.%robot%'
 		);
 
-		const [, nowIso] = lastQuery.lte.mock.calls[0];
+		const firstLteCall = query.lte.mock.calls[0];
+		if (!firstLteCall || typeof firstLteCall[1] !== 'string') {
+			throw new Error('Expected publish date filter to be recorded');
+		}
+		const nowIso = firstLteCall[1];
 		expect(Number.isNaN(Date.parse(nowIso))).toBe(false);
 		expect(result.count).toBe(10);
 		expect(result.posts).toHaveLength(1);
@@ -117,7 +154,9 @@ describe('blog posts helpers', () => {
 			count: null
 		};
 
-		const result = await fetchBlogPosts(supabase);
+		const result = await fetchBlogPosts(
+			/** @type {Parameters<typeof fetchBlogPosts>[0]} */ (/** @type {unknown} */ (supabase))
+		);
 		expect(result.count).toBe(1);
 	});
 
@@ -128,6 +167,10 @@ describe('blog posts helpers', () => {
 			count: null
 		};
 
-		await expect(fetchBlogPosts(supabase)).rejects.toThrow('boom');
+		await expect(
+			fetchBlogPosts(
+				/** @type {Parameters<typeof fetchBlogPosts>[0]} */ (/** @type {unknown} */ (supabase))
+			)
+		).rejects.toThrow('boom');
 	});
 });

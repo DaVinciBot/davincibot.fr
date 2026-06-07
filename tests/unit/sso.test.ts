@@ -49,7 +49,12 @@ describe('server sso helpers', () => {
 		const payload = Buffer.from(JSON.stringify({ sub: 'u-1', email: 'a@b.c' })).toString('base64');
 		const token = `header.${payload}.sig`;
 
-		expect(decodeJwt(token)).toEqual({ sub: 'u-1', email: 'a@b.c' });
+		expect(decodeJwt(token)).toEqual({
+			sub: 'u-1',
+			email: 'a@b.c',
+			app_metadata: {},
+			user_metadata: {}
+		});
 	});
 
 	it('decodeJwt returns null for malformed tokens', () => {

@@ -1,9 +1,10 @@
 import { createAnonClient } from '$lib/server/sso';
 import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
-export const POST = async (event: any) => {
+export const POST: RequestHandler = async (event) => {
 	const rawSid = event.cookies.get('sid');
-	const [sessionId, sessionSecret] = rawSid ? rawSid.split('.') : [null, null];
+	const [sessionId = null, sessionSecret = null] = rawSid?.split('.', 2) ?? [];
 	if (sessionId && sessionSecret) {
 		const anon = createAnonClient();
 		await anon.schema('sso').rpc('revoke_server_session', {

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
 	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
@@ -35,7 +35,20 @@
 
 	const heroRotationDelay = 6000;
 	let activeHero = $state(0);
-	let heroTimer;
+	let heroTimer: ReturnType<typeof setInterval> | null = null;
+
+	function getHeroImage(index: number) {
+		return (
+			heroImages[index] ?? {
+				src: '',
+				alt: '',
+				caption: '',
+				details: ''
+			}
+		);
+	}
+
+	const activeHeroImage = $derived(getHeroImage(activeHero));
 
 	function stopHeroTimer() {
 		if (heroTimer) {
@@ -54,7 +67,7 @@
 		}, heroRotationDelay);
 	}
 
-	function selectHero(index) {
+	function selectHero(index: number) {
 		if (index === activeHero) {
 			return;
 		}
@@ -212,10 +225,10 @@
 					aria-label="Moments de la vie DaVinciBot"
 				>
 					{#if heroImages.length}
-						{#key heroImages[activeHero].src}
+						{#key activeHeroImage.src}
 							<img
-								src={heroImages[activeHero].src}
-								alt={heroImages[activeHero].alt}
+								src={activeHeroImage.src}
+								alt={activeHeroImage.alt}
 								class="absolute inset-0 object-cover w-full h-full"
 								width="960"
 								height="600"
@@ -237,10 +250,10 @@
 								class="flex flex-col gap-1 p-4 sm:p-5 rounded-2xl bg-white/10 backdrop-blur-lg border border-white/20 max-w-xs sm:max-w-sm"
 							>
 								<span class="text-sm font-semibold text-white/90">
-									{heroImages[activeHero].caption}
+									{activeHeroImage.caption}
 								</span>
 								<span class="text-xs text-white/70">
-									{heroImages[activeHero].details}
+									{activeHeroImage.details}
 								</span>
 							</div>
 						</div>
@@ -249,7 +262,7 @@
 
 				{#if heroImages.length > 1}
 					<div class="flex flex-wrap items-center justify-center gap-2 mt-6">
-						{#each heroImages as image, idx}
+						{#each heroImages as image, idx (image.src)}
 							<button
 								type="button"
 								class={`h-1.5 w-10 rounded-full transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-dark-light-blue hover:bg-white/50 ${idx === activeHero ? 'bg-dark-light-blue  ' : 'bg-white/30'}`}
@@ -278,14 +291,14 @@
 		</div>
 
 		<div class="grid gap-8 mt-12 md:grid-cols-3">
-			{#each pillars as pillar}
+			{#each pillars as pillar (pillar.title)}
 				<article
 					class="flex flex-col h-full p-6 space-y-4 rounded-3xl bg-dark-blue/60 border border-white/10"
 				>
 					<h3 class="text-2xl font-semibold">{pillar.title}</h3>
 					<p class="text-base leading-7 text-white/80">{pillar.description}</p>
 					<ul class="space-y-2 text-sm text-white/70">
-						{#each pillar.points as point}
+						{#each pillar.points as point (point)}
 							<li class="flex pl-3 gap-2 items-center">
 								<span
 									class="inline-flex items-center justify-center flex-none w-1 h-1 rounded-full bg-dark-light-blue"
@@ -311,7 +324,7 @@
 					ambitieux.
 				</p>
 				<div class="grid gap-6 sm:grid-cols-2">
-					{#each community as bloc}
+					{#each community as bloc (bloc.title)}
 						<div class="p-5 space-y-3 bg-white/5 border border-white/10 rounded-2xl">
 							<h3 class="text-xl font-semibold">{bloc.title}</h3>
 							<p class="text-sm text-white/75 leading-6">{bloc.description}</p>
@@ -383,7 +396,7 @@
 				<div
 					class="absolute left-5 top-[30px] h-[75%] w-0.5 bg-dark-light-blue lg:left-1/2 lg:-translate-x-1/2"
 				></div>
-				{#each journey as step, index}
+				{#each journey as step, index (step.title)}
 					<div class="relative mb-6 lg:grid lg:grid-cols-2 lg:gap-8">
 						<!-- Left side content (odd items on lg) -->
 						<div
@@ -462,6 +475,7 @@
 							<a
 								href="https://docs.davincibot.fr"
 								class="text-dark-light-blue underline font-bold"
+								rel="noopener noreferrer"
 								target="_blank">Découvrez notre documentation en ligne.</a
 							>
 						</p>

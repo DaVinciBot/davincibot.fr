@@ -1,41 +1,29 @@
 import { createUserClient } from '$lib/server/sso';
+import { readJsonRecord, readOptionalNumber, readOptionalString } from '$lib/server/requestPayload';
 import { json } from '@sveltejs/kit';
+import type { RequestHandler } from './$types';
 
-interface TokenPayload {
-	access_token?: string;
-	refresh_token?: string;
-	expires_in?: number;
-	expires_at?: number;
-}
-
-const parseNumber = (value: unknown) => {
-	if (typeof value === 'number') {
-		return Number.isFinite(value) ? value : null;
-	}
-	if (typeof value === 'string' && value.trim()) {
-		const parsed = Number(value);
-		return Number.isFinite(parsed) ? parsed : null;
-	}
-	return null;
-};
-
-export const POST = async (event: any) => {
+export const POST: RequestHandler = async (event) => {
 	try {
-		let payload: TokenPayload = {};
+		let payload: Record<string, unknown>;
 		try {
-			payload = await event.request.json();
+			const parsed = await readJsonRecord(event.request);
+			if (!parsed) {
+				return json({ error: 'Invalid JSON payload' }, { status: 400 });
+			}
+			payload = parsed;
 		} catch {
 			return json({ error: 'Invalid JSON payload' }, { status: 400 });
 		}
 
-		const accessToken = payload.access_token?.trim();
-		const refreshToken = payload.refresh_token?.trim();
+		const accessToken = readOptionalString(payload, 'access_token')?.trim();
+		const refreshToken = readOptionalString(payload, 'refresh_token')?.trim();
 		if (!accessToken || !refreshToken) {
 			return json({ error: 'Missing access or refresh token' }, { status: 400 });
 		}
 
-		const expiresAtParam = parseNumber(payload.expires_at);
-		const expiresInParam = parseNumber(payload.expires_in);
+		const expiresAtParam = readOptionalNumber(payload, 'expires_at');
+		const expiresInParam = readOptionalNumber(payload, 'expires_in');
 		const expiresAtIso = (() => {
 			if (expiresAtParam) {
 				return new Date(expiresAtParam * 1000).toISOString();
@@ -57,8 +45,9 @@ export const POST = async (event: any) => {
 			return json({ error: error.message }, { status: 400 });
 		}
 
-		const sessionId = inserted?.[0]?.session_id ?? inserted?.session_id;
-		const sessionSecret = inserted?.[0]?.session_secret ?? inserted?.session_secret;
+		const createdSession = inserted[0];
+		const sessionId = createdSession?.session_id;
+		const sessionSecret = createdSession?.session_secret;
 		if (!sessionId || !sessionSecret) {
 			return json({ error: 'Session creation failed' }, { status: 500 });
 		}

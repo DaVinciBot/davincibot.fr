@@ -1,9 +1,12 @@
 import { building } from '$app/environment';
 import { createAnonClient, createUserClient, decodeJwt } from '$lib/server/sso';
+import type { AppSession, AppUser } from '$lib/server/sso';
+import type { Handle, RequestEvent } from '@sveltejs/kit';
+import type { ServerSessionRow } from './database.types';
 
 interface CachedSession {
-	session: any;
-	user: any;
+	session: AppSession;
+	user: AppUser;
 	timestamp: number;
 }
 
@@ -11,7 +14,7 @@ const SESSION_CACHE_TTL_MS = 5 * 60 * 1000;
 const SESSION_REFRESH_GRACE_MS = 2 * 60 * 1000;
 const sessionCache = new Map<string, CachedSession>();
 
-const getCachedSession = (cacheKey: string) => {
+const getCachedSession = (cacheKey: string): CachedSession | null => {
 	const cached = sessionCache.get(cacheKey);
 	if (!cached) {
 		return null;
@@ -23,17 +26,44 @@ const getCachedSession = (cacheKey: string) => {
 	return cached;
 };
 
-const clearSessionCookie = (event: any) => {
+const clearSessionCookie = (event: RequestEvent) => {
 	event.cookies.delete('sid', { path: '/' });
 };
 
-export const handle = async ({ event, resolve }: any) => {
+const makeSession = (
+	sessionId: string,
+	accessToken: string,
+	refreshToken: string,
+	expiresAt: number,
+	userId: string
+): AppSession => ({
+	id: sessionId,
+	access_token: accessToken,
+	refresh_token: refreshToken,
+	expires_at: expiresAt,
+	user_id: userId
+});
+
+const makeUser = (accessToken: string, fallbackUserId: string): AppUser => {
+	const jwt = decodeJwt(accessToken);
+
+	return {
+		id: jwt?.sub ?? fallbackUserId,
+		email: jwt?.email ?? null,
+		app_metadata: jwt?.app_metadata ?? {},
+		user_metadata: jwt?.user_metadata ?? {}
+	};
+};
+
+const getSessionRow = (data: ServerSessionRow[] | null): ServerSessionRow | null => data?.[0] ?? null;
+
+export const handle: Handle = async ({ event, resolve }) => {
 	if (building) {
 		event.locals.supabase = null;
 		event.locals.session = null;
 		event.locals.user = null;
 		event.locals.permissions = [];
-		event.locals.safeGetSession = async () => ({ session: null, user: null });
+		event.locals.safeGetSession = () => Promise.resolve({ session: null, user: null });
 
 		return resolve(event, {
 			filterSerializedResponseHeaders(name: string) {
@@ -43,9 +73,9 @@ export const handle = async ({ event, resolve }: any) => {
 	}
 
 	const rawSid = event.cookies.get('sid');
-	const [sessionId, sessionSecret] = rawSid ? rawSid.split('.') : [null, null];
-	let session: any = null;
-	let user: any = null;
+	const [sessionId = null, sessionSecret = null] = rawSid?.split('.', 2) ?? [];
+	let session: AppSession | null = null;
+	let user: AppUser | null = null;
 
 	if (sessionId && sessionSecret) {
 		const cached = getCachedSession(sessionId);
@@ -58,7 +88,7 @@ export const handle = async ({ event, resolve }: any) => {
 				p_session_id: sessionId,
 				p_session_secret: sessionSecret
 			});
-			const sessionRow = Array.isArray(data) ? data[0] : data;
+			const sessionRow = getSessionRow(data);
 			if (error || !sessionRow || sessionRow.revoked_at) {
 				clearSessionCookie(event);
 			} else {
@@ -71,7 +101,7 @@ export const handle = async ({ event, resolve }: any) => {
 					const { data: refreshed, error: refreshError } = await anon.auth.refreshSession({
 						refresh_token: refreshToken
 					});
-					if (refreshError || !refreshed?.session) {
+					if (refreshError || !refreshed.session) {
 						await anon.schema('sso').rpc('revoke_server_session', {
 							p_session_id: sessionId,
 							p_session_secret: sessionSecret
@@ -92,43 +122,25 @@ export const handle = async ({ event, resolve }: any) => {
 							p_refresh_token: refreshToken,
 							p_expires_at: expiresAt
 						});
-						const jwt = decodeJwt(accessToken);
-						session = {
-							id: sessionId,
-							access_token: accessToken,
-							refresh_token: refreshToken,
-							expires_at: refreshedExpiresAt,
-							user_id: jwt?.sub ?? sessionRow.user_id
-						};
-						user = jwt
-							? {
-									id: jwt.sub,
-									email: jwt.email,
-									app_metadata: jwt.app_metadata ?? {},
-									user_metadata: jwt.user_metadata ?? {}
-								}
-							: { id: sessionRow.user_id, email: null, app_metadata: {}, user_metadata: {} };
-						if (sessionId) {
-							sessionCache.set(sessionId, { session, user, timestamp: Date.now() });
-						}
+						user = makeUser(accessToken, sessionRow.user_id);
+						session = makeSession(
+							sessionId,
+							accessToken,
+							refreshToken,
+							refreshedExpiresAt,
+							user.id
+						);
+						sessionCache.set(sessionId, { session, user, timestamp: Date.now() });
 					}
 				} else {
-					const jwt = decodeJwt(accessToken);
-					session = {
-						id: sessionId,
-						access_token: accessToken,
-						refresh_token: refreshToken,
-						expires_at: Math.floor(new Date(expiresAt).getTime() / 1000),
-						user_id: jwt?.sub ?? sessionRow.user_id
-					};
-					user = jwt
-						? {
-								id: jwt.sub,
-								email: jwt.email,
-								app_metadata: jwt.app_metadata ?? {},
-								user_metadata: jwt.user_metadata ?? {}
-							}
-						: { id: sessionRow.user_id, email: null, app_metadata: {}, user_metadata: {} };
+					user = makeUser(accessToken, sessionRow.user_id);
+					session = makeSession(
+						sessionId,
+						accessToken,
+						refreshToken,
+						Math.floor(new Date(expiresAt).getTime() / 1000),
+						user.id
+					);
 					sessionCache.set(sessionId, { session, user, timestamp: Date.now() });
 				}
 			}
@@ -145,9 +157,7 @@ export const handle = async ({ event, resolve }: any) => {
 	event.locals.user = user;
 	event.locals.permissions = [];
 
-	event.locals.safeGetSession = async () => {
-		return { session, user };
-	};
+	event.locals.safeGetSession = () => Promise.resolve({ session, user });
 
 	return resolve(event, {
 		filterSerializedResponseHeaders(name: string) {

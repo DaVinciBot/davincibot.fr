@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import { onMount } from 'svelte';
 
 	const instructionSlides = [
@@ -28,7 +28,13 @@
 			icon: 'waiting'
 		}
 	];
+	const fallbackSlide = instructionSlides[0] ?? {
+		title: '',
+		content: '',
+		icon: 'waiting'
+	};
 	let current = $state(3);
+	const currentSlide = $derived(instructionSlides[current] ?? fallbackSlide);
 
 	function next() {
 		current = (current + 1) % instructionSlides.length;
@@ -61,15 +67,15 @@
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
 
-<div class="flex flex-col items-center justify-center min-h-screen p-8 text-white bg-gray-900">
+<div class="flex min-h-screen flex-col items-center justify-center bg-gray-900 p-8 text-white">
 	<div class="w-full max-w-4xl">
 		<!-- Main content area -->
 		<div class="mb-12 text-center">
 			<!-- Icon -->
 			<div class="mb-8">
-				{#if instructionSlides[current].icon === 'monitor'}
+				{#if currentSlide.icon === 'monitor'}
 					<svg
-						class="w-24 h-24 mx-auto text-blue-400"
+						class="mx-auto h-24 w-24 text-blue-400"
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
@@ -88,9 +94,9 @@
 						<path d="M8 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
 						<path d="M12 16v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
 					</svg>
-				{:else if instructionSlides[current].icon === 'wifi'}
+				{:else if currentSlide.icon === 'wifi'}
 					<svg
-						class="w-24 h-24 mx-auto text-green-400"
+						class="mx-auto h-24 w-24 text-green-400"
 						fill="currentColor"
 						stroke="currentColor"
 						viewBox="0 0 24 26"
@@ -99,9 +105,9 @@
 							d="M10,19c0-1.1,.9-2,2-2s2,.9,2,2-.9,2-2,2-2-.9-2-2Zm8.36-4.24c.59-.59,.59-1.54,0-2.12-3.51-3.51-9.22-3.51-12.73,0-.59,.59-.59,1.54,0,2.12s1.54,.59,2.12,0c2.34-2.34,6.15-2.34,8.49,0,.29,.29,.68,.44,1.06,.44s.77-.15,1.06-.44Zm5.17-4.67c.6-.57,.62-1.52,.05-2.12-.09-.09-.18-.19-.27-.28-3.02-3.02-7.04-4.69-11.31-4.69S3.71,4.66,.69,7.68c-.09,.09-.18,.19-.27,.28-.57,.6-.55,1.55,.05,2.12,.6,.57,1.55,.55,2.12-.05l.22-.23c2.46-2.46,5.72-3.81,9.19-3.81s6.74,1.35,9.2,3.81l.22,.22c.29,.31,.69,.46,1.08,.46,.37,0,.75-.14,1.04-.41Z"
 						/>
 					</svg>
-				{:else if instructionSlides[current].icon === 'screen'}
+				{:else if currentSlide.icon === 'screen'}
 					<svg
-						class="w-24 h-24 mx-auto text-purple-400"
+						class="mx-auto h-24 w-24 text-purple-400"
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
@@ -121,10 +127,10 @@
 						<path d="M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
 						<path d="M9 9l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
 					</svg>
-				{:else if instructionSlides[current].icon === 'cast'}
+				{:else if currentSlide.icon === 'cast'}
 					<svg
 						xmlns="http://www.w3.org/2000/svg"
-						class="w-24 h-24 mx-auto text-orange-400"
+						class="mx-auto h-24 w-24 text-orange-400"
 						version="1.1"
 						width="512"
 						height="512"
@@ -142,7 +148,7 @@
 					>
 				{:else}
 					<svg
-						class="w-24 h-24 mx-auto text-yellow-400"
+						class="mx-auto h-24 w-24 text-yellow-400"
 						fill="none"
 						stroke="currentColor"
 						stroke-width="2"
@@ -156,24 +162,26 @@
 
 			<!-- Title -->
 			<h1 class="mb-6 text-4xl font-bold md:text-6xl">
-				{instructionSlides[current].title}
+				{currentSlide.title}
 			</h1>
 
 			<!-- Content -->
-			<p class="max-w-3xl mx-auto text-xl leading-relaxed text-gray-300 md:text-2xl">
-				{instructionSlides[current].content}
+			<p class="mx-auto max-w-3xl text-xl leading-relaxed text-gray-300 md:text-2xl">
+				{currentSlide.content}
 			</p>
 		</div>
 
 		<!-- Navigation dots -->
-		<div class="flex justify-center mb-8 space-x-3">
-			{#each instructionSlides as slide, index}
+		<div class="mb-8 flex justify-center space-x-3">
+			{#each instructionSlides as slide, index (slide.title)}
 				<button
-					class="w-3 h-3 rounded-full transition-all duration-300 {index === current
+					class="h-3 w-3 rounded-full transition-all duration-300 {index === current
 						? 'bg-blue-400'
 						: 'bg-gray-600'}"
-					onclick={() => (current = index)}
-					aria-label="Go to slide {index + 1}"
+					onclick={() => {
+						current = index;
+					}}
+					aria-label={`Go to slide ${String(index + 1)}: ${slide.title}`}
 					title="Go to slide {index + 1}"
 				></button>
 			{/each}
@@ -183,10 +191,10 @@
 		<div class="flex justify-center space-x-4">
 			<button
 				onclick={prev}
-				class="flex items-center px-6 py-3 transition-colors duration-200 bg-gray-700 rounded-lg hover:bg-gray-600"
+				class="flex items-center rounded-lg bg-gray-700 px-6 py-3 transition-colors duration-200 hover:bg-gray-600"
 			>
 				<svg
-					class="w-5 h-5 mr-2"
+					class="mr-2 h-5 w-5"
 					fill="none"
 					stroke="currentColor"
 					stroke-width="2"
@@ -198,11 +206,11 @@
 			</button>
 			<button
 				onclick={next}
-				class="flex items-center px-6 py-3 transition-colors duration-200 bg-gray-700 rounded-lg hover:bg-gray-600"
+				class="flex items-center rounded-lg bg-gray-700 px-6 py-3 transition-colors duration-200 hover:bg-gray-600"
 			>
 				Suivant
 				<svg
-					class="w-5 h-5 ml-2"
+					class="ml-2 h-5 w-5"
 					fill="none"
 					stroke="currentColor"
 					stroke-width="2"

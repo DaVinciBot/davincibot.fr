@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
 
@@ -13,9 +13,11 @@
 		try {
 			await navigator.clipboard.writeText(email);
 			copied = true;
-			setTimeout(() => (copied = false), 2000);
-		} catch (e) {
-			console.error('Clipboard not available', e);
+			setTimeout(() => {
+				copied = false;
+			}, 2000);
+		} catch {
+			copied = false;
 		}
 	}
 
@@ -35,7 +37,9 @@
 
 	onMount(() => {
 		const mql = window.matchMedia('(max-width: 768px)');
-		const handler = (e) => (isMobile = e.matches);
+		const handler = (event: MediaQueryListEvent) => {
+			isMobile = event.matches;
+		};
 		mql.addEventListener('change', handler);
 		return () => {
 			mql.removeEventListener('change', handler);

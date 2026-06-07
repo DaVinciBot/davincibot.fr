@@ -1,35 +1,46 @@
-<script>
-	import { run } from 'svelte/legacy';
-
+<script lang="ts">
+	import { resolve } from '$app/paths';
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
-	/** @type {{data: any}} */
-	const { data } = $props();
+	import type { PageData } from './$types';
 
-	function getInitialPageSize() {
-		return data?.pageSize ?? 20;
+	const { data }: { data: PageData } = $props();
+
+	type BlogPost = PageData['posts'][number];
+
+	interface BlogApiPayload {
+		posts?: BlogPost[];
+		count?: number | null;
 	}
 
-	function getInitialPosts() {
-		return data?.posts ? [...data.posts] : [];
+	function isBlogApiPayload(value: unknown): value is BlogApiPayload {
+		return typeof value === 'object' && value !== null;
 	}
 
-	function getInitialTotalCount(postCount) {
-		return data?.totalCount ?? postCount;
+	function getInitialPageSize(): number {
+		return data.pageSize;
+	}
+
+	function getInitialPosts(): BlogPost[] {
+		return [...data.posts];
+	}
+
+	function getInitialTotalCount(): number {
+		return data.totalCount;
 	}
 
 	const pageSize = getInitialPageSize();
 	const initialPosts = getInitialPosts();
 	let posts = $state(initialPosts);
-	let totalCount = $state(getInitialTotalCount(initialPosts.length));
-	let filterTotalCount = $state(null);
+	let totalCount = $state(getInitialTotalCount());
+	let filterTotalCount = $state<number | null>(null);
 	let filterSignature = $state('');
 	let loadingMore = $state(false);
 	let loadError = $state('');
 	let searchQuery = $state('');
 	let selectedTag = $state('all');
 
-	function fmt(dateStr) {
+	function fmt(dateStr: string | null | undefined): string {
 		if (!dateStr) {
 			return '';
 		}
@@ -44,40 +55,42 @@
 		}
 	}
 
-	function matchesSearch(post, searchTerm) {
-		if (!post) {
-			return false;
-		}
+	function matchesSearch(post: BlogPost, searchTerm: string): boolean {
 		if (!searchTerm) {
 			return true;
 		}
-		const haystack =
-			`${post.title || ''} ${post.excerpt || ''} ${post.plainBody || post.body || ''}`.toLowerCase();
+		const haystack = `${post.title} ${post.excerpt} ${post.plainBody} ${post.body}`.toLowerCase();
 		return haystack.includes(searchTerm);
 	}
 
-	function matchesTag(post, tag) {
+	function matchesTag(post: BlogPost, tag: string | null): boolean {
 		if (!tag) {
 			return true;
 		}
-		return (post.tags || []).some((t) => t.toLowerCase() === tag.toLowerCase());
+		return post.tags.some((t) => t.toLowerCase() === tag.toLowerCase());
 	}
 
-	function buildFilterSignature(search, tag) {
-		return `${search || ''}::${tag || 'all'}`;
+	function buildFilterSignature(search: string, tag: string | null): string {
+		return `${search}::${tag ?? 'all'}`;
 	}
 
-	const dedupePosts = (existing, incoming) => {
-		const seen = new Set(existing.map((post) => post.slug));
+	const dedupePosts = (existing: BlogPost[], incoming: BlogPost[]): BlogPost[] => {
+		const seen = existing.map((post) => post.slug);
 		const merged = [...existing];
 		incoming.forEach((post) => {
-			if (!seen.has(post.slug)) {
-				seen.add(post.slug);
+			if (!seen.includes(post.slug)) {
+				seen.push(post.slug);
 				merged.push(post);
 			}
 		});
 		return merged;
 	};
+
+	function buildQuery(params: Record<string, string>): string {
+		return Object.entries(params)
+			.map(([key, value]) => `${encodeURIComponent(key)}=${encodeURIComponent(value)}`)
+			.join('&');
+	}
 
 	async function loadMorePosts() {
 		if (loadingMore || !hasMoreForFilter) {
@@ -88,25 +101,25 @@
 		const offset = posts.filter(
 			(post) => matchesSearch(post, trimmedSearch) && matchesTag(post, activeTag)
 		).length;
-		const params = new URLSearchParams({
+		const params: Record<string, string> = {
 			offset: String(offset),
 			limit: String(pageSize)
-		});
+		};
 		if (trimmedSearch) {
-			params.set('search', trimmedSearch);
+			params.search = trimmedSearch;
 		}
 		if (activeTag) {
-			params.set('tag', activeTag);
+			params.tag = activeTag;
 		}
 
 		try {
-			const res = await fetch(`/api/blog?${params.toString()}`);
+			const res = await fetch(`/api/blog?${buildQuery(params)}`);
 			if (!res.ok) {
 				throw new Error('Failed to load more posts');
 			}
-			const payload = await res.json();
-			const incoming = payload?.posts ?? [];
-			const count = payload?.count ?? null;
+			const payload: unknown = await res.json();
+			const incoming = isBlogApiPayload(payload) ? (payload.posts ?? []) : [];
+			const count = isBlogApiPayload(payload) ? (payload.count ?? null) : null;
 			if (count !== null) {
 				filterTotalCount = count;
 				if (!trimmedSearch && !activeTag) {
@@ -118,15 +131,16 @@
 			} else if (count === null) {
 				filterTotalCount = offset;
 			}
-		} catch (error) {
-			console.error('loadMorePosts error', error);
+		} catch {
 			loadError = "Impossible de charger plus d'articles pour le moment.";
 		} finally {
 			loadingMore = false;
 		}
 	}
 
-	const derivedTags = $derived(Array.from(new Set(posts.flatMap((post) => post.tags || []))));
+	const derivedTags = $derived(
+		posts.flatMap((post) => post.tags).filter((tag, index, tags) => tags.indexOf(tag) === index)
+	);
 	const tagOptions = $derived(['all', ...derivedTags]);
 	const trimmedSearch = $derived(searchQuery.trim().toLowerCase());
 	const activeTag = $derived(selectedTag === 'all' ? null : selectedTag);
@@ -143,7 +157,7 @@
 	);
 	const disableLoadMore = $derived(!hasMoreForFilter || loadingMore);
 	const currentSignature = $derived(buildFilterSignature(trimmedSearch, activeTag));
-	run(() => {
+	$effect(() => {
 		if (currentSignature !== filterSignature) {
 			filterSignature = currentSignature;
 			filterTotalCount = null;
@@ -198,10 +212,10 @@
 							bind:value={searchQuery}
 							type="search"
 							placeholder="Rechercher un article..."
-							class="w-full px-4 py-3 pl-12 text-sm text-white placeholder-gray-500 transition border border-gray-700 bg-gray-900/60 rounded-2xl focus:outline-none focus:border-dark-light-blue focus:ring-1 focus:ring-dark-light-blue"
+							class="focus:border-dark-light-blue focus:ring-dark-light-blue w-full rounded-2xl border border-gray-700 bg-gray-900/60 px-4 py-3 pl-12 text-sm text-white placeholder-gray-500 transition focus:ring-1 focus:outline-none"
 						/>
 						<svg
-							class="absolute w-5 h-5 text-gray-500 left-4 top-3.5"
+							class="absolute top-3.5 left-4 h-5 w-5 text-gray-500"
 							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
@@ -217,72 +231,73 @@
 				</div>
 			</div>
 			{#if noResults}
-				<div class="p-6 mt-10 text-center text-gray-400 border border-gray-700 rounded-2xl">
+				<div class="mt-10 rounded-2xl border border-gray-700 p-6 text-center text-gray-400">
 					Aucun article ne correspond à vos critères de recherche.
 				</div>
 			{/if}
 			{#if filteredLatest.length}
 				{#if filteredLatest[0]}
+					{@const featured = filteredLatest[0]}
 					<a
-						href={`/blog/${filteredLatest[0].slug}`}
-						class="grid items-stretch grid-cols-1 gap-6 overflow-hidden transition-colors border border-gray-700 group md:grid-cols-12 rounded-2xl hover:border-dark-light-blue"
+						href={resolve(`/blog/${featured.slug}` as '/')}
+						class="group hover:border-dark-light-blue grid grid-cols-1 items-stretch gap-6 overflow-hidden rounded-2xl border border-gray-700 transition-colors md:grid-cols-12"
 					>
-						<div class="relative md:col-span-7 bg-gray-800/40">
+						<div class="relative bg-gray-800/40 md:col-span-7">
 							<img
-								alt={filteredLatest[0].title}
-								src={filteredLatest[0].cover}
-								class="object-cover w-full transition-opacity h-72 md:h-full opacity-90 group-hover:opacity-100"
+								alt={featured.title}
+								src={featured.cover}
+								class="h-72 w-full object-cover opacity-90 transition-opacity group-hover:opacity-100 md:h-full"
 							/>
 						</div>
-						<div class="flex flex-col self-center gap-3 p-6 md:col-span-5">
+						<div class="flex flex-col gap-3 self-center p-6 md:col-span-5">
 							<div class="text-sm text-gray-400">
-								{fmt(filteredLatest[0].date)}
+								{fmt(featured.date)}
 							</div>
-							<h3 class="text-2xl font-bold leading-tight md:text-3xl group-hover:text-white">
-								{filteredLatest[0].title}
+							<h3 class="text-2xl leading-tight font-bold group-hover:text-white md:text-3xl">
+								{featured.title}
 							</h3>
-							{#if filteredLatest[0].tags?.length}
-								<ul class="flex flex-wrap gap-2 mt-1">
-									{#each filteredLatest[0].tags.slice(0, 6) as tag}
+							{#if featured.tags.length}
+								<ul class="mt-1 flex flex-wrap gap-2">
+									{#each featured.tags.slice(0, 6) as tag (tag)}
 										<li
-											class="px-2 py-1 text-xs border rounded-md border-dark-light-blue/40 text-dark-light-blue bg-dark-light-blue/10"
+											class="border-dark-light-blue/40 text-dark-light-blue bg-dark-light-blue/10 rounded-md border px-2 py-1 text-xs"
 										>
 											#{tag}
 										</li>
 									{/each}
 								</ul>
 							{/if}
-							<p class="text-dark-blue-gray line-clamp-4">{filteredLatest[0].excerpt}</p>
-							<div class="mt-2 text-dark-light-blue">Lire l'article →</div>
+							<p class="text-dark-blue-gray line-clamp-4">{featured.excerpt}</p>
+							<div class="text-dark-light-blue mt-2">Lire l'article →</div>
 						</div>
 					</a>
 				{/if}
 				{#if filteredLatest.length > 1}
-					<div class="grid grid-cols-1 gap-6 mt-10 sm:grid-cols-2 lg:grid-cols-3">
-						{#each filteredLatest.slice(1) as post}
+					<div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+						{#each filteredLatest.slice(1) as post (post.slug)}
 							<a
-								href={`/blog/${post.slug}`}
-								class="flex flex-col overflow-hidden transition-colors border border-gray-700 rounded-2xl hover:border-dark-light-blue group"
+								href={resolve(`/blog/${post.slug}` as '/')}
+								class="hover:border-dark-light-blue group flex flex-col overflow-hidden rounded-2xl border border-gray-700 transition-colors"
 							>
-								<img src={post.coverSmall} alt={post.title} class="object-cover w-full h-48" />
+								<img src={post.coverSmall} alt={post.title} class="h-48 w-full object-cover" />
 								<div class="flex flex-col gap-2 p-4">
 									<div class="text-xs text-gray-400">{fmt(post.date)}</div>
-									<h4 class="text-lg font-semibold leading-snug group-hover:text-white">
+									<h4 class="text-lg leading-snug font-semibold group-hover:text-white">
 										{post.title}
 									</h4>
-									{#if post.tags?.length}
-										<ul class="flex flex-wrap gap-1.5 text-[11px] text-dark-light-blue">
-											{#each post.tags.slice(0, 5) as tag}
+									{#if post.tags.length}
+										<ul class="text-dark-light-blue flex flex-wrap gap-1.5 text-[11px]">
+											{#each post.tags.slice(0, 5) as tag (tag)}
 												<li
-													class="px-2 py-0.5 border border-dark-light-blue/40 rounded-full bg-dark-light-blue/10"
+													class="border-dark-light-blue/40 bg-dark-light-blue/10 rounded-full border px-2 py-0.5"
 												>
 													#{tag}
 												</li>
 											{/each}
 										</ul>
 									{/if}
-									<p class="text-sm text-dark-blue-gray line-clamp-3">{post.excerpt}</p>
-									<span class="mt-1 text-sm font-semibold text-dark-light-blue">Lire →</span>
+									<p class="text-dark-blue-gray line-clamp-3 text-sm">{post.excerpt}</p>
+									<span class="text-dark-light-blue mt-1 text-sm font-semibold">Lire →</span>
 								</div>
 							</a>
 						{/each}
@@ -295,11 +310,11 @@
 						<h2 class="text-2xl font-semibold md:text-3xl">Articles par tag</h2>
 						{#if derivedTags.length}
 							<div class="flex flex-wrap gap-2">
-								{#each tagOptions as tag}
+								{#each tagOptions as tag (tag)}
 									<button
 										type="button"
 										onclick={() => (selectedTag = tag)}
-										class={`px-4 py-1.5 text-sm rounded-full border transition ${
+										class={`rounded-full border px-4 py-1.5 text-sm transition ${
 											tag === selectedTag
 												? 'border-dark-light-blue bg-dark-light-blue/10 text-dark-light-blue'
 												: 'border-gray-700 text-gray-400 hover:text-white'
@@ -318,35 +333,35 @@
 				{#if filteredArchive.length}
 					<div class="relative mt-8">
 						<div
-							class="flex gap-5 pb-4 overflow-x-auto scroll-rail snap-x snap-mandatory"
+							class="scroll-rail flex snap-x snap-mandatory gap-5 overflow-x-auto pb-4"
 							aria-label="Articles filtrés"
 						>
-							{#each filteredArchive as post}
+							{#each filteredArchive as post (post.slug)}
 								<a
-									href={`/blog/${post.slug}`}
-									class="flex flex-col flex-shrink-0 w-72 min-w-[18rem] rounded-2xl border border-gray-800 bg-gray-900/40 hover:border-dark-light-blue transition snap-start"
+									href={resolve(`/blog/${post.slug}` as '/')}
+									class="hover:border-dark-light-blue flex w-72 min-w-[18rem] shrink-0 snap-start flex-col rounded-2xl border border-gray-800 bg-gray-900/40 transition"
 								>
 									<img
 										src={post.coverSmall}
 										alt={post.title}
-										class="object-cover w-full h-44 rounded-t-2xl"
+										class="h-44 w-full rounded-t-2xl object-cover"
 									/>
 									<div class="flex flex-col gap-3 p-4">
 										<div class="text-xs text-gray-500">{fmt(post.date)}</div>
-										<h4 class="text-lg font-semibold leading-snug line-clamp-2">{post.title}</h4>
-										<p class="text-sm text-dark-blue-gray line-clamp-3">{post.excerpt}</p>
-										{#if post.tags?.length}
-											<ul class="flex flex-wrap gap-1.5 text-[11px] text-dark-light-blue">
-												{#each post.tags.slice(0, 4) as tag}
+										<h4 class="line-clamp-2 text-lg leading-snug font-semibold">{post.title}</h4>
+										<p class="text-dark-blue-gray line-clamp-3 text-sm">{post.excerpt}</p>
+										{#if post.tags.length}
+											<ul class="text-dark-light-blue flex flex-wrap gap-1.5 text-[11px]">
+												{#each post.tags.slice(0, 4) as tag (tag)}
 													<li
-														class="px-2 py-0.5 border border-dark-light-blue/40 rounded-full bg-dark-light-blue/10"
+														class="border-dark-light-blue/40 bg-dark-light-blue/10 rounded-full border px-2 py-0.5"
 													>
 														#{tag}
 													</li>
 												{/each}
 											</ul>
 										{/if}
-										<span class="text-sm font-semibold text-dark-light-blue">Lire →</span>
+										<span class="text-dark-light-blue text-sm font-semibold">Lire →</span>
 									</div>
 								</a>
 							{/each}
@@ -363,7 +378,7 @@
 						type="button"
 						onclick={loadMorePosts}
 						disabled={disableLoadMore}
-						class="px-6 py-2 mt-4 text-sm font-semibold border rounded-full border-dark-light-blue text-dark-light-blue hover:text-white disabled:opacity-40 disabled:cursor-not-allowed"
+						class="border-dark-light-blue text-dark-light-blue mt-4 rounded-full border px-6 py-2 text-sm font-semibold hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
 					>
 						{loadingMore ? 'Chargement…' : 'Charger plus d’articles'}
 					</button>

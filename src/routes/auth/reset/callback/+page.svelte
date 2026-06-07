@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import AuthForm from '$lib/components/utils/AuthForm.svelte';
 	import { onMount } from 'svelte';
 
@@ -7,8 +7,8 @@
 
 	onMount(() => {
 		const params = new URLSearchParams(window.location.hash.slice(1));
-		accessToken = params.get('access_token') || '';
-		refreshToken = params.get('refresh_token') || '';
+		accessToken = params.get('access_token') ?? '';
+		refreshToken = params.get('refresh_token') ?? '';
 	});
 </script>
 

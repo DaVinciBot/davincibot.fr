@@ -1,4 +1,4 @@
-import type { SupabaseClient } from '@supabase/supabase-js';
+import type { RegistrationRow } from '../../database.types';
 
 type TrainingCategory = 'code' | 'electronics' | 'robotic' | 'other' | 'software';
 
@@ -86,9 +86,28 @@ export interface CreateTrainingSlotPayload {
 	status: SlotStatus;
 }
 
-export type UpdateTrainingPayload = Partial<CreateTrainingPayload>;
+export interface UpdateTrainingPayload {
+	name?: string;
+	description?: string | null;
+	prerequisites?: string | null;
+	category?: TrainingCategory;
+}
 
-export type UpdateTrainingSlotPayload = Partial<CreateTrainingSlotPayload>;
+export interface UpdateTrainingSlotPayload {
+	training_id?: number;
+	custom_name?: string | null;
+	custom_description?: string | null;
+	custom_prerequisites?: string | null;
+	trainer_id?: string;
+	start?: string;
+	duration_hours?: number;
+	on_site_seats?: number | null;
+	remote_seats?: number | null;
+	location?: string | null;
+	video_conference_link?: string | null;
+	excusable?: boolean;
+	status?: SlotStatus;
+}
 
 export interface UpdateRegistrationPayload {
 	status?: RegistrationStatus;
@@ -97,7 +116,83 @@ export interface UpdateRegistrationPayload {
 	feedback?: string | null;
 }
 
-export type TrainingSupabaseClient = SupabaseClient;
+type QueryError = Error;
+
+interface QueryResult<T> {
+	data: T;
+	error: QueryError | null;
+}
+
+interface FilterableQuery<T> extends PromiseLike<QueryResult<T>> {
+	eq(column: string, value: string | number | boolean | null): FilterableQuery<T>;
+	in(column: string, values: readonly string[]): FilterableQuery<T>;
+	order(column: string, options: { ascending: boolean }): FilterableQuery<T>;
+	maybeSingle(): PromiseLike<QueryResult<RegistrationRow | null>>;
+}
+
+interface MutationQuery<T> extends PromiseLike<QueryResult<T>> {
+	eq(column: string, value: string | number | boolean | null): MutationQuery<T>;
+	select(): SingleQuery<T>;
+}
+
+interface InsertQuery<T> {
+	select(): SingleQuery<T>;
+}
+
+interface SingleQuery<T> {
+	single(): PromiseLike<QueryResult<T>>;
+}
+
+interface RegistrationTable {
+	select(columns: string): FilterableQuery<RegistrationRow | null>;
+	update(payload: UpdateRegistrationPayload | Pick<RegistrationRow, 'to_excuse'>): MutationQuery<unknown>;
+}
+
+interface TrainerRegistrationView {
+	select(columns: string): FilterableQuery<RegistrationListItem[]>;
+}
+
+interface TrainingTable {
+	insert(payload: CreateTrainingPayload): InsertQuery<unknown>;
+	update(payload: UpdateTrainingPayload): MutationQuery<unknown>;
+}
+
+interface TrainingSlotTable {
+	insert(payload: CreateTrainingSlotPayload): InsertQuery<unknown>;
+	update(payload: UpdateTrainingSlotPayload): MutationQuery<unknown>;
+}
+
+export interface TrainingSupabaseClient {
+	rpc(functionName: 'training_list'): PromiseLike<QueryResult<TrainingListItem[]>>;
+	rpc(
+		functionName: 'training_slot_list',
+		args: { p_from: string; p_to: string | null }
+	): PromiseLike<QueryResult<TrainingSlotListItem[]>>;
+	rpc(
+		functionName: 'training_slot_detail',
+		args: { p_slot_id: number }
+	): PromiseLike<QueryResult<TrainingSlotListItem[]>>;
+	rpc(
+		functionName: 'registration_list',
+		args: { p_slot_id: number }
+	): FilterableQuery<RegistrationListItem[]>;
+	rpc(
+		functionName: 'register_to_slot',
+		args: { p_slot_id: number; p_remote: boolean; p_to_excuse: boolean }
+	): PromiseLike<QueryResult<RegistrationStatus>>;
+	rpc(
+		functionName: 'cancel_my_registration',
+		args: { p_slot_id: number }
+	): PromiseLike<QueryResult<unknown>>;
+	rpc(
+		functionName: 'trainer_update_presence',
+		args: { p_slot_id: number; p_member_id: string; p_present: boolean | null }
+	): PromiseLike<QueryResult<unknown>>;
+	from(table: 'registration'): RegistrationTable;
+	from(table: 'trainer_registration_view'): TrainerRegistrationView;
+	from(table: 'training'): TrainingTable;
+	from(table: 'training_slot'): TrainingSlotTable;
+}
 
 export async function getTrainingList(
 	supabase: TrainingSupabaseClient
@@ -137,7 +232,7 @@ export async function getTrainingSlotDetail(
 	if (error) {
 		throw error;
 	}
-	return data?.[0] ?? null;
+	return data[0] ?? null;
 }
 
 export async function getSlotRegistrations(
@@ -184,14 +279,14 @@ export async function getMyRegistrationForSlot(
 
 	const { data, error } = await supabase
 		.from('registration')
-		.select('remote,status,to_excuse')
+		.select('*')
 		.eq('slot_id', slotId)
 		.eq('member_id', userId)
 		.maybeSingle();
 	if (error) {
 		throw error;
 	}
-	if (!data) {
+	if (data === null) {
 		return null;
 	}
 	if (data.status !== 'registered' && data.status !== 'waitlisted') {

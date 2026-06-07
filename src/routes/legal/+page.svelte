@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import { resolve } from '$app/paths';
 	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
 	import { canonicalFor } from '$lib/config/site.js';
 
@@ -80,19 +81,19 @@
 		<section id="documents" aria-labelledby="heading-documents">
 			<h2 id="heading-documents">Documents principaux</h2>
 			<div class="grid gap-6 sm:grid-cols-2">
-				{#each legalPages as page}
+				{#each legalPages as page (page.href)}
 					<a
-						href={page.href}
-						class="block h-full p-6 transition border rounded-2xl border-white/10 bg-white/5 hover:border-white/40 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+						href={resolve(page.href as '/')}
+						class="block h-full rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/40 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white"
 					>
-						<p class="text-xs font-semibold uppercase tracking-[0.2em] text-dark-light-blue/80">
+						<p class="text-dark-light-blue/80 text-xs font-semibold tracking-[0.2em] uppercase">
 							{page.tag}
 						</p>
 						<h3 class="mt-2 text-2xl font-bold">{page.title}</h3>
-						<p class="mt-3 text-sm text-dark-blue-gray">{page.description}</p>
+						<p class="text-dark-blue-gray mt-3 text-sm">{page.description}</p>
 						<p class="mt-4 text-xs text-gray-400">Mis à jour le {page.updatedLabel}</p>
 						<span
-							class="inline-flex items-center gap-2 mt-4 text-sm font-semibold text-dark-light-blue"
+							class="text-dark-light-blue mt-4 inline-flex items-center gap-2 text-sm font-semibold"
 						>
 							Lire le document
 							<svg

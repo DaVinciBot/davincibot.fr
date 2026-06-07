@@ -1,33 +1,34 @@
-<script>
-	import { run } from 'svelte/legacy';
-
+<script lang="ts">
 	import { userdata } from '$lib/store';
-	import { onMount } from 'svelte';
+	import type { Snippet } from 'svelte';
 	import '../app.css';
 
-	/** @type {{data: any, children?: import('svelte').Snippet}} */
-	const { data, children } = $props();
+	interface LayoutUser {
+		id: string;
+		email?: string | null;
+	}
+
+	interface LayoutProps {
+		data: {
+			user?: LayoutUser | null;
+		};
+		children?: Snippet;
+	}
+
+	const { data, children }: LayoutProps = $props();
 
 	const userFallback = $derived(
 		data.user
 			? {
 					id: data.user.id,
-					email: data.user.email || '',
+					email: data.user.email ?? '',
 					name: data.user.email ? data.user.email.split('@')[0] : ''
 				}
 			: null
 	);
 	const authUser = $derived(userFallback);
 
-	onMount(() => {
-		if (authUser) {
-			userdata.set(authUser);
-		} else {
-			userdata.set(null);
-		}
-	});
-
-	run(() => {
+	$effect(() => {
 		if (authUser) {
 			userdata.set(authUser);
 		} else {

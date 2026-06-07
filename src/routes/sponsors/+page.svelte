@@ -1,4 +1,5 @@
-<script>
+<script lang="ts">
+	import { resolve } from '$app/paths';
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
 
@@ -89,7 +90,14 @@
 	const BG_ROWS = 8;
 	const bgTiles = Array.from(
 		{ length: BG_COLS * BG_ROWS },
-		(_, i) => sponsors[i % sponsors.length]
+		(_, i) => {
+			const sponsor = sponsors[i % sponsors.length];
+			return {
+				id: `${sponsor?.name ?? 'sponsor'}-${String(i)}`,
+				logo: sponsor?.logo ?? '',
+				name: sponsor?.name ?? ''
+			};
+		}
 	);
 </script>
 
@@ -135,7 +143,7 @@
 		>
 			<div
 				class="grid gap-10 place-items-center"
-				style={`grid-template-columns: repeat(${BG_COLS}, minmax(120px, 1fr));`}
+				style={`grid-template-columns: repeat(${String(BG_COLS)}, minmax(120px, 1fr));`}
 			>
 				{#each bgTiles as t (t.id)}
 					<img
@@ -157,7 +165,7 @@
 		</p>
 		<div class="flex flex-col justify-center gap-3 mt-8 sm:flex-row">
 			<a
-				href={brochureUrl}
+				href={resolve(brochureUrl as '/')}
 				download
 				class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white transition border rounded-md bg-white/10 hover:bg-white/20 border-white/15 backdrop-blur"
 				aria-label="Télécharger notre brochure de partenariat"
@@ -203,7 +211,7 @@
 						<a
 							href={s.link}
 							target="_blank"
-							rel="noopener noreferrer"
+							rel="external noopener noreferrer"
 							class="inline-flex mt-4 text-sm font-semibold text-white underline hover:text-white/80 underline-offset-4"
 							aria-label={`Visiter le site de ${s.name}`}
 						>
@@ -229,7 +237,7 @@
 		</p>
 		<div class="flex flex-col justify-center gap-3 mt-6 sm:flex-row">
 			<a
-				href={brochureUrl}
+				href={resolve(brochureUrl as '/')}
 				download
 				class="inline-flex items-center justify-center px-5 py-3 text-sm font-semibold text-white transition border rounded-md bg-white/10 hover:bg-white/20 border-white/15 backdrop-blur"
 				aria-label="Télécharger notre brochure de partenariat"

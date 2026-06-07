@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Carousel from '$lib/components/others/Carousel.svelte';
 	import Card from '$lib/components/share/Card.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
@@ -7,13 +7,12 @@
 	import CtaButton from '$lib/components/utils/CTAButton.svelte';
 
 	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
+	import type { PageData } from './$types';
 
-	// SSR data from +page.server.js
-	/** @type {{data: any}} */
-	const { data } = $props();
+	const { data }: { data: PageData } = $props();
 
 	function getInitialPosts() {
-		return data?.posts ?? [];
+		return data.posts;
 	}
 
 	const posts = getInitialPosts();

@@ -10,8 +10,12 @@ const config = {
 		adapter: adapter(),
 		prerender: {
 			handleHttpError: ({ status, path, message }) => {
-				if (path.startsWith('/auth/')) return;
-				if (status === 404 && (path === '/formation' || path.startsWith('/formation/'))) return;
+				if (path.startsWith('/auth/')) {
+					return;
+				}
+				if (status === 404 && (path === '/formation' || path.startsWith('/formation/'))) {
+					return;
+				}
 
 				throw new Error(message);
 			}

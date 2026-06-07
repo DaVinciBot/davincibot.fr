@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import Footer from '$lib/components/share/Footer.svelte';
 	import Topbar from '$lib/components/share/Topbar.svelte';
 	import CTAButton from '$lib/components/utils/CTAButton.svelte';
@@ -173,17 +173,17 @@
 
 <main class="flex flex-col">
 	<section
-		class="relative px-4 pt-24 pb-16 overflow-hidden sm:px-8 md:px-16 lg:px-32 md:pt-28 lg:pt-36"
+		class="relative overflow-hidden px-4 pt-24 pb-16 sm:px-8 md:px-16 md:pt-28 lg:px-32 lg:pt-36"
 	>
 		<div
 			class="absolute inset-0 -z-10 opacity-70"
 			style="background: radial-gradient(circle at 10% 20%, rgba(2, 50, 255, 0.25), transparent 55%), radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.15), transparent 45%);"
 			aria-hidden="true"
 		></div>
-		<div class="max-w-6xl mx-auto grid items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
+		<div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
 			<div class="space-y-6">
-				<p class="text-sm font-semibold tracking-[0.3em] uppercase text-white/70">Projet CoHoMa</p>
-				<h1 class="text-4xl font-extrabold leading-tight sm:text-5xl lg:text-6xl">
+				<p class="text-sm font-semibold tracking-[0.3em] text-white/70 uppercase">Projet CoHoMa</p>
+				<h1 class="text-4xl leading-tight font-extrabold sm:text-5xl lg:text-6xl">
 					Une coopération homme-machine taillée pour le terrain
 				</h1>
 				<p class="text-base leading-relaxed text-white/80 sm:text-lg">
@@ -200,13 +200,13 @@
 			</div>
 			<div class="relative flex justify-center">
 				<div
-					class="absolute w-full h-full max-w-sm transition-transform duration-700 bg-dark-light-blue/20 blur-3xl rounded-3xl"
+					class="bg-dark-light-blue/20 absolute h-full w-full max-w-sm rounded-3xl blur-3xl transition-transform duration-700"
 					aria-hidden="true"
 				></div>
 				<img
 					src="/assets/project/cohoma/cohoma.webp"
 					alt="Rendu 3D du robot CoHoMa développé par DaVinciBot"
-					class="relative w-full max-w-md border shadow-2xl rounded-3xl border-white/10 shadow-dark-light-blue/40"
+					class="shadow-dark-light-blue/40 relative w-full max-w-md rounded-3xl border border-white/10 shadow-2xl"
 					loading="lazy"
 				/>
 			</div>
@@ -214,10 +214,10 @@
 	</section>
 
 	<section class="px-4 py-12 sm:px-8 md:px-16 lg:px-32">
-		<div class="grid max-w-6xl gap-6 mx-auto sm:grid-cols-2 xl:grid-cols-4">
-			{#each keyFigures as figure}
-				<article class="p-6 border rounded-2xl border-white/10 bg-white/5 backdrop-blur">
-					<h2 class="text-3xl font-extrabold text-dark-light-blue sm:text-4xl">{figure.value}</h2>
+		<div class="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 xl:grid-cols-4">
+			{#each keyFigures as figure (figure.label)}
+				<article class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
+					<h2 class="text-dark-light-blue text-3xl font-extrabold sm:text-4xl">{figure.value}</h2>
 					<p class="mt-2 text-lg font-semibold text-white/80">{figure.label}</p>
 					<p class="mt-4 text-sm leading-relaxed text-white/70">{figure.description}</p>
 				</article>
@@ -226,7 +226,7 @@
 	</section>
 
 	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="max-w-6xl mx-auto grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+		<div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.05fr_0.95fr]">
 			<div class="space-y-6">
 				<h2 class="text-3xl font-extrabold sm:text-4xl">Mission et contraintes</h2>
 				<p class="text-base leading-relaxed text-white/75 sm:text-lg">
@@ -236,15 +236,15 @@
 					assistée et une interface opérateur qui guide sans saturer l'attention.
 				</p>
 				<ul class="space-y-4">
-					{#each missionPillars as item}
-						<li class="p-4 border rounded-xl border-white/10 bg-white/5">
+					{#each missionPillars as item (item.title)}
+						<li class="rounded-xl border border-white/10 bg-white/5 p-4">
 							<h3 class="text-xl font-semibold text-white">{item.title}</h3>
 							<p class="mt-2 text-sm text-white/70">{item.description}</p>
 						</li>
 					{/each}
 				</ul>
 			</div>
-			<div class="relative p-8 border rounded-3xl border-white/10 bg-white/5 backdrop-blur">
+			<div class="relative rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
 				<h3 class="text-2xl font-bold">Architecture système</h3>
 				<p class="mt-3 text-sm leading-relaxed text-white/75">
 					Le robot s'articule autour d'un châssis motorisé quatre roues motrices, d'un mât capteurs
@@ -253,8 +253,8 @@
 					de communications). Une architecture ROS&nbsp;2 distribue la prise de décision sur trois
 					ordinateurs embarqués reliés par un réseau temps réel.
 				</p>
-				<div class="grid gap-4 p-5 mt-6 text-sm border rounded-2xl border-white/10 bg-dark-blue/40">
-					<p class="font-semibold uppercase tracking-[0.25em] text-white/60">Composants clés</p>
+				<div class="bg-dark-blue/40 mt-6 grid gap-4 rounded-2xl border border-white/10 p-5 text-sm">
+					<p class="font-semibold tracking-[0.25em] text-white/60 uppercase">Composants clés</p>
 					<ul class="space-y-2 text-white/75">
 						<li>• Compute Jetson Orin + MCU redondante pour la sécurité</li>
 						<li>• Double réseau CAN pour la motorisation et les actionneurs secondaires</li>
@@ -265,9 +265,9 @@
 		</div>
 	</section>
 
-	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32 bg-white/5">
-		<div class="max-w-6xl mx-auto">
-			<div class="flex flex-col gap-6 mb-12 lg:flex-row lg:items-end lg:justify-between">
+	<section class="bg-white/5 px-4 py-16 sm:px-8 md:px-16 lg:px-32">
+		<div class="mx-auto max-w-6xl">
+			<div class="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
 				<div>
 					<h2 class="text-3xl font-extrabold sm:text-4xl">Capacités principales</h2>
 					<p class="mt-3 text-base text-white/70 sm:text-lg">
@@ -277,9 +277,9 @@
 				</div>
 			</div>
 			<div class="grid gap-6 md:grid-cols-3">
-				{#each capabilities as capability}
+				{#each capabilities as capability (capability.title)}
 					<article
-						class="flex flex-col gap-3 p-6 border rounded-2xl border-white/10 bg-dark-blue/60"
+						class="bg-dark-blue/60 flex flex-col gap-3 rounded-2xl border border-white/10 p-6"
 					>
 						<h3 class="text-xl font-semibold text-white">{capability.title}</h3>
 						<p class="text-sm leading-relaxed text-white/70">{capability.description}</p>
@@ -290,19 +290,19 @@
 	</section>
 
 	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="max-w-6xl mx-auto">
+		<div class="mx-auto max-w-6xl">
 			<h2 class="text-3xl font-extrabold sm:text-4xl">Organisation de l'équipe</h2>
 			<p class="mt-3 text-base text-white/70 sm:text-lg">
 				L'équipe CoHoMa mobilise les compétences des trois écoles du Pôle Léonard de Vinci. Nos
 				méthodes agiles se combinent à une approche V&V (Verification &amp; Validation) inspirée de
 				l'industrie défense.
 			</p>
-			<div class="grid gap-6 mt-10 lg:grid-cols-3">
-				{#each teamStreams as stream}
-					<article class="p-6 border rounded-2xl border-white/10 bg-white/5">
+			<div class="mt-10 grid gap-6 lg:grid-cols-3">
+				{#each teamStreams as stream (stream.title)}
+					<article class="rounded-2xl border border-white/10 bg-white/5 p-6">
 						<h3 class="text-xl font-semibold text-white">{stream.title}</h3>
 						<ul class="mt-4 space-y-3 text-sm text-white/70">
-							{#each stream.points as point}
+							{#each stream.points as point (point)}
 								<li>• {point}</li>
 							{/each}
 						</ul>
@@ -312,18 +312,18 @@
 		</div>
 	</section>
 
-	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32 bg-white/5">
-		<div class="max-w-5xl mx-auto">
+	<section class="bg-white/5 px-4 py-16 sm:px-8 md:px-16 lg:px-32">
+		<div class="mx-auto max-w-5xl">
 			<h2 class="text-3xl font-extrabold sm:text-4xl">Feuille de route 2025-2027</h2>
 			<ol class="mt-10 space-y-8">
-				{#each milestones as milestone, index}
-					<li class="relative p-6 border rounded-2xl border-white/10 bg-dark-blue/60">
+				{#each milestones as milestone, index (milestone.title)}
+					<li class="bg-dark-blue/60 relative rounded-2xl border border-white/10 p-6">
 						<div
-							class="absolute items-center justify-center hidden w-12 h-12 text-xl font-bold border rounded-full -left-8 top-6 border-white/20 bg-dark-light-blue text-dark-blue lg:flex"
+							class="bg-dark-light-blue text-dark-blue absolute top-6 -left-8 hidden h-12 w-12 items-center justify-center rounded-full border border-white/20 text-xl font-bold lg:flex"
 						>
 							{index + 1}
 						</div>
-						<p class="text-sm font-semibold uppercase tracking-[0.3em] text-white/50">
+						<p class="text-sm font-semibold tracking-[0.3em] text-white/50 uppercase">
 							{milestone.period}
 						</p>
 						<h3 class="mt-2 text-2xl font-semibold text-white">{milestone.title}</h3>
@@ -336,7 +336,7 @@
 
 	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
 		<div
-			class="max-w-5xl p-10 mx-auto text-center border rounded-3xl border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 backdrop-blur"
+			class="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-10 text-center backdrop-blur"
 		>
 			<h2 class="text-3xl font-extrabold sm:text-4xl">Collaborer autour de CoHoMa</h2>
 			<p class="mt-4 text-base leading-relaxed text-white/75 sm:text-lg">
@@ -344,8 +344,8 @@
 				accélérer le développement. Vous souhaitez contribuer à la prochaine génération de systèmes
 				robotisés ? Parlons-en.
 			</p>
-			<div class="grid gap-4 mt-8 sm:grid-cols-3">
-				{#each supportLinks as link}
+			<div class="mt-8 grid gap-4 sm:grid-cols-3">
+				{#each supportLinks as link (link.href)}
 					<CTAButton href={link.href} variant={link.href !== '/contact' ? 'secondary' : 'primary'}>
 						{link.label}
 					</CTAButton>

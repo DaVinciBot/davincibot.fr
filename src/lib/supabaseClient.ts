@@ -4,11 +4,15 @@ import { createBrowserClient } from '@supabase/ssr';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '../database.types';
 
-const publicSupabaseUrl = env.PUBLIC_SUPABASE_URL;
-const publicSupabaseKey = env.PUBLIC_SUPABASE_PUBLISHABLE_KEY;
+function getPublicEnv(key: `PUBLIC_${string}`): string | undefined {
+	return env[key];
+}
 
-export const supabaseUrl = publicSupabaseUrl.replace(/\/$/, '');
-export const supabaseKey = publicSupabaseKey;
+const publicSupabaseUrl = getPublicEnv('PUBLIC_SUPABASE_URL');
+const publicSupabaseKey = getPublicEnv('PUBLIC_SUPABASE_PUBLISHABLE_KEY');
+
+export const supabaseUrl = publicSupabaseUrl ? publicSupabaseUrl.replace(/\/$/, '') : '';
+export const supabaseKey = publicSupabaseKey ?? '';
 
 type BrowserSupabaseClient = SupabaseClient<Database>;
 

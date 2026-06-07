@@ -1,13 +1,14 @@
 {
 	"extends": "./.svelte-kit/tsconfig.json",
 	"compilerOptions": {
-		"allowJs": true,
-		"strict": true,
-		"noImplicitAny": true,
-		"noUncheckedIndexedAccess": true,
-		"noImplicitOverride": true,
+		"esModuleInterop": true,
+		"forceConsistentCasingInFileNames": true,
 		"noFallthroughCasesInSwitch": true,
-		"skipLibCheck": true
+		"noImplicitAny": true,
+		"noImplicitOverride": true,
+		"noUncheckedIndexedAccess": true,
+		"skipLibCheck": true,
+		"strict": true
 	},
 	"include": [
 		".svelte-kit/ambient.d.ts",

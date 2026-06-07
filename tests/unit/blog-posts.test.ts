@@ -17,16 +17,24 @@ interface QueryResponse {
 	count: number | null;
 }
 
+interface SingleQueryResponse {
+	data: BlogRow | null;
+	error: { code?: string; message: string } | null;
+}
+
 type QueryMock = Mock<(...args: unknown[]) => Query>;
+type SingleQueryMock = Mock<(...args: unknown[]) => PromiseLike<SingleQueryResponse>>;
 
 interface Query extends PromiseLike<QueryResponse> {
 	select: QueryMock;
 	eq: QueryMock;
+	limit: QueryMock;
 	lte: QueryMock;
 	order: QueryMock;
 	range: QueryMock;
 	ilike: QueryMock;
 	or: QueryMock;
+	single: SingleQueryMock;
 }
 
 let nextResponse: QueryResponse = { data: [], error: null, count: 0 };
@@ -35,11 +43,16 @@ let lastQuery: Query | null = null;
 class MockQuery implements Query {
 	select: QueryMock = vi.fn((): Query => this);
 	eq: QueryMock = vi.fn((): Query => this);
+	limit: QueryMock = vi.fn((): Query => this);
 	lte: QueryMock = vi.fn((): Query => this);
 	order: QueryMock = vi.fn((): Query => this);
 	range: QueryMock = vi.fn((): Query => this);
 	ilike: QueryMock = vi.fn((): Query => this);
 	or: QueryMock = vi.fn((): Query => this);
+	single: SingleQueryMock = vi.fn((): PromiseLike<SingleQueryResponse> => {
+		const firstRow = nextResponse.data?.[0] ?? null;
+		return Promise.resolve({ data: firstRow, error: null });
+	});
 
 	then<TResult1 = QueryResponse, TResult2 = never>(
 		onfulfilled?: ((value: QueryResponse) => TResult1 | PromiseLike<TResult1>) | null,

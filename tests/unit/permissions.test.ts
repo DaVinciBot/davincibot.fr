@@ -1,11 +1,11 @@
 import { describe, expect, it } from 'vitest';
 
-import { PERMISSIONS, hasPermission } from '../../src/lib/permissions';
+import { PERMISSIONS, hasPermission, type Permission, type PermissionUser } from '../../src/lib/permissions';
 
-const VIEW_ADMIN = 'iam.permissions.read.all';
-const EDIT_MEMBERS = 'members.profile.update.all';
-const EDIT_TRAININGS = 'training.slot.cu';
-const VIEW_TRESO = 'finance.read';
+const VIEW_ADMIN: Permission = 'iam.permissions.read.all';
+const EDIT_MEMBERS: Permission = 'members.profile.update.all';
+const EDIT_TRAININGS: Permission = 'training.slot.cu';
+const VIEW_TRESO: Permission = 'finance.read';
 
 describe('hasPermission', () => {
 	it('returns false when user is missing', () => {
@@ -17,7 +17,7 @@ describe('hasPermission', () => {
 	});
 
 	it('returns false when permission is missing', () => {
-		expect(hasPermission({ permissions: ['view_blog'] }, VIEW_ADMIN)).toBe(false);
+		expect(hasPermission({ permissions: [] }, VIEW_ADMIN)).toBe(false);
 	});
 
 	it('returns true when permission is present', () => {
@@ -25,7 +25,7 @@ describe('hasPermission', () => {
 	});
 
 	it('handles additional permission constants consistently', () => {
-		const user = { permissions: [EDIT_MEMBERS, EDIT_TRAININGS] };
+		const user: PermissionUser = { permissions: [EDIT_MEMBERS, EDIT_TRAININGS] };
 		expect(PERMISSIONS).toEqual(expect.arrayContaining([EDIT_MEMBERS, EDIT_TRAININGS, VIEW_TRESO]));
 		expect(hasPermission(user, EDIT_MEMBERS)).toBe(true);
 		expect(hasPermission(user, VIEW_TRESO)).toBe(false);

@@ -35,7 +35,7 @@
 	let totalCount = $state(getInitialTotalCount());
 	let filterTotalCount = $state<number | null>(null);
 	let filterSignature = $state('');
-	let loadingMore = $state(false);
+	let loadingMore = $state<boolean>(false);
 	let loadError = $state('');
 	let searchQuery = $state('');
 	let selectedTag = $state('all');

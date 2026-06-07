@@ -6,7 +6,7 @@
 	}
 
 	let email = $state('');
-	let loading = $state(false);
+	let loading = $state<boolean>(false);
 	let message = $state('');
 
 	function isResetErrorPayload(value: unknown): value is ResetErrorPayload {

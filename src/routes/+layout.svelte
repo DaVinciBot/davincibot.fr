@@ -22,7 +22,11 @@
 			? {
 					id: data.user.id,
 					email: data.user.email ?? '',
-					name: data.user.email ? data.user.email.split('@')[0] : ''
+					name: data.user.email ? (data.user.email.split('@')[0] ?? '') : '',
+					avatar: '',
+					projects: [],
+					permissions: [],
+					allProjects: null
 				}
 			: null
 	);

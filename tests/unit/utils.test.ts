@@ -7,6 +7,7 @@ vi.mock('$lib/store', () => ({
 }));
 
 import { userdata } from '$lib/store';
+import type { UserProfile } from '../../src/lib/types/profile';
 import {
 	hashCode,
 	hideOnClickOutside,
@@ -25,7 +26,7 @@ describe('utils helpers', () => {
 		loadUserdata(null);
 		expect(userdata.set).toHaveBeenCalledWith(null);
 
-		loadUserdata({ id: 'u-1' });
+		loadUserdata({ id: 'u-1' } as unknown as UserProfile);
 		expect(userdata.set).toHaveBeenCalledWith({ id: 'u-1' });
 	});
 

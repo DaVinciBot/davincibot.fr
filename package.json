@@ -51,9 +51,6 @@
 		"vitest": "^4.1.8"
 	},
 	"_note": "don't update prettier-plugin-svelte to 4.x until a compatible version of Prettier is released",
-	"pnpm": {
-		"onlyBuiltDependencies": ["svelte-preprocess"]
-	},
 	"dependencies": {
 		"@lucide/svelte": "^1.17.0",
 		"@popperjs/core": "^2.11.8",

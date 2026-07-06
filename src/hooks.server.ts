@@ -1,7 +1,7 @@
 import { building } from '$app/environment';
 import { createAnonClient, createUserClient, decodeJwt } from '$lib/server/sso';
 import type { AppSession, AppUser } from '$lib/server/sso';
-import type { Handle, RequestEvent } from '@sveltejs/kit';
+import { error, redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
 import type { ServerSessionRow } from './database.types';
 
 interface CachedSession {
@@ -57,6 +57,48 @@ const makeUser = (accessToken: string, fallbackUserId: string): AppUser => {
 
 const getSessionRow = (data: ServerSessionRow[] | null): ServerSessionRow | null =>
 	data?.[0] ?? null;
+
+/**
+ * Garde d'accès aux environnements dev.* : exige d'être authentifié ET de
+ * détenir infra.environments.access (résolu côté DB via has_permission, qui
+ * unit rôles globaux actifs + override). Un utilisateur non connecté est
+ * redirigé vers le login ; connecté sans la permission -> 403.
+ */
+async function guardDevEnvironment(
+	event: RequestEvent,
+	session: App.Locals['session'],
+	user: App.Locals['user']
+): Promise<void> {
+	// Ne pas garder les routes d'authentification elles-mêmes : sur dev.*, le
+	// login vit sur le même hôte, donc les exempter évite une boucle de redirect.
+	if (event.url.pathname.startsWith('/auth/')) {
+		return;
+	}
+
+	if (!session || !user) {
+		redirect(302, `/auth/login?redirect=${encodeURIComponent(event.url.href)}`);
+	}
+
+	if (!event.locals.supabase) {
+		error(403, "Accès réservé à l'environnement de développement (infra.environments.access requis).");
+	}
+
+	// Cast : la fonction RPC has_permission n'est pas encore dans les types
+	// générés (Database) — ils seront régénérés après application de la migration.
+	const rpcClient = event.locals.supabase as unknown as {
+		rpc: (
+			fn: string,
+			args: Record<string, unknown>
+		) => Promise<{ data: boolean | null; error: unknown }>;
+	};
+	const result = await rpcClient.rpc('has_permission', {
+		p_permission: 'infra.environments.access'
+	});
+
+	if (result.error || !result.data) {
+		error(403, "Accès réservé à l'environnement de développement (infra.environments.access requis).");
+	}
+}
 
 export const handle: Handle = async ({ event, resolve }) => {
 	if (building) {
@@ -159,6 +201,13 @@ export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.permissions = [];
 
 	event.locals.safeGetSession = () => Promise.resolve({ session, user });
+
+	// Environnements de pré-production (dev.*) : accès réservé aux utilisateurs
+	// authentifiés détenant infra.environments.access. Enforcement applicatif en
+	// complément du reverse proxy.
+	if (event.url.hostname.startsWith('dev.')) {
+		await guardDevEnvironment(event, session, user);
+	}
 
 	return resolve(event, {
 		filterSerializedResponseHeaders(name: string) {

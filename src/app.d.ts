@@ -1,4 +1,4 @@
-import type { Permission } from '$lib/permissions';
+import type { EffectivePermission } from '$lib/permissions';
 import type { AppSession, AppUser } from '$lib/server/sso';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from './database.types';
@@ -11,7 +11,7 @@ declare global {
 			safeGetSession: () => Promise<{ session: AppSession | null; user: AppUser | null }>;
 			session: AppSession | null;
 			user: AppUser | null;
-			permissions: Permission[];
+			permissions: EffectivePermission[];
 		}
 		interface PageData {
 			session: AppSession | null;

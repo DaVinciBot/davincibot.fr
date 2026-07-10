@@ -80,7 +80,10 @@ async function guardDevEnvironment(
 	}
 
 	if (!event.locals.supabase) {
-		error(403, "Accès réservé à l'environnement de développement (infra.environments.access requis).");
+		error(
+			403,
+			"Accès réservé à l'environnement de développement (infra.environments.access requis)."
+		);
 	}
 
 	// Cast : la fonction RPC has_permission n'est pas encore dans les types
@@ -96,7 +99,10 @@ async function guardDevEnvironment(
 	});
 
 	if (result.error || !result.data) {
-		error(403, "Accès réservé à l'environnement de développement (infra.environments.access requis).");
+		error(
+			403,
+			"Accès réservé à l'environnement de développement (infra.environments.access requis)."
+		);
 	}
 }
 

@@ -1,26 +1,42 @@
 import { building } from '$app/environment';
+import { buildLoginUrl } from '$lib/config/auth';
 import { createAnonClient, createUserClient, decodeJwt } from '$lib/server/sso';
 import type { AppSession, AppUser } from '$lib/server/sso';
 import { error, redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
+import { createHash, timingSafeEqual } from 'node:crypto';
 import type { ServerSessionRow } from './database.types';
 
 interface CachedSession {
 	session: AppSession;
 	user: AppUser;
 	timestamp: number;
+	secretHash: string;
 }
 
 const SESSION_CACHE_TTL_MS = 5 * 60 * 1000;
 const SESSION_REFRESH_GRACE_MS = 2 * 60 * 1000;
 const sessionCache = new Map<string, CachedSession>();
 
-const getCachedSession = (cacheKey: string): CachedSession | null => {
+const hashSecret = (secret: string): string => createHash('sha256').update(secret).digest('hex');
+
+const secretMatches = (a: string, b: string): boolean => {
+	const bufA = Buffer.from(a);
+	const bufB = Buffer.from(b);
+	return bufA.length === bufB.length && timingSafeEqual(bufA, bufB);
+};
+
+// Le cache est lié au secret : un même sessionId présenté avec un secret différent
+// ne réutilise jamais l'entrée (sinon le secret ne serait plus vérifié).
+const getCachedSession = (cacheKey: string, secret: string): CachedSession | null => {
 	const cached = sessionCache.get(cacheKey);
 	if (!cached) {
 		return null;
 	}
 	if (Date.now() - cached.timestamp > SESSION_CACHE_TTL_MS) {
 		sessionCache.delete(cacheKey);
+		return null;
+	}
+	if (!secretMatches(cached.secretHash, hashSecret(secret))) {
 		return null;
 	}
 	return cached;
@@ -76,7 +92,7 @@ async function guardDevEnvironment(
 	}
 
 	if (!session || !user) {
-		redirect(302, `/auth/login?redirect=${encodeURIComponent(event.url.href)}`);
+		redirect(302, buildLoginUrl(event.url.href));
 	}
 
 	if (!event.locals.supabase) {
@@ -127,7 +143,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	let user: AppUser | null = null;
 
 	if (sessionId && sessionSecret) {
-		const cached = getCachedSession(sessionId);
+		const cached = getCachedSession(sessionId, sessionSecret);
 		if (cached) {
 			session = cached.session;
 			user = cached.user;
@@ -179,7 +195,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 							refreshedExpiresAt,
 							user.id
 						);
-						sessionCache.set(sessionId, { session, user, timestamp: Date.now() });
+						sessionCache.set(sessionId, {
+							session,
+							user,
+							timestamp: Date.now(),
+							secretHash: hashSecret(sessionSecret)
+						});
 					}
 				} else {
 					user = makeUser(accessToken, sessionRow.user_id);
@@ -190,7 +211,12 @@ export const handle: Handle = async ({ event, resolve }) => {
 						Math.floor(new Date(expiresAt).getTime() / 1000),
 						user.id
 					);
-					sessionCache.set(sessionId, { session, user, timestamp: Date.now() });
+					sessionCache.set(sessionId, {
+						session,
+						user,
+						timestamp: Date.now(),
+						secretHash: hashSecret(sessionSecret)
+					});
 				}
 			}
 		}

@@ -14,7 +14,7 @@ declare global {
 			permissions: EffectivePermission[];
 		}
 		interface PageData {
-			session: AppSession | null;
+			session: Pick<AppSession, 'id' | 'expires_at' | 'user_id'> | null;
 			user: AppUser | null;
 		}
 		// interface PageState {}

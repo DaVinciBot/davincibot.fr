@@ -6,7 +6,6 @@ import type { Database, Json } from '../../database.types';
 export interface AppSession {
 	id: string;
 	access_token: string;
-	refresh_token: string;
 	expires_at: number;
 	user_id: string;
 }

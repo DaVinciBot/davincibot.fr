@@ -1,4 +1,5 @@
 import { building } from '$app/environment';
+import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl } from '$lib/config/auth';
 import { resolveSessionViaAuth } from '$lib/server/authService';
 import { SessionCache } from '$lib/server/sessionCache';
@@ -31,6 +32,11 @@ async function guardDevEnvironment(
 	// Ne pas garder les routes d'authentification elles-mêmes : sur dev.*, le
 	// login vit sur le même hôte, donc les exempter évite une boucle de redirect.
 	if (event.url.pathname.startsWith('/auth/')) {
+		return;
+	}
+
+	// Health check du déploiement : public, ne divulgue rien.
+	if (event.url.pathname === resolveRoute('/health')) {
 		return;
 	}
 

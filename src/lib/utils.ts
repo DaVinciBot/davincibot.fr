@@ -1,50 +1,11 @@
 import { userdata, type UserData } from '$lib/store';
-import { mount, unmount, type Component } from 'svelte';
 
+// Types du contrat hôte : les composants du submodule (modals) les importent.
 export type CloseEvent = Event | Element | null;
 export type CloseHandler = (event: CloseEvent) => void;
-type ClosableProps = Record<string, unknown> & {
-	onClose?: CloseHandler;
-};
-
-interface MountClosableOptions {
-	target: Element | Document | ShadowRoot;
-	anchor?: Node;
-	props?: ClosableProps;
-	context?: Map<unknown, unknown>;
-	intro?: boolean;
-	recover?: boolean;
-	sync?: boolean;
-	idPrefix?: string;
-}
 
 export function loadUserdata(userFromServer: UserData = null) {
 	userdata.set(userFromServer);
-}
-
-export function mountClosable(component: Component<ClosableProps>, options: MountClosableOptions) {
-	const props = options.props ?? {};
-	let instance: ReturnType<typeof mount> | null = null;
-
-	const close: CloseHandler = (event) => {
-		try {
-			props.onClose?.(event);
-		} finally {
-			if (instance) {
-				void unmount(instance);
-			}
-		}
-	};
-
-	instance = mount(component, {
-		...options,
-		props: {
-			...props,
-			onClose: close
-		}
-	});
-
-	return instance;
 }
 
 export function loadSettings(key: string): unknown {

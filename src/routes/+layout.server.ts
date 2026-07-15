@@ -13,7 +13,10 @@ export const load: LayoutServerLoad = async ({ locals, cookies }) => {
 	const { session, user } = await locals.safeGetSession();
 
 	return {
-		session,
+		// Jamais de token dans les données de page : le navigateur n'en a pas besoin.
+		session: session
+			? { id: session.id, expires_at: session.expires_at, user_id: session.user_id }
+			: null,
 		user,
 		cookies: cookies.getAll()
 	};

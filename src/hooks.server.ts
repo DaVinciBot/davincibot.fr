@@ -1,78 +1,22 @@
 import { building } from '$app/environment';
+import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl } from '$lib/config/auth';
-import { createAnonClient, createUserClient, decodeJwt } from '$lib/server/sso';
+import { resolveSessionViaAuth } from '$lib/server/authService';
+import { SessionCache } from '$lib/server/sessionCache';
 import type { AppSession, AppUser } from '$lib/server/sso';
+import { createAnonClient, createUserClient } from '$lib/server/sso';
 import { error, redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
-import { createHash, timingSafeEqual } from 'node:crypto';
-import type { ServerSessionRow } from './database.types';
-
-interface CachedSession {
-	session: AppSession;
-	user: AppUser;
-	timestamp: number;
-	secretHash: string;
-}
 
 const SESSION_CACHE_TTL_MS = 5 * 60 * 1000;
-const SESSION_REFRESH_GRACE_MS = 2 * 60 * 1000;
-const sessionCache = new Map<string, CachedSession>();
-
-const hashSecret = (secret: string): string => createHash('sha256').update(secret).digest('hex');
-
-const secretMatches = (a: string, b: string): boolean => {
-	const bufA = Buffer.from(a);
-	const bufB = Buffer.from(b);
-	return bufA.length === bufB.length && timingSafeEqual(bufA, bufB);
-};
-
-// Le cache est lié au secret : un même sessionId présenté avec un secret différent
-// ne réutilise jamais l'entrée (sinon le secret ne serait plus vérifié).
-const getCachedSession = (cacheKey: string, secret: string): CachedSession | null => {
-	const cached = sessionCache.get(cacheKey);
-	if (!cached) {
-		return null;
-	}
-	if (Date.now() - cached.timestamp > SESSION_CACHE_TTL_MS) {
-		sessionCache.delete(cacheKey);
-		return null;
-	}
-	if (!secretMatches(cached.secretHash, hashSecret(secret))) {
-		return null;
-	}
-	return cached;
-};
+const SESSION_STALE_MAX_AGE_MS = 15 * 60 * 1000;
+const sessionCache = new SessionCache<AppSession, AppUser>(
+	SESSION_CACHE_TTL_MS,
+	SESSION_STALE_MAX_AGE_MS
+);
 
 const clearSessionCookie = (event: RequestEvent) => {
 	event.cookies.delete('sid', { path: '/' });
 };
-
-const makeSession = (
-	sessionId: string,
-	accessToken: string,
-	refreshToken: string,
-	expiresAt: number,
-	userId: string
-): AppSession => ({
-	id: sessionId,
-	access_token: accessToken,
-	refresh_token: refreshToken,
-	expires_at: expiresAt,
-	user_id: userId
-});
-
-const makeUser = (accessToken: string, fallbackUserId: string): AppUser => {
-	const jwt = decodeJwt(accessToken);
-
-	return {
-		id: jwt?.sub ?? fallbackUserId,
-		email: jwt?.email ?? null,
-		app_metadata: jwt?.app_metadata ?? {},
-		user_metadata: jwt?.user_metadata ?? {}
-	};
-};
-
-const getSessionRow = (data: ServerSessionRow[] | null): ServerSessionRow | null =>
-	data?.[0] ?? null;
 
 /**
  * Garde d'accès aux environnements dev.* : exige d'être authentifié ET de
@@ -91,6 +35,11 @@ async function guardDevEnvironment(
 		return;
 	}
 
+	// Health check du déploiement : public, ne divulgue rien.
+	if (event.url.pathname === resolveRoute('/health')) {
+		return;
+	}
+
 	if (!session || !user) {
 		redirect(302, buildLoginUrl(event.url.href));
 	}
@@ -102,15 +51,7 @@ async function guardDevEnvironment(
 		);
 	}
 
-	// Cast : la fonction RPC has_permission n'est pas encore dans les types
-	// générés (Database) — ils seront régénérés après application de la migration.
-	const rpcClient = event.locals.supabase as unknown as {
-		rpc: (
-			fn: string,
-			args: Record<string, unknown>
-		) => Promise<{ data: boolean | null; error: unknown }>;
-	};
-	const result = await rpcClient.rpc('has_permission', {
+	const result = await event.locals.supabase.rpc('has_permission', {
 		p_permission: 'infra.environments.access'
 	});
 
@@ -142,81 +83,26 @@ export const handle: Handle = async ({ event, resolve }) => {
 	let session: AppSession | null = null;
 	let user: AppUser | null = null;
 
-	if (sessionId && sessionSecret) {
-		const cached = getCachedSession(sessionId, sessionSecret);
+	if (rawSid && sessionId && sessionSecret) {
+		const cached = sessionCache.getFresh(sessionId, sessionSecret);
 		if (cached) {
 			session = cached.session;
 			user = cached.user;
 		} else {
-			const anon = createAnonClient();
-			const { data, error } = await anon.schema('sso').rpc('get_server_session', {
-				p_session_id: sessionId,
-				p_session_secret: sessionSecret
-			});
-			const sessionRow = getSessionRow(data);
-			if (error || !sessionRow || sessionRow.revoked_at) {
+			const result = await resolveSessionViaAuth(event.fetch, rawSid);
+			if (result.status === 'ok') {
+				session = result.session;
+				user = result.user;
+				sessionCache.set(sessionId, session, user, sessionSecret);
+			} else if (result.status === 'invalid') {
 				clearSessionCookie(event);
 			} else {
-				const expiresAtMs = new Date(sessionRow.expires_at).getTime();
-				let accessToken = sessionRow.access_token;
-				let refreshToken = sessionRow.refresh_token;
-				let expiresAt = sessionRow.expires_at;
-
-				if (expiresAtMs - Date.now() < SESSION_REFRESH_GRACE_MS) {
-					const { data: refreshed, error: refreshError } = await anon.auth.refreshSession({
-						refresh_token: refreshToken
-					});
-					if (refreshError || !refreshed.session) {
-						await anon.schema('sso').rpc('revoke_server_session', {
-							p_session_id: sessionId,
-							p_session_secret: sessionSecret
-						});
-						clearSessionCookie(event);
-					} else {
-						const refreshedExpiresAt =
-							typeof refreshed.session.expires_at === 'number'
-								? refreshed.session.expires_at
-								: Math.floor(new Date(expiresAt).getTime() / 1000);
-						accessToken = refreshed.session.access_token;
-						refreshToken = refreshed.session.refresh_token;
-						expiresAt = new Date(refreshedExpiresAt * 1000).toISOString();
-						await anon.schema('sso').rpc('update_server_session_tokens', {
-							p_session_id: sessionId,
-							p_session_secret: sessionSecret,
-							p_access_token: accessToken,
-							p_refresh_token: refreshToken,
-							p_expires_at: expiresAt
-						});
-						user = makeUser(accessToken, sessionRow.user_id);
-						session = makeSession(
-							sessionId,
-							accessToken,
-							refreshToken,
-							refreshedExpiresAt,
-							user.id
-						);
-						sessionCache.set(sessionId, {
-							session,
-							user,
-							timestamp: Date.now(),
-							secretHash: hashSecret(sessionSecret)
-						});
-					}
-				} else {
-					user = makeUser(accessToken, sessionRow.user_id);
-					session = makeSession(
-						sessionId,
-						accessToken,
-						refreshToken,
-						Math.floor(new Date(expiresAt).getTime() / 1000),
-						user.id
-					);
-					sessionCache.set(sessionId, {
-						session,
-						user,
-						timestamp: Date.now(),
-						secretHash: hashSecret(sessionSecret)
-					});
+				// Service auth injoignable : on ressert l'entrée périmée du cache
+				// tant que l'access token est encore valable, sans purger le cookie.
+				const stale = sessionCache.getStale(sessionId, sessionSecret);
+				if (stale) {
+					session = stale.session;
+					user = stale.user;
 				}
 			}
 		}

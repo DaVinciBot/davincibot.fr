@@ -3,8 +3,8 @@ import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl } from '$lib/config/auth';
 import { resolveSessionViaAuth } from '$lib/server/authService';
 import { SessionCache } from '$lib/server/sessionCache';
-import { createAnonClient, createUserClient } from '$lib/server/sso';
 import type { AppSession, AppUser } from '$lib/server/sso';
+import { createAnonClient, createUserClient } from '$lib/server/sso';
 import { error, redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
 
 const SESSION_CACHE_TTL_MS = 5 * 60 * 1000;
@@ -51,15 +51,7 @@ async function guardDevEnvironment(
 		);
 	}
 
-	// Cast : la fonction RPC has_permission n'est pas encore dans les types
-	// générés (Database) — ils seront régénérés après application de la migration.
-	const rpcClient = event.locals.supabase as unknown as {
-		rpc: (
-			fn: string,
-			args: Record<string, unknown>
-		) => Promise<{ data: boolean | null; error: unknown }>;
-	};
-	const result = await rpcClient.rpc('has_permission', {
+	const result = await event.locals.supabase.rpc('has_permission', {
 		p_permission: 'infra.environments.access'
 	});
 

@@ -1,7 +1,7 @@
 import { building } from '$app/environment';
 import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl } from '$lib/config/auth';
-import { resolveSessionViaAuth } from '$lib/server/authService';
+import { resolveSessionViaAuth, sidCookieName } from '$lib/server/authService';
 import { SessionCache } from '$lib/server/sessionCache';
 import type { AppSession, AppUser } from '$lib/server/sso';
 import { createAnonClient, createUserClient } from '$lib/server/sso';
@@ -15,7 +15,7 @@ const sessionCache = new SessionCache<AppSession, AppUser>(
 );
 
 const clearSessionCookie = (event: RequestEvent) => {
-	event.cookies.delete('sid', { path: '/' });
+	event.cookies.delete(sidCookieName(), { path: '/' });
 };
 
 /**
@@ -78,7 +78,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		});
 	}
 
-	const rawSid = event.cookies.get('sid');
+	const rawSid = event.cookies.get(sidCookieName());
 	const [sessionId = null, sessionSecret = null] = rawSid?.split('.', 2) ?? [];
 	let session: AppSession | null = null;
 	let user: AppUser | null = null;

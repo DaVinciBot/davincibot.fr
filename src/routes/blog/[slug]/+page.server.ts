@@ -4,7 +4,7 @@ import { fetchBlogPostBySlug } from '$lib/server/blogPosts';
 import { error as kitError } from '@sveltejs/kit';
 import { marked } from 'marked';
 import sanitizeHtml from 'sanitize-html';
-import type { Json } from '../../../database.types';
+import type { Json } from '@davincibot/database-types';
 import type { PageServerLoad } from './$types';
 
 export const prerender = false;

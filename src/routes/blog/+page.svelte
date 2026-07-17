@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import Footer from '$lib/components/share/Footer.svelte';
-	import Topbar from '$lib/components/share/Topbar.svelte';
+	import { Footer } from '@davincibot/components';
+	import { Topbar } from '@davincibot/components';
 	import type { PageData } from './$types';
 
 	const { data }: { data: PageData } = $props() as { data: PageData };

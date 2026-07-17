@@ -1,20 +1,20 @@
 <script lang="ts">
-	import Carousel from '$lib/components/others/Carousel.svelte';
-	import Footer from '$lib/components/share/Footer.svelte';
-	import ResultCard from '$lib/components/share/ResultCard.svelte';
-	import Topbar from '$lib/components/share/Topbar.svelte';
-	import CtaButton from '$lib/components/utils/CTAButton.svelte';
+	import { Carousel } from '@davincibot/components';
+	import { Footer } from '@davincibot/components';
+	import { ResultCard } from '@davincibot/components';
+	import { Topbar } from '@davincibot/components';
+	import { CTAButton as CtaButton } from '@davincibot/components';
 
-	import FarmingMars from '$lib/components/share/Logo/FarmingMars.svelte';
-	import TheCherryOnTheCake from '$lib/components/share/Logo/TheCherryOnTheCake.svelte';
-	import TheShowMustGoOnLogo from '$lib/components/share/Logo/TheShowMustGoOnLogo.svelte';
+	import { FarmingMars } from '@davincibot/components';
+	import { TheCherryOnTheCake } from '@davincibot/components';
+	import { TheShowMustGoOnLogo } from '@davincibot/components';
 
-	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
-	import Activity from '$lib/components/share/icon/Activity.svelte';
-	import Compass from '$lib/components/share/icon/Compass.svelte';
-	import EyeOpen from '$lib/components/share/icon/EyeOpen.svelte';
-	import FindUsLogo from '$lib/components/share/icon/FindUsLogo.svelte';
-	import Signal from '$lib/components/share/icon/Signal.svelte';
+	import { SponsorsCarousel } from '@davincibot/components';
+	import { Activity } from '@davincibot/components';
+	import { Compass } from '@davincibot/components';
+	import { EyeOpen } from '@davincibot/components';
+	import { FindUsLogo } from '@davincibot/components';
+	import { Signal } from '@davincibot/components';
 
 	const cdrImg = '/assets/project/cdr/CDR.webp';
 	const precoupeImg = '/assets/article/precoupe.webp';

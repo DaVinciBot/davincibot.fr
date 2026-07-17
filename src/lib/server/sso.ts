@@ -1,7 +1,7 @@
 import { env } from '$env/dynamic/public';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import { createClient } from '@supabase/supabase-js';
-import type { Database, Json } from '../../database.types';
+import type { Database, Json } from '@davincibot/database-types';
 
 export interface AppSession {
 	id: string;

@@ -1,7 +1,7 @@
-import type { EffectivePermission } from '$lib/permissions';
+import type { EffectivePermission } from '@davincibot/lib';
 import type { AppSession, AppUser } from '$lib/server/sso';
 import type { SupabaseClient } from '@supabase/supabase-js';
-import type { Database } from './database.types';
+import type { Database } from '@davincibot/database-types';
 
 declare global {
 	namespace App {

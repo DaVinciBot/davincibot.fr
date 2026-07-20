@@ -7,14 +7,14 @@ vi.mock('@davincibot/lib', () => ({
 }));
 
 import { userdata } from '@davincibot/lib';
-import type { UserProfile } from '../../src/lib/types/profile';
+import type { UserProfile } from '@davincibot/lib';
 import {
 	hashCode,
 	hideOnClickOutside,
 	loadSettings,
 	loadUserdata,
 	saveSettings
-} from '../../src/lib/utils';
+} from '@davincibot/lib';
 
 describe('utils helpers', () => {
 	beforeEach(() => {

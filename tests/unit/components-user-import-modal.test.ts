@@ -1,7 +1,7 @@
 import { mount } from 'svelte';
 import { describe, expect, it, vi } from 'vitest';
 
-import UserImportModal from '../../src/lib/components/modals/UserImportModal.svelte';
+import { UserImportModal } from '@davincibot/components';
 
 interface Permission {
 	value: string;

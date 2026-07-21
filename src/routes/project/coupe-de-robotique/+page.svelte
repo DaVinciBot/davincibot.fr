@@ -1,15 +1,15 @@
 <script lang="ts">
-	import { Carousel } from '@davincibot/components';
-	import { Footer } from '@davincibot/components';
+	import Carousel from '$lib/components/others/Carousel.svelte';
+	import Footer from '$lib/components/share/Footer.svelte';
 	import ResultCard from '$lib/components/ResultCard.svelte';
 	import { Topbar } from '@davincibot/components';
 	import { CTAButton as CtaButton } from '@davincibot/components';
 
-	import { FarmingMars } from '@davincibot/components';
-	import { TheCherryOnTheCake } from '@davincibot/components';
-	import { TheShowMustGoOnLogo } from '@davincibot/components';
+	import FarmingMars from '$lib/components/share/Logo/FarmingMars.svelte';
+	import TheCherryOnTheCake from '$lib/components/share/Logo/TheCherryOnTheCake.svelte';
+	import TheShowMustGoOnLogo from '$lib/components/share/Logo/TheShowMustGoOnLogo.svelte';
 
-	import { SponsorsCarousel } from '@davincibot/components';
+	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 	import Activity from '$lib/components/icon/Activity.svelte';
 	import Compass from '$lib/components/icon/Compass.svelte';
 	import EyeOpen from '$lib/components/icon/EyeOpen.svelte';

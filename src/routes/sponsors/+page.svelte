@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { Footer } from '@davincibot/components';
+	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
 
 	const brochureUrl = '/Dossier_Partenariat_DaVinciBot_2025.pdf'; // servi depuis static/

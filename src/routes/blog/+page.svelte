@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { Footer } from '@davincibot/components';
+	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
 	import type { PageData } from './$types';
 

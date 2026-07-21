@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Renderer } from '@davincibot/components';
-	import { Footer } from '@davincibot/components';
+	import Renderer from '$lib/components/markdown/Renderer.svelte';
+	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
 	import type { MarkdownRoot } from '$lib/markdown/parse';
 	import type { Json } from '@davincibot/database-types';

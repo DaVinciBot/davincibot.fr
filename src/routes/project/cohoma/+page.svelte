@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Footer } from '@davincibot/components';
+	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
 	import { CTAButton } from '@davincibot/components';
 

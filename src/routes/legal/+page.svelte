@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
-	import { ArticleFrame } from '@davincibot/components';
+	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
 	import { canonicalFor } from '@davincibot/lib';
 
 	const updatedAt = '2026-01-15';

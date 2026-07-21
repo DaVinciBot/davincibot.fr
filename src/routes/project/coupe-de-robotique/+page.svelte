@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { Carousel } from '@davincibot/components';
 	import { Footer } from '@davincibot/components';
-	import { ResultCard } from '@davincibot/components';
+	import ResultCard from '$lib/components/ResultCard.svelte';
 	import { Topbar } from '@davincibot/components';
 	import { CTAButton as CtaButton } from '@davincibot/components';
 
@@ -10,11 +10,11 @@
 	import { TheShowMustGoOnLogo } from '@davincibot/components';
 
 	import { SponsorsCarousel } from '@davincibot/components';
-	import { Activity } from '@davincibot/components';
-	import { Compass } from '@davincibot/components';
-	import { EyeOpen } from '@davincibot/components';
-	import { FindUsLogo } from '@davincibot/components';
-	import { Signal } from '@davincibot/components';
+	import Activity from '$lib/components/icon/Activity.svelte';
+	import Compass from '$lib/components/icon/Compass.svelte';
+	import EyeOpen from '$lib/components/icon/EyeOpen.svelte';
+	import FindUsLogo from '$lib/components/icon/FindUsLogo.svelte';
+	import Signal from '$lib/components/icon/Signal.svelte';
 
 	const cdrImg = '/assets/project/cdr/CDR.webp';
 	const precoupeImg = '/assets/article/precoupe.webp';

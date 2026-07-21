@@ -15,7 +15,7 @@ vi.mock('@supabase/supabase-js', () => ({
 	createClient: mocks.createClient
 }));
 
-import { createAnonClient, createUserClient, decodeJwt } from '../../src/lib/server/sso';
+import { createAnonClient, createUserClient, decodeJwt } from '@davincibot/lib/server';
 
 describe('server sso helpers', () => {
 	beforeEach(() => {

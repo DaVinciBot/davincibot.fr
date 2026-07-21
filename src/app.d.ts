@@ -1,5 +1,5 @@
 import type { EffectivePermission } from '@davincibot/lib';
-import type { AppSession, AppUser } from '$lib/server/sso';
+import type { AppSession, AppUser } from '@davincibot/lib/server';
 import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@davincibot/database-types';
 

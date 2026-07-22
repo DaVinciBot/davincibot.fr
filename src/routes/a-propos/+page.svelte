@@ -1,8 +1,8 @@
 <script lang="ts">
 	import Footer from '$lib/components/share/Footer.svelte';
-	import Topbar from '$lib/components/share/Topbar.svelte';
+	import { Topbar } from '@davincibot/components';
 	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
-	import CTAButton from '$lib/components/utils/CTAButton.svelte';
+	import { CTAButton } from '@davincibot/components';
 	import { onDestroy, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 

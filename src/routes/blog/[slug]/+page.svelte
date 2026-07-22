@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Renderer from '$lib/components/markdown/Renderer.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
-	import Topbar from '$lib/components/share/Topbar.svelte';
+	import { Topbar } from '@davincibot/components';
 	import type { MarkdownRoot } from '$lib/markdown/parse';
-	import type { Json } from '../../../database.types';
+	import type { Json } from '@davincibot/database-types';
 
 	interface ArticlePost {
 		title: string;

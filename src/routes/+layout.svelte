@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { userdata } from '$lib/store';
+	import { userdata } from '@davincibot/lib';
 	import type { Snippet } from 'svelte';
 	import '../app.css';
 

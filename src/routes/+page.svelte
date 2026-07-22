@@ -2,9 +2,9 @@
 	import Carousel from '$lib/components/others/Carousel.svelte';
 	import Card from '$lib/components/share/Card.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
-	import Topbar from '$lib/components/share/Topbar.svelte';
+	import { Topbar } from '@davincibot/components';
 	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
-	import CtaButton from '$lib/components/utils/CTAButton.svelte';
+	import { CTAButton as CtaButton } from '@davincibot/components';
 
 	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 	import type { PageData } from './$types';

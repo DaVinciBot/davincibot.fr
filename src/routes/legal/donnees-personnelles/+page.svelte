@@ -1,6 +1,6 @@
 <script lang="ts">
 	import ArticleFrame from '$lib/components/legal/ArticleFrame.svelte';
-	import { canonicalFor } from '$lib/config/site';
+	import { canonicalFor } from '@davincibot/lib';
 
 	const updatedAt = '2026-01-15';
 	const canonical = canonicalFor('/legal/donnees-personnelles');

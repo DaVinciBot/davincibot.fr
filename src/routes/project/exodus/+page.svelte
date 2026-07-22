@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Footer from '$lib/components/share/Footer.svelte';
-	import Topbar from '$lib/components/share/Topbar.svelte';
-	import CTAButton from '$lib/components/utils/CTAButton.svelte';
+	import { Topbar } from '@davincibot/components';
+	import { CTAButton } from '@davincibot/components';
 
 	const keyFigures = [
 		{

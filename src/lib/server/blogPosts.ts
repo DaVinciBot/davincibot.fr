@@ -1,4 +1,4 @@
-import type { BlogRow, Json } from '../../database.types';
+import type { BlogRow, Json } from '@davincibot/database-types';
 
 export const BLOG_PAGE_SIZE = 20;
 

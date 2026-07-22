@@ -1,4 +1,4 @@
-import { SITE } from '$lib/config/site';
+import { SITE } from '@davincibot/lib';
 import type { RequestHandler } from './$types';
 
 export const prerender = false;

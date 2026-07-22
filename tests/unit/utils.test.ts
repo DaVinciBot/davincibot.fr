@@ -1,20 +1,20 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('$lib/store', () => ({
+vi.mock('@davincibot/lib', () => ({
 	userdata: {
 		set: vi.fn()
 	}
 }));
 
-import { userdata } from '$lib/store';
-import type { UserProfile } from '../../src/lib/types/profile';
+import { userdata } from '@davincibot/lib';
+import type { UserProfile } from '@davincibot/lib';
 import {
 	hashCode,
 	hideOnClickOutside,
 	loadSettings,
 	loadUserdata,
 	saveSettings
-} from '../../src/lib/utils';
+} from '@davincibot/lib';
 
 describe('utils helpers', () => {
 	beforeEach(() => {

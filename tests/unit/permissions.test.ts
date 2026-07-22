@@ -5,7 +5,7 @@ import {
 	hasPermission,
 	type GlobalPermission,
 	type PermissionUser
-} from '../../src/lib/permissions';
+} from '@davincibot/lib';
 
 const VIEW_ADMIN: GlobalPermission = 'iam.roles.manage';
 const EDIT_MEMBERS: GlobalPermission = 'members.profile.update.all';

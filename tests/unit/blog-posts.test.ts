@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import type { Mock } from 'vitest';
 
-import type { BlogRow } from '../../src/database.types';
+import type { BlogRow } from '@davincibot/database-types';
 import {
 	fetchBlogPosts,
 	mapRowToPost,

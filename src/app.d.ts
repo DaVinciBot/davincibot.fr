@@ -1,21 +1,24 @@
-import type { EffectivePermission } from '@davincibot/lib';
-import type { AppSession, AppUser } from '@davincibot/lib/server';
-import type { SupabaseClient } from '@supabase/supabase-js';
 import type { Database } from '@davincibot/database-types';
+import type { EffectivePermission } from '@davincibot/lib';
+import type { ResolvedAuthSession, ResolvedAuthUser } from '@davincibot/lib/server';
+import type { SupabaseClient } from '@supabase/supabase-js';
 
 declare global {
 	namespace App {
 		// interface Error {}
 		interface Locals {
 			supabase: SupabaseClient<Database> | null;
-			safeGetSession: () => Promise<{ session: AppSession | null; user: AppUser | null }>;
-			session: AppSession | null;
-			user: AppUser | null;
+			safeGetSession: () => Promise<{
+				session: ResolvedAuthSession | null;
+				user: ResolvedAuthUser | null;
+			}>;
+			session: ResolvedAuthSession | null;
+			user: ResolvedAuthUser | null;
 			permissions: EffectivePermission[];
 		}
 		interface PageData {
-			session: Pick<AppSession, 'id' | 'expires_at' | 'user_id'> | null;
-			user: AppUser | null;
+			session: Pick<ResolvedAuthSession, 'id' | 'expires_at' | 'user_id'> | null;
+			user: ResolvedAuthUser | null;
 		}
 		// interface PageState {}
 		// interface Platform {}

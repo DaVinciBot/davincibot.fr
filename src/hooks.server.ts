@@ -1,6 +1,7 @@
 import { building } from '$app/environment';
 import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl } from '@davincibot/lib';
+import type { ResolvedAuthSession, ResolvedAuthUser } from '@davincibot/lib/server';
 import {
 	SessionCache,
 	createAnonClient,
@@ -8,12 +9,11 @@ import {
 	resolveSessionViaAuth,
 	sidCookieName
 } from '@davincibot/lib/server';
-import type { AppSession, AppUser } from '@davincibot/lib/server';
 import { error, redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
 
 const SESSION_CACHE_TTL_MS = 5 * 60 * 1000;
 const SESSION_STALE_MAX_AGE_MS = 15 * 60 * 1000;
-const sessionCache = new SessionCache<AppSession, AppUser>(
+const sessionCache = new SessionCache<ResolvedAuthSession, ResolvedAuthUser>(
 	SESSION_CACHE_TTL_MS,
 	SESSION_STALE_MAX_AGE_MS
 );
@@ -84,8 +84,8 @@ export const handle: Handle = async ({ event, resolve }) => {
 
 	const rawSid = event.cookies.get(sidCookieName());
 	const [sessionId = null, sessionSecret = null] = rawSid?.split('.', 2) ?? [];
-	let session: AppSession | null = null;
-	let user: AppUser | null = null;
+	let session: ResolvedAuthSession | null = null;
+	let user: ResolvedAuthUser | null = null;
 
 	if (rawSid && sessionId && sessionSecret) {
 		const cached = sessionCache.getFresh(sessionId, sessionSecret);
@@ -97,7 +97,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 			if (result.status === 'ok') {
 				session = result.session;
 				user = result.user;
-				sessionCache.set(sessionId, session, user, sessionSecret);
+				sessionCache.set(sessionId, result.session, result.user, sessionSecret);
 			} else if (result.status === 'invalid') {
 				clearSessionCookie(event);
 			} else {

@@ -1,7 +1,13 @@
 import { building } from '$app/environment';
 import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl } from '@davincibot/lib';
-import { SessionCache, createAnonClient, createUserClient, resolveSessionViaAuth, sidCookieName } from '@davincibot/lib/server';
+import {
+	SessionCache,
+	createAnonClient,
+	createUserClient,
+	resolveSessionViaAuth,
+	sidCookieName
+} from '@davincibot/lib/server';
 import type { AppSession, AppUser } from '@davincibot/lib/server';
 import { error, redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
 

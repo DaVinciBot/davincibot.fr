@@ -136,7 +136,7 @@
 	{#if excerpt}
 		<meta name="twitter:description" content={excerpt} />
 	{/if}
-	<svelte:element this={'script'} type="application/ld+json">{jsonLdString}</svelte:element>
+	<svelte:element this={"script"} type="application/ld+json">{jsonLdString}</svelte:element>
 </svelte:head>
 
 <Topbar />

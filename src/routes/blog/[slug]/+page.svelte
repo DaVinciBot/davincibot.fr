@@ -19,7 +19,7 @@
 		post: ArticlePost;
 	}
 
-	const { data }: { data: ArticlePageData } = $props() as { data: ArticlePageData };
+	const { data }: { data: ArticlePageData } = $props();
 
 	function getInitialPost(): ArticlePost {
 		return data.post;
@@ -105,22 +105,22 @@
 </script>
 
 <svelte:head>
-	<link rel="canonical" href={canonical} />
+	<link href={canonical} rel="canonical" />
 	<title>{post.title}</title>
-	<meta name="keywords" content={keywords} />
-	<meta name="author" content={authorName} />
-	<meta name="robots" content="index, follow" />
+	<meta content={keywords} name="keywords" />
+	<meta content={authorName} name="author" />
+	<meta content="index, follow" name="robots" />
 	{#if excerpt}
 		<meta name="description" content={excerpt} />
 	{/if}
 
-	<meta property="og:url" content={`https://davincibot.fr/blog/${post.slug}`} />
-	<meta property="og:type" content="article" />
-	<meta property="og:title" content={post.title} />
+	<meta content={`https://davincibot.fr/blog/${post.slug}`} property="og:url" />
+	<meta content="article" property="og:type" />
+	<meta content={post.title} property="og:title" />
 	{#if excerpt}
 		<meta property="og:description" content={excerpt} />
 	{/if}
-	<meta property="og:image" content={heroSocialAbs} />
+	<meta content={heroSocialAbs} property="og:image" />
 	{#if isoPublished}
 		<meta property="article:published_time" content={isoPublished} />
 	{/if}
@@ -128,11 +128,11 @@
 		<meta property="article:modified_time" content={isoUpdated} />
 	{/if}
 
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta property="twitter:domain" content="davincibot.fr" />
-	<meta property="twitter:url" content={`https://davincibot.fr/blog/${post.slug}`} />
-	<meta name="twitter:title" content={post.title} />
-	<meta name="twitter:image" content={heroSocialAbs} />
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="davincibot.fr" property="twitter:domain" />
+	<meta content={`https://davincibot.fr/blog/${post.slug}`} property="twitter:url" />
+	<meta content={post.title} name="twitter:title" />
+	<meta content={heroSocialAbs} name="twitter:image" />
 	{#if excerpt}
 		<meta name="twitter:description" content={excerpt} />
 	{/if}
@@ -142,7 +142,7 @@
 <Topbar />
 
 <div class="4xl:-mt-80 -mt-5 md:-mt-8 lg:-mt-32 2xl:-mt-64">
-	<img class="w-full bg-gray-500 opacity-50" alt={heroAlt} src={heroImage} />
+	<img alt={heroAlt} class="w-full bg-gray-500 opacity-50" src={heroImage} />
 </div>
 <div
 	class="via-dark-blue/70 to-dark-blue absolute -mt-28 w-full bg-linear-to-b from-white/0 from-0% via-1% to-5% pt-12 md:-mt-72 md:pt-0"

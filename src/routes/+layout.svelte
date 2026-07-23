@@ -15,7 +15,7 @@
 		children?: Snippet;
 	}
 
-	const { data, children }: LayoutProps = $props() as LayoutProps;
+	const { data, children }: LayoutProps = $props();
 
 	const userFallback = $derived(
 		data.user
@@ -43,14 +43,14 @@
 
 <svelte:head>
 	<!-- meta favicon -->
-	<link rel="icon" type="image/png" href="/favicon.png" />
-	<link rel="apple-touch-icon" href="/favicon.png" />
-	<link rel="mask-icon" href="/favicon.png" color="#000000" />
-	<link rel="shortcut icon" href="/favicon.png" />
+	<link href="/favicon.png" rel="icon" type="image/png" />
+	<link href="/favicon.png" rel="apple-touch-icon" />
+	<link color="#000000" href="/favicon.png" rel="mask-icon" />
+	<link href="/favicon.png" rel="shortcut icon" />
 
 	<!-- font -->
-	<link rel="preconnect" href="https://fonts.googleapis.com" />
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+	<link href="https://fonts.googleapis.com" rel="preconnect" />
+	<link crossorigin="anonymous" href="https://fonts.gstatic.com" rel="preconnect" />
 	<link
 		href="https://fonts.googleapis.com/css2?family=Almarai:wght@300;400;700;800&display=swap"
 		rel="stylesheet"

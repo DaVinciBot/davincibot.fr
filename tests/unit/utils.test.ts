@@ -1,33 +1,29 @@
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 
-vi.mock('@davincibot/lib', () => ({
-	userdata: {
-		set: vi.fn()
-	}
-}));
-
-import { userdata } from '@davincibot/lib';
 import type { UserProfile } from '@davincibot/lib';
 import {
 	hashCode,
 	hideOnClickOutside,
 	loadSettings,
 	loadUserdata,
-	saveSettings
+	saveSettings,
+	userdata
 } from '@davincibot/lib';
+
+const setSpy = vi.spyOn(userdata, 'set');
 
 describe('utils helpers', () => {
 	beforeEach(() => {
-		vi.mocked(userdata.set).mockClear();
+		setSpy.mockClear();
 		window.localStorage.clear();
 	});
 
 	it('loadUserdata writes to userdata store', () => {
 		loadUserdata(null);
-		expect(userdata.set).toHaveBeenCalledWith(null);
+		expect(setSpy).toHaveBeenCalledWith(null);
 
 		loadUserdata({ id: 'u-1' } as unknown as UserProfile);
-		expect(userdata.set).toHaveBeenCalledWith({ id: 'u-1' });
+		expect(setSpy).toHaveBeenCalledWith({ id: 'u-1' });
 	});
 
 	it('loadSettings and saveSettings persist JSON values', () => {

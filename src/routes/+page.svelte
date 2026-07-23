@@ -2,14 +2,13 @@
 	import Carousel from '$lib/components/others/Carousel.svelte';
 	import Card from '$lib/components/share/Card.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
-	import { Topbar } from '@davincibot/components';
+	import { CTAButton as CtaButton, Topbar } from '@davincibot/components';
 	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
-	import { CTAButton as CtaButton } from '@davincibot/components';
 
 	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 	import type { PageData } from './$types';
 
-	const { data }: { data: PageData } = $props() as { data: PageData };
+	const { data }: { data: PageData } = $props();
 
 	function getInitialPosts() {
 		return data.posts;
@@ -20,37 +19,37 @@
 
 <svelte:head>
 	<title>DaVinciBot</title>
-	<meta name="description" content="DaVinciBot. L'association de robotique étudiante." />
-	<meta name="keywords" content="DaVinciBot, association, robot, robotique, étudiant, esilv" />
-	<meta name="author" content="DaVinciBot" />
-	<meta name="robots" content="index, follow" />
+	<meta content="DaVinciBot. L'association de robotique étudiante." name="description" />
+	<meta content="DaVinciBot, association, robot, robotique, étudiant, esilv" name="keywords" />
+	<meta content="DaVinciBot" name="author" />
+	<meta content="index, follow" name="robots" />
 
 	<!-- meta og -->
-	<meta property="og:title" content="DaVinciBot" />
-	<meta property="og:description" content="DaVinciBot. L'association de robotique étudiante." />
-	<meta property="og:image" content="/dvb_og_img.png" />
-	<meta property="og:url" content="https://davincibot.fr" />
-	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="DaVinciBot" />
-	<meta property="og:locale" content="fr_FR" />
+	<meta content="DaVinciBot" property="og:title" />
+	<meta content="DaVinciBot. L'association de robotique étudiante." property="og:description" />
+	<meta content="/dvb_og_img.png" property="og:image" />
+	<meta content="https://davincibot.fr" property="og:url" />
+	<meta content="website" property="og:type" />
+	<meta content="DaVinciBot" property="og:site_name" />
+	<meta content="fr_FR" property="og:locale" />
 
 	<!-- meta twitter -->
-	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:site" content="@DaVinciBot" />
-	<meta name="twitter:creator" content="@DaVinciBot" />
-	<meta name="twitter:title" content="DaVinciBot" />
-	<meta name="twitter:description" content="DaVinciBot. L'association de robotique étudiante." />
-	<meta name="twitter:image" content="/dvb_og_img.png" />
-	<meta name="twitter:image:alt" content="DaVinciBot" />
-	<meta name="twitter:url" content="https://davincibot.fr" />
-	<meta name="twitter:domain" content="davincibot.fr" />
-	<meta name="twitter:card" content="summary_large_image" />
+	<meta content="summary" name="twitter:card" />
+	<meta content="@DaVinciBot" name="twitter:site" />
+	<meta content="@DaVinciBot" name="twitter:creator" />
+	<meta content="DaVinciBot" name="twitter:title" />
+	<meta content="DaVinciBot. L'association de robotique étudiante." name="twitter:description" />
+	<meta content="/dvb_og_img.png" name="twitter:image" />
+	<meta content="DaVinciBot" name="twitter:image:alt" />
+	<meta content="https://davincibot.fr" name="twitter:url" />
+	<meta content="davincibot.fr" name="twitter:domain" />
+	<meta content="summary_large_image" name="twitter:card" />
 
 	<link
-		rel="preload"
 		as="image"
-		href="/assets/project/cdr/boombot_small.webp"
 		fetchpriority="high"
+		href="/assets/project/cdr/boombot_small.webp"
+		rel="preload"
 	/>
 </svelte:head>
 
@@ -75,17 +74,17 @@
 				</div>
 				<div class="flex w-full flex-col gap-4 sm:w-102 sm:flex-row sm:gap-6">
 					<CtaButton href="#projets">Nos Projets</CtaButton>
-					<CtaButton variant="secondary" href="/soutenez-nous">Soutenez nous</CtaButton>
+					<CtaButton href="/soutenez-nous" variant="secondary">Soutenez nous</CtaButton>
 				</div>
 			</div>
 			<img
-				src="/assets/project/cdr/boombot_small.webp"
 				alt="Robot de DaVinciBot pour la Coupe de France de Robotique"
-				width="1280"
+				class="order-1 mx-auto mb-6 w-full scale-130 md:order-2 md:mb-0"
+				fetchpriority="high"
 				height="720"
 				loading="eager"
-				fetchpriority="high"
-				class="order-1 mx-auto mb-6 w-full scale-130 md:order-2 md:mb-0"
+				src="/assets/project/cdr/boombot_small.webp"
+				width="1280"
 			/>
 		</div>
 
@@ -135,7 +134,7 @@
 			<div class="flex w-full flex-col items-center justify-between gap-8 text-center md:flex-row">
 				<div class="flex-1">
 					<div class="text-4xl leading-none md:text-5xl lg:text-6xl">
-						<AnimatedNumber target={4} duration={1500} />
+						<AnimatedNumber duration={1500} target={4} />
 					</div>
 					<div class="text-dark-blue-gray mt-4 text-sm font-semibold tracking-wider uppercase">
 						Écoles
@@ -144,7 +143,7 @@
 
 				<div class="flex-1">
 					<div class="text-4xl leading-none md:text-5xl lg:text-6xl">
-						<AnimatedNumber prefix="+" target={10500} duration={2000} />
+						<AnimatedNumber duration={2000} prefix="+" target={10500} />
 					</div>
 					<div class="text-dark-blue-gray mt-4 text-sm font-semibold tracking-wider uppercase">
 						Étudiants
@@ -153,7 +152,7 @@
 
 				<div class="flex-1">
 					<div class="text-4xl leading-none md:text-5xl lg:text-6xl">
-						<AnimatedNumber target={7} duration={1500} />
+						<AnimatedNumber duration={1500} target={7} />
 					</div>
 					<div class="text-dark-blue-gray mt-4 text-sm font-semibold tracking-wider uppercase">
 						Campus
@@ -173,8 +172,8 @@
 			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[1fr_2fr]">
 				<div class="w-full">
 					<img
-						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						alt="Notre robot lors de la Coupe de France de Robotique 2024"
+						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						src="/assets/project/cdr/CDR_small.webp"
 					/>
 				</div>
@@ -198,8 +197,8 @@
 			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[2fr_1fr]">
 				<div class="w-full md:order-last">
 					<img
-						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						alt="Travelers"
+						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						src="/assets/project/cohoma/cohoma_small.webp"
 					/>
 				</div>
@@ -225,8 +224,8 @@
 			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[1fr_2fr]">
 				<div class="w-full">
 					<img
-						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						alt="Exodus"
+						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
 						src="/assets/project/exodus/exodus_small.webp"
 					/>
 				</div>

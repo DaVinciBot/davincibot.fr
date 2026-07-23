@@ -4,7 +4,7 @@
 	import { Topbar } from '@davincibot/components';
 	import type { PageData } from './$types';
 
-	const { data }: { data: PageData } = $props() as { data: PageData };
+	const { data }: { data: PageData } = $props();
 
 	type BlogPost = PageData['posts'][number];
 
@@ -169,24 +169,24 @@
 
 <svelte:head>
 	<title>Actus — DaVinciBot</title>
-	<link rel="canonical" href="https://davincibot.fr/blog/" />
-	<meta name="description" content="Dernières nouvelles, projets et coulisses de DaVinciBot." />
-	<meta name="robots" content="index,follow" />
-	<meta property="og:title" content="Actus — DaVinciBot" />
+	<link href="https://davincibot.fr/blog/" rel="canonical" />
+	<meta content="Dernières nouvelles, projets et coulisses de DaVinciBot." name="description" />
+	<meta content="index,follow" name="robots" />
+	<meta content="Actus — DaVinciBot" property="og:title" />
 	<meta
+		content="Dernières nouvelles, projets et coulisses de DaVinciBot."
 		property="og:description"
-		content="Dernières nouvelles, projets et coulisses de DaVinciBot."
 	/>
-	<meta property="og:type" content="website" />
-	<meta property="og:url" content="https://davincibot.fr/blog/" />
-	<meta property="og:image" content="https://davincibot.fr/dvb_og_img.png" />
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Actus — DaVinciBot" />
+	<meta content="website" property="og:type" />
+	<meta content="https://davincibot.fr/blog/" property="og:url" />
+	<meta content="https://davincibot.fr/dvb_og_img.png" property="og:image" />
+	<meta content="summary_large_image" name="twitter:card" />
+	<meta content="Actus — DaVinciBot" name="twitter:title" />
 	<meta
-		name="twitter:description"
 		content="Dernières nouvelles, projets et coulisses de DaVinciBot."
+		name="twitter:description"
 	/>
-	<meta name="twitter:image" content="https://davincibot.fr/dvb_og_img.png" />
+	<meta content="https://davincibot.fr/dvb_og_img.png" name="twitter:image" />
 </svelte:head>
 
 <Topbar />
@@ -210,22 +210,22 @@
 					<div class="relative">
 						<input
 							bind:value={searchQuery}
-							type="search"
-							placeholder="Rechercher un article..."
 							class="focus:border-dark-light-blue focus:ring-dark-light-blue w-full rounded-2xl border border-gray-700 bg-gray-900/60 px-4 py-3 pl-12 text-sm text-white placeholder-gray-500 transition focus:ring-1 focus:outline-none"
+							placeholder="Rechercher un article..."
+							type="search"
 						/>
 						<svg
+							aria-hidden="true"
 							class="absolute top-3.5 left-4 h-5 w-5 text-gray-500"
-							viewBox="0 0 24 24"
 							fill="none"
 							stroke="currentColor"
-							stroke-width="2"
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							aria-hidden="true"
+							stroke-width="2"
+							viewBox="0 0 24 24"
 						>
 							<circle cx="11" cy="11" r="8" />
-							<line x1="21" y1="21" x2="16.65" y2="16.65" />
+							<line x1="21" x2="16.65" y1="21" y2="16.65" />
 						</svg>
 					</div>
 				</div>

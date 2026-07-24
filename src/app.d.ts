@@ -1,6 +1,6 @@
 import type { Database } from '@davincibot/database-types';
 import type { EffectivePermission } from '@davincibot/lib';
-import type { ResolvedAuthSession, ResolvedAuthUser } from '@davincibot/lib/server';
+import type { ResolvedAuthSession, ResolvedAuthUser } from '@davincibot/lib/server/types';
 import type { SupabaseClient } from '@supabase/supabase-js';
 
 declare global {

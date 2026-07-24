@@ -1,7 +1,6 @@
 import { building } from '$app/environment';
 import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl } from '@davincibot/lib';
-import type { ResolvedAuthSession, ResolvedAuthUser } from '@davincibot/lib/server';
 import {
 	SessionCache,
 	createAnonClient,
@@ -9,6 +8,7 @@ import {
 	resolveSessionViaAuth,
 	sidCookieName
 } from '@davincibot/lib/server';
+import type { ResolvedAuthSession, ResolvedAuthUser } from '@davincibot/lib/server/types';
 import { error, redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
 
 const SESSION_CACHE_TTL_MS = 5 * 60 * 1000;

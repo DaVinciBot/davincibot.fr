@@ -33,9 +33,9 @@
 		<h1 class="text-xl font-bold">{rank_and_points}</h1>
 	</div>
 	<div id="" class="flex h-28 flex-row items-center">
-		<img src={image} alt={title} class="aspect-auto h-28" />
-		<div class="flex items-center" style={transformStyle}>
-			<SvelteComponent class="h-28" sizeW="163px" sizeH="185px" />
+		<img class="aspect-auto h-28" alt={title} src={image} />
+		<div style={transformStyle} class="flex items-center">
+			<SvelteComponent class="h-28" sizeH="185px" sizeW="163px" />
 		</div>
 	</div>
 </div>

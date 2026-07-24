@@ -30,8 +30,8 @@
 </script>
 
 <footer
-	class="bg-dark-blue grid grid-cols-2 gap-x-2 gap-y-8 px-6 pt-5 text-center backdrop-blur-lg md:grid-cols-5 md:gap-10 md:px-16 lg:px-32"
 	id="footer"
+	class="bg-dark-blue grid grid-cols-2 gap-x-2 gap-y-8 px-6 pt-5 text-center backdrop-blur-lg md:grid-cols-5 md:gap-10 md:px-16 lg:px-32"
 >
 	<!--Changer les ref des liens en dessous-->
 
@@ -46,10 +46,10 @@
 		<h1 class="text-left font-bold uppercase">Suivez Nous</h1>
 		<div class="flex flex-row justify-between">
 			<a
-				href="https://www.linkedin.com/company/davincibot/"
-				target="_blank"
-				rel="noopener noreferrer"
 				aria-label="LinkedIn"
+				href="https://www.linkedin.com/company/davincibot/"
+				rel="noopener noreferrer"
+				target="_blank"
 			>
 				<svg
 					class="fill-dark-light-blue h-10 md:h-12"
@@ -62,10 +62,10 @@
 				</svg>
 			</a>
 			<a
-				href="https://www.instagram.com/davincibot_pulv/"
-				target="_blank"
-				rel="noopener noreferrer"
 				aria-label="Instagram"
+				href="https://www.instagram.com/davincibot_pulv/"
+				rel="noopener noreferrer"
+				target="_blank"
 			>
 				<svg
 					class="fill-dark-light-blue h-10 md:h-12"
@@ -78,10 +78,10 @@
 				</svg>
 			</a>
 			<a
-				href="https://github.com/DaVinciBot"
-				target="_blank"
-				rel="noopener noreferrer"
 				aria-label="GitHub"
+				href="https://github.com/DaVinciBot"
+				rel="noopener noreferrer"
+				target="_blank"
 			>
 				<svg
 					class="fill-dark-light-blue h-10 md:h-12"
@@ -90,28 +90,28 @@
 				>
 					<g clip-path="url(#clip0_1_611)">
 						<path
-							fill-rule="evenodd"
 							clip-rule="evenodd"
 							d="M39.9012 6.85718C21.6287 6.85718 6.85715 21.7376 6.85715 40.1468C6.85715 54.8622 16.3218 67.3185 29.4518 71.7272C31.0934 72.0586 31.6947 71.0109 31.6947 70.1296C31.6947 69.3578 31.6406 66.7125 31.6406 63.9562C22.4485 65.9407 20.5343 59.9879 20.5343 59.9879C19.0571 56.1298 16.8683 55.1382 16.8683 55.1382C13.8598 53.0989 17.0875 53.0989 17.0875 53.0989C20.4248 53.3194 22.1759 56.516 22.1759 56.516C25.1297 61.5862 29.8894 60.1536 31.8042 59.2716C32.0775 57.122 32.9534 55.634 33.8835 54.8074C26.5521 54.0357 18.8386 51.1699 18.8386 38.3828C18.8386 34.7452 20.1508 31.7691 22.23 29.4545C21.902 28.628 20.7528 25.2102 22.5587 20.6358C22.5587 20.6358 25.3488 19.7538 31.6399 24.0529C34.3333 23.3242 37.111 22.9535 39.9012 22.9504C42.6913 22.9504 45.5355 23.3366 48.1619 24.0529C54.4537 19.7538 57.2438 20.6358 57.2438 20.6358C59.0497 25.2102 57.8998 28.628 57.5718 29.4545C59.7058 31.7691 60.9639 34.7452 60.9639 38.3828C60.9639 51.1699 53.2504 53.9802 45.8643 54.8074C47.0682 55.8545 48.1072 57.8383 48.1072 60.9801C48.1072 65.4443 48.053 69.0271 48.053 70.1289C48.053 71.0109 48.655 72.0586 50.2959 71.7279C63.4259 67.3179 72.8906 54.8622 72.8906 40.1468C72.9447 21.7376 58.119 6.85718 39.9012 6.85718Z"
+							fill-rule="evenodd"
 						/>
 					</g>
 					<defs>
 						<clipPath id="clip0_1_611">
 							<rect
-								width="66.2857"
-								height="64.9329"
 								fill="white"
+								height="64.9329"
 								transform="translate(6.85715 6.85718)"
+								width="66.2857"
 							/>
 						</clipPath>
 					</defs>
 				</svg>
 			</a>
 			<a
-				href="https://www.facebook.com/DaVinciBotPULV/"
-				target="_blank"
-				rel="noopener noreferrer"
 				aria-label="Facebook"
+				href="https://www.facebook.com/DaVinciBotPULV/"
+				rel="noopener noreferrer"
+				target="_blank"
 			>
 				<svg
 					class="fill-dark-light-blue h-10 md:h-12"
@@ -124,10 +124,10 @@
 				</svg>
 			</a>
 			<a
-				href="https://www.youtube.com/@davincibot-pulv"
-				target="_blank"
-				rel="noopener noreferrer"
 				aria-label="YouTube"
+				href="https://www.youtube.com/@davincibot-pulv"
+				rel="noopener noreferrer"
+				target="_blank"
 			>
 				<svg
 					class="fill-dark-light-blue h-10 md:h-12"
@@ -144,7 +144,7 @@
 	<div class="order-4 col-span-2 flex flex-col md:col-span-3 md:-ml-32">
 		<h1 class="text-left font-bold uppercase">Nos Partenaires</h1>
 		<div class="h-36 w-full">
-			<SponsorsCarousel small={true} pauseOnHover={false} />
+			<SponsorsCarousel pauseOnHover={false} small={true} />
 		</div>
 	</div>
 </footer>

@@ -22,22 +22,22 @@
 
 <svelte:head>
 	<title>Mentions légales — DaVinciBot</title>
-	<link rel="canonical" href={canonical} />
+	<link href={canonical} rel="canonical" />
 	<meta
 		name="description"
 		content="Mentions légales du site davincibot.fr : identification de l'éditeur, hébergeur, coordonnées et droits de propriété intellectuelle."
 	/>
 	<meta name="robots" content="index,follow" />
-	<meta property="og:title" content="Mentions légales — DaVinciBot" />
+	<meta content="Mentions légales — DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="Retrouvez les informations légales et de contact de l'association DaVinciBot, éditrice du site davincibot.fr."
+		property="og:description"
 	/>
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content={canonical} />
+	<meta content="article" property="og:type" />
+	<meta content={canonical} property="og:url" />
 </svelte:head>
 
-<ArticleFrame {title} {intro} {updatedAt} {sections} redirectToLegalHome={true}>
+<ArticleFrame {intro} redirectToLegalHome={true} {sections} {title} {updatedAt}>
 	<div class="space-y-12">
 		<section id="editeur" aria-labelledby="heading-editeur">
 			<h2 id="heading-editeur">1. Éditeur du site</h2>

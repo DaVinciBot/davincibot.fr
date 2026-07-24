@@ -32,16 +32,16 @@
 	<meta name="robots" content="index, follow" />
 
 	<!-- meta og -->
-	<meta property="og:title" content="Projet Coupe de France de Robotique — DaVinciBot" />
+	<meta content="Projet Coupe de France de Robotique — DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="DaVinciBot participe à la Coupe de France de Robotique"
+		property="og:description"
 	/>
-	<meta property="og:image" content="/assets/project/cdr/CDR.jpg" />
-	<meta property="og:url" content="https://davincibot.fr/project/coupe-de-robotique" />
-	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="DaVinciBot" />
-	<meta property="og:locale" content="fr_FR" />
+	<meta content="/assets/project/cdr/CDR.jpg" property="og:image" />
+	<meta content="https://davincibot.fr/project/coupe-de-robotique" property="og:url" />
+	<meta content="website" property="og:type" />
+	<meta content="DaVinciBot" property="og:site_name" />
+	<meta content="fr_FR" property="og:locale" />
 
 	<!-- meta twitter -->
 	<meta name="twitter:card" content="summary_large_image" />
@@ -53,10 +53,10 @@
 	<meta name="twitter:image" content="/assets/project/cdr/CDR.jpg" />
 
 	<link
-		rel="preload"
 		as="image"
-		href="/assets/project/cdr/boombot_small.webp"
 		fetchpriority="high"
+		href="/assets/project/cdr/boombot_small.webp"
+		rel="preload"
 	/>
 </svelte:head>
 
@@ -84,13 +84,13 @@
 				</div>
 			</div>
 			<img
-				src="/assets/project/cdr/boombot_small.webp"
+				class="order-1 mx-auto mb-6 w-full max-w-md object-contain md:order-2 md:mb-0 md:max-h-105 md:max-w-full lg:max-h-120"
 				alt="Robot de DaVinciBot pour la Coupe de France de Robotique"
-				width="1280"
+				fetchpriority="high"
 				height="720"
 				loading="eager"
-				fetchpriority="high"
-				class="order-1 mx-auto mb-6 w-full max-w-md object-contain md:order-2 md:mb-0 md:max-h-105 md:max-w-full lg:max-h-120"
+				src="/assets/project/cdr/boombot_small.webp"
+				width="1280"
 			/>
 		</div>
 
@@ -137,28 +137,28 @@
 		<div class="my-10 max-w-full">
 			<Carousel time={90}>
 				<ResultCard
-					title="2025 - The Show Must Go On"
-					rank_and_points="36/103 "
 					image={cdrImg}
 					logo={TheShowMustGoOnLogo}
-					marginLeft="30"
 					marginBottom="20"
+					marginLeft="30"
+					rank_and_points="36/103 "
+					title="2025 - The Show Must Go On"
 				/>
 				<ResultCard
-					title="2024 - Farming Mars"
-					rank_and_points="44e/186 - 157 pts"
 					image={precoupeImg}
 					logo={FarmingMars}
-					marginLeft="35"
 					marginBottom="35"
+					marginLeft="35"
+					rank_and_points="44e/186 - 157 pts"
+					title="2024 - Farming Mars"
 				/>
 				<ResultCard
-					title="2023 - The Cherry on the Cake"
-					rank_and_points="46e/100 - 150 pts"
 					image={coupe23Img}
 					logo={TheCherryOnTheCake}
-					marginLeft="50"
 					marginBottom="35"
+					marginLeft="50"
+					rank_and_points="46e/100 - 150 pts"
+					title="2023 - The Cherry on the Cake"
 				/>
 				<!-- <ResultCard
 					title={'2022 - Age of Bots'}
@@ -226,10 +226,10 @@
 							class="bg-dark-blue-gray/15 absolute inset-x-12 bottom-1.5 h-[4.2rem] rounded-full blur-lg sm:bottom-2 sm:h-[4.8rem] lg:h-[5.6rem]"
 						></div>
 						<img
-							src="/assets/project/cdr/boombot_small.webp"
-							alt="Robot bleu DaVinciBot"
 							class="relative z-10 h-full w-full object-contain drop-shadow-[0_30px_45px_rgba(2,50,255,0.28)]"
+							alt="Robot bleu DaVinciBot"
 							loading="lazy"
+							src="/assets/project/cdr/boombot_small.webp"
 						/>
 					</div>
 				</div>

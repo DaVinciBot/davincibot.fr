@@ -19,11 +19,11 @@
 		<div class="flex h-28 max-w-[50%] flex-col justify-between overflow-hidden">
 			<p class="text-dark-blue-gray mb-2 line-clamp-4 text-justify text-sm">{description}</p>
 			<!-- eslint-disable svelte/no-navigation-without-resolve -->
-			<a href={link} class=" text-dark-light-blue">Lire la suite...</a>
+			<a class=" text-dark-light-blue" href={link}>Lire la suite...</a>
 			<!-- eslint-enable svelte/no-navigation-without-resolve -->
 		</div>
 		<div id="img-mask" class="h-28">
-			<img src={image} alt={title} class="aspect-auto h-28" />
+			<img class="aspect-auto h-28" alt={title} src={image} />
 		</div>
 	</div>
 </div>

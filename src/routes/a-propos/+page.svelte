@@ -169,15 +169,15 @@
 		name="description"
 		content="Découvrez la mission, les valeurs et le fonctionnement de DaVinciBot, l’association de robotique du Pôle Léonard de Vinci."
 	/>
-	<meta property="og:title" content="À propos | DaVinciBot" />
+	<meta content="À propos | DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="Comprendre qui nous sommes, ce que nous construisons et comment nous formons la nouvelle génération d’ingénieurs."
+		property="og:description"
 	/>
-	<meta property="og:image" content="/dvb_og_img.png" />
-	<meta property="og:url" content="https://davincibot.fr/a-propos" />
-	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="DaVinciBot" />
+	<meta content="/dvb_og_img.png" property="og:image" />
+	<meta content="https://davincibot.fr/a-propos" property="og:url" />
+	<meta content="website" property="og:type" />
+	<meta content="DaVinciBot" property="og:site_name" />
 	<meta name="robots" content="index, follow" />
 </svelte:head>
 
@@ -217,22 +217,22 @@
 			</div>
 			<div class="relative">
 				<div
-					role="group"
 					class="relative aspect-[16/10] w-full overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-[0_30px_60px_-15px_rgba(9,88,239,0.35)]"
+					aria-label="Moments de la vie DaVinciBot"
+					aria-live="polite"
 					onmouseenter={stopHeroTimer}
 					onmouseleave={startHeroTimer}
-					aria-live="polite"
-					aria-label="Moments de la vie DaVinciBot"
+					role="group"
 				>
 					{#if heroImages.length}
 						{#key activeHeroImage.src}
 							<img
-								src={activeHeroImage.src}
-								alt={activeHeroImage.alt}
 								class="absolute inset-0 h-full w-full object-cover"
-								width="960"
+								alt={activeHeroImage.alt}
 								height="600"
 								loading="eager"
+								src={activeHeroImage.src}
+								width="960"
 								in:fade={{ duration: 400 }}
 								out:fade={{ duration: 250 }}
 							/>
@@ -264,13 +264,13 @@
 					<div class="mt-6 flex flex-wrap items-center justify-center gap-2">
 						{#each heroImages as image, idx (image.src)}
 							<button
-								type="button"
 								class={`focus:ring-dark-light-blue h-1.5 w-10 rounded-full transition-all duration-300 hover:bg-white/50 focus:ring-2 focus:outline-none ${idx === activeHero ? 'bg-dark-light-blue  ' : 'bg-white/30'}`}
+								aria-current={idx === activeHero ? 'true' : 'false'}
+								aria-label={`Afficher ${image.caption}`}
 								onclick={() => {
 									selectHero(idx);
 								}}
-								aria-label={`Afficher ${image.caption}`}
-								aria-current={idx === activeHero ? 'true' : 'false'}
+								type="button"
 							></button>
 						{/each}
 					</div>
@@ -344,7 +344,7 @@
 				<div class="grid gap-6 sm:grid-cols-2">
 					<div class="space-y-2">
 						<div class="text-5xl font-extrabold">
-							<AnimatedNumber target={130} suffix="+" duration={1800} />
+							<AnimatedNumber duration={1800} suffix="+" target={130} />
 						</div>
 						<p class="text-sm text-white/70">
 							membres actifs chaque année, de Paris comme de Nantes
@@ -352,19 +352,19 @@
 					</div>
 					<div class="space-y-2">
 						<div class="text-5xl font-extrabold">
-							<AnimatedNumber target={150} suffix="h" duration={1600} />
+							<AnimatedNumber duration={1600} suffix="h" target={150} />
 						</div>
 						<p class="text-sm text-white/70">de formations toute au long de l'année</p>
 					</div>
 					<div class="space-y-2">
 						<div class="text-5xl font-extrabold">
-							<AnimatedNumber target={120} suffix="k" duration={2000} />
+							<AnimatedNumber duration={2000} suffix="k" target={120} />
 						</div>
 						<p class="text-sm text-white/70">de Budgets prévisionnels</p>
 					</div>
 					<div class="space-y-2">
 						<div class="text-5xl font-extrabold">
-							<AnimatedNumber prefix="+" target={8} duration={1700} />
+							<AnimatedNumber duration={1700} prefix="+" target={8} />
 						</div>
 						<p class="text-sm text-white/70">partenaires industriels fidèles</p>
 					</div>
@@ -473,8 +473,8 @@
 							Chaque équipe rédige fiches techniques, plans et guides afin d'assurer la maintenance
 							des robots et le passage de relais aux nouvelles promotions.
 							<a
-								href="https://docs.davincibot.fr"
 								class="text-dark-light-blue font-bold underline"
+								href="https://docs.davincibot.fr"
 								rel="noopener noreferrer"
 								target="_blank">Découvrez notre documentation en ligne.</a
 							>

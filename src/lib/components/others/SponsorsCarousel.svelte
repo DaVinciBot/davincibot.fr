@@ -39,7 +39,7 @@
 	});
 </script>
 
-<Carousel {time} {pauseOnHover} {small}>
+<Carousel {pauseOnHover} {small} {time}>
 	<HDSLogo {small} />
 	<RSLogo {small} />
 	<FaulhaberLogo {small} />

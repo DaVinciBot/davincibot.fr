@@ -25,22 +25,22 @@
 
 <svelte:head>
 	<title>Conditions générales d'utilisation — DaVinciBot</title>
-	<link rel="canonical" href={canonical} />
+	<link href={canonical} rel="canonical" />
 	<meta
 		name="description"
 		content="Consultez les conditions générales d'utilisation du site davincibot.fr : accès, responsabilités, propriété intellectuelle et modalités de contact."
 	/>
 	<meta name="robots" content="index,follow" />
-	<meta property="og:title" content="Conditions générales d'utilisation — DaVinciBot" />
+	<meta content="Conditions générales d'utilisation — DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="Cadre légal d'utilisation du site davincibot.fr et engagements de l'association DaVinciBot."
+		property="og:description"
 	/>
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content={canonical} />
+	<meta content="article" property="og:type" />
+	<meta content={canonical} property="og:url" />
 </svelte:head>
 
-<ArticleFrame {title} {intro} {updatedAt} {sections} redirectToLegalHome={true}>
+<ArticleFrame {intro} redirectToLegalHome={true} {sections} {title} {updatedAt}>
 	<div class="space-y-12">
 		<section id="objet" aria-labelledby="heading-objet">
 			<h2 id="heading-objet">1. Objet</h2>

@@ -107,9 +107,9 @@
 <svelte:head>
 	<link href={canonical} rel="canonical" />
 	<title>{post.title}</title>
-	<meta content={keywords} name="keywords" />
-	<meta content={authorName} name="author" />
-	<meta content="index, follow" name="robots" />
+	<meta name="keywords" content={keywords} />
+	<meta name="author" content={authorName} />
+	<meta name="robots" content="index, follow" />
 	{#if excerpt}
 		<meta name="description" content={excerpt} />
 	{/if}
@@ -118,21 +118,21 @@
 	<meta content="article" property="og:type" />
 	<meta content={post.title} property="og:title" />
 	{#if excerpt}
-		<meta property="og:description" content={excerpt} />
+		<meta content={excerpt} property="og:description" />
 	{/if}
 	<meta content={heroSocialAbs} property="og:image" />
 	{#if isoPublished}
-		<meta property="article:published_time" content={isoPublished} />
+		<meta content={isoPublished} property="article:published_time" />
 	{/if}
 	{#if isoUpdated}
-		<meta property="article:modified_time" content={isoUpdated} />
+		<meta content={isoUpdated} property="article:modified_time" />
 	{/if}
 
-	<meta content="summary_large_image" name="twitter:card" />
+	<meta name="twitter:card" content="summary_large_image" />
 	<meta content="davincibot.fr" property="twitter:domain" />
 	<meta content={`https://davincibot.fr/blog/${post.slug}`} property="twitter:url" />
-	<meta content={post.title} name="twitter:title" />
-	<meta content={heroSocialAbs} name="twitter:image" />
+	<meta name="twitter:title" content={post.title} />
+	<meta name="twitter:image" content={heroSocialAbs} />
 	{#if excerpt}
 		<meta name="twitter:description" content={excerpt} />
 	{/if}
@@ -142,7 +142,7 @@
 <Topbar />
 
 <div class="4xl:-mt-80 -mt-5 md:-mt-8 lg:-mt-32 2xl:-mt-64">
-	<img alt={heroAlt} class="w-full bg-gray-500 opacity-50" src={heroImage} />
+	<img class="w-full bg-gray-500 opacity-50" alt={heroAlt} src={heroImage} />
 </div>
 <div
 	class="via-dark-blue/70 to-dark-blue absolute -mt-28 w-full bg-linear-to-b from-white/0 from-0% via-1% to-5% pt-12 md:-mt-72 md:pt-0"

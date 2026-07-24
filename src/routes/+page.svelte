@@ -19,10 +19,10 @@
 
 <svelte:head>
 	<title>DaVinciBot</title>
-	<meta content="DaVinciBot. L'association de robotique étudiante." name="description" />
-	<meta content="DaVinciBot, association, robot, robotique, étudiant, esilv" name="keywords" />
-	<meta content="DaVinciBot" name="author" />
-	<meta content="index, follow" name="robots" />
+	<meta name="description" content="DaVinciBot. L'association de robotique étudiante." />
+	<meta name="keywords" content="DaVinciBot, association, robot, robotique, étudiant, esilv" />
+	<meta name="author" content="DaVinciBot" />
+	<meta name="robots" content="index, follow" />
 
 	<!-- meta og -->
 	<meta content="DaVinciBot" property="og:title" />
@@ -34,16 +34,16 @@
 	<meta content="fr_FR" property="og:locale" />
 
 	<!-- meta twitter -->
-	<meta content="summary" name="twitter:card" />
-	<meta content="@DaVinciBot" name="twitter:site" />
-	<meta content="@DaVinciBot" name="twitter:creator" />
-	<meta content="DaVinciBot" name="twitter:title" />
-	<meta content="DaVinciBot. L'association de robotique étudiante." name="twitter:description" />
-	<meta content="/dvb_og_img.png" name="twitter:image" />
-	<meta content="DaVinciBot" name="twitter:image:alt" />
-	<meta content="https://davincibot.fr" name="twitter:url" />
-	<meta content="davincibot.fr" name="twitter:domain" />
-	<meta content="summary_large_image" name="twitter:card" />
+	<meta name="twitter:card" content="summary" />
+	<meta name="twitter:site" content="@DaVinciBot" />
+	<meta name="twitter:creator" content="@DaVinciBot" />
+	<meta name="twitter:title" content="DaVinciBot" />
+	<meta name="twitter:description" content="DaVinciBot. L'association de robotique étudiante." />
+	<meta name="twitter:image" content="/dvb_og_img.png" />
+	<meta name="twitter:image:alt" content="DaVinciBot" />
+	<meta name="twitter:url" content="https://davincibot.fr" />
+	<meta name="twitter:domain" content="davincibot.fr" />
+	<meta name="twitter:card" content="summary_large_image" />
 
 	<link
 		as="image"
@@ -78,8 +78,8 @@
 				</div>
 			</div>
 			<img
-				alt="Robot de DaVinciBot pour la Coupe de France de Robotique"
 				class="order-1 mx-auto mb-6 w-full scale-130 md:order-2 md:mb-0"
+				alt="Robot de DaVinciBot pour la Coupe de France de Robotique"
 				fetchpriority="high"
 				height="720"
 				loading="eager"
@@ -110,20 +110,20 @@
 				<Carousel time={90}>
 					{#each posts as p (p.slug)}
 						<Card
-							title={p.title}
 							description={p.description}
 							image={p.coverSmall}
 							link={`/blog/${p.slug}`}
+							title={p.title}
 						/>
 					{/each}
 				</Carousel>
 			{:else}
 				<Carousel time={90}>
 					<Card
-						title="Bientôt sur le blog"
 						description="Nos dernières actus s'afficheront ici."
 						image="/assets/article/precoupe.jpg"
 						link="/blog/"
+						title="Bientôt sur le blog"
 					/>
 				</Carousel>
 			{/if}
@@ -162,7 +162,7 @@
 		</div>
 	</section>
 
-	<section class="mb-12 flex flex-col gap-4 pt-4 md:gap-0 md:pt-0" id="projets">
+	<section id="projets" class="mb-12 flex flex-col gap-4 pt-4 md:gap-0 md:pt-0">
 		<div class="mb-12 w-full text-center">
 			<h1 class="pr-5 text-6xl font-extrabold tracking-[4.10px]">Nos projets</h1>
 		</div>
@@ -172,8 +172,8 @@
 			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[1fr_2fr]">
 				<div class="w-full">
 					<img
-						alt="Notre robot lors de la Coupe de France de Robotique 2024"
 						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
+						alt="Notre robot lors de la Coupe de France de Robotique 2024"
 						src="/assets/project/cdr/CDR_small.webp"
 					/>
 				</div>
@@ -197,8 +197,8 @@
 			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[2fr_1fr]">
 				<div class="w-full md:order-last">
 					<img
-						alt="Travelers"
 						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
+						alt="Travelers"
 						src="/assets/project/cohoma/cohoma_small.webp"
 					/>
 				</div>
@@ -224,8 +224,8 @@
 			<div class="grid grid-cols-1 items-center gap-6 py-6 md:grid-cols-[1fr_2fr]">
 				<div class="w-full">
 					<img
-						alt="Exodus"
 						class="mx-auto h-48 rounded-2xl object-cover md:h-56 md:w-full"
+						alt="Exodus"
 						src="/assets/project/exodus/exodus_small.webp"
 					/>
 				</div>

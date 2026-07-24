@@ -24,22 +24,22 @@
 
 <svelte:head>
 	<title>Données personnelles — DaVinciBot</title>
-	<link rel="canonical" href={canonical} />
+	<link href={canonical} rel="canonical" />
 	<meta
 		name="description"
 		content="Découvrez comment DaVinciBot collecte, protège et utilise vos données personnelles conformément au RGPD, ainsi que les moyens d'exercer vos droits."
 	/>
 	<meta name="robots" content="index,follow" />
-	<meta property="og:title" content="Données personnelles — DaVinciBot" />
+	<meta content="Données personnelles — DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="Politique RGPD de DaVinciBot : finalités, durées de conservation, destinataires et hébergement."
+		property="og:description"
 	/>
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content={canonical} />
+	<meta content="article" property="og:type" />
+	<meta content={canonical} property="og:url" />
 </svelte:head>
 
-<ArticleFrame {title} {intro} {updatedAt} {sections} redirectToLegalHome={true}>
+<ArticleFrame {intro} redirectToLegalHome={true} {sections} {title} {updatedAt}>
 	<div class="space-y-12">
 		<section id="responsable" aria-labelledby="heading-responsable">
 			<h2 id="heading-responsable">1. Responsable du traitement</h2>

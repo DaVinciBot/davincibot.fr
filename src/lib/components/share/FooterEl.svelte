@@ -19,7 +19,7 @@
 	<div class="flex flex-col items-start">
 		<!-- eslint-disable svelte/no-navigation-without-resolve svelte/no-at-html-tags -->
 		{#each items as item (item.href)}
-			<a href={item.href} class="text-dark-blue-gray"> {@html item.text} </a>
+			<a class="text-dark-blue-gray" href={item.href}> {@html item.text} </a>
 		{/each}
 		<!-- eslint-enable svelte/no-navigation-without-resolve svelte/no-at-html-tags -->
 	</div>

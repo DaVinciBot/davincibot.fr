@@ -104,23 +104,23 @@
 		name="description"
 		content="Découvrez nos partenaires et sponsors, et téléchargez notre brochure de partenariat."
 	/>
-	<link rel="canonical" href="https://davincibot.fr/sponsors" />
+	<link href="https://davincibot.fr/sponsors" rel="canonical" />
 	<meta
 		name="keywords"
 		content="partenaires, sponsors, collaboration, robotique, innovation, DaVinciBot, DVB"
 	/>
 	<meta name="robots" content="index, follow" />
 
-	<meta property="og:title" content="Partenaires — DaVinciBot" />
+	<meta content="Partenaires — DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="Découvrez nos partenaires et sponsors, et téléchargez notre brochure de partenariat."
+		property="og:description"
 	/>
-	<meta property="og:image" content="https://davincibot.fr/dvb_og_img.png" />
-	<meta property="og:url" content="https://davincibot.fr/sponsors" />
-	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="DaVinciBot" />
-	<meta property="og:locale" content="fr_FR" />
+	<meta content="https://davincibot.fr/dvb_og_img.png" property="og:image" />
+	<meta content="https://davincibot.fr/sponsors" property="og:url" />
+	<meta content="website" property="og:type" />
+	<meta content="DaVinciBot" property="og:site_name" />
+	<meta content="fr_FR" property="og:locale" />
 
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:site" content="https://instagram.com/davincibot_pulv" />
@@ -139,15 +139,15 @@
 			class="bg-drift absolute -inset-16 mask-[radial-gradient(closest-side,rgba(0,0,0,.9),transparent_95%)] opacity-15"
 		>
 			<div
-				class="grid place-items-center gap-10"
 				style={`grid-template-columns: repeat(${String(BG_COLS)}, minmax(120px, 1fr));`}
+				class="grid place-items-center gap-10"
 			>
 				{#each bgTiles as t (t.id)}
 					<img
-						src={t.logo}
-						alt=""
 						class="h-10 w-auto object-contain brightness-110 contrast-90 saturate-50 md:h-12 lg:h-14"
+						alt=""
 						loading="lazy"
+						src={t.logo}
 					/>
 				{/each}
 			</div>
@@ -162,16 +162,16 @@
 		</p>
 		<div class="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
 			<a
-				href={resolve(brochureUrl as '/')}
-				download
 				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
 				aria-label="Télécharger notre brochure de partenariat"
+				download
+				href={resolve(brochureUrl as '/')}
 			>
 				Télécharger la brochure de partenariat
 			</a>
 			<a
-				href="mailto:davincibot@devinci.fr"
 				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+				href="mailto:davincibot@devinci.fr"
 			>
 				Contactez-nous
 			</a>
@@ -192,10 +192,10 @@
 						class="mx-auto flex aspect-3/1 w-full max-w-md items-center justify-center rounded-lg border border-white/10 bg-white/5 p-6 md:aspect-4/1 md:max-w-none"
 					>
 						<img
-							src={s.logo}
-							alt={`${s.name} logo`}
 							class="max-h-16 w-auto object-contain md:max-h-20"
+							alt={`${s.name} logo`}
 							loading="lazy"
+							src={s.logo}
 						/>
 					</div>
 				</div>
@@ -206,11 +206,11 @@
 					<p class="mt-3 leading-relaxed text-white/80">{s.blurb}</p>
 					{#if s.link}
 						<a
-							href={s.link}
-							target="_blank"
-							rel="external noopener noreferrer"
 							class="mt-4 inline-flex text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80"
 							aria-label={`Visiter le site de ${s.name}`}
+							href={s.link}
+							rel="external noopener noreferrer"
+							target="_blank"
 						>
 							Visiter le site
 						</a>
@@ -234,16 +234,16 @@
 		</p>
 		<div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
 			<a
-				href={resolve(brochureUrl as '/')}
-				download
 				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
 				aria-label="Télécharger notre brochure de partenariat"
+				download
+				href={resolve(brochureUrl as '/')}
 			>
 				Télécharger la brochure de partenariat
 			</a>
 			<a
-				href="mailto:davincibot@devinci.fr"
 				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-transparent px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/10"
+				href="mailto:davincibot@devinci.fr"
 			>
 				Nous écrire
 			</a>

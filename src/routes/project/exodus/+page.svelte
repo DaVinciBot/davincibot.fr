@@ -115,20 +115,20 @@
 		name="description"
 		content="Découvrez l'exosquelette robotique Exodus développé par DaVinciBot pour assister les ouvriers lorsqu'ils portent des charges lourdes."
 	/>
-	<link rel="canonical" href="https://davincibot.fr/project/exodus" />
+	<link href="https://davincibot.fr/project/exodus" rel="canonical" />
 	<meta name="keywords" content="Exodus, Exosquelette, DaVinciBot, robot d'assistance, recherche" />
 	<meta name="robots" content="index, follow" />
 
-	<meta property="og:title" content="Projet Exodus — DaVinciBot" />
+	<meta content="Projet Exodus — DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="Exosquelette robotique conçu pour assister les ouvriers dans le port de charges lourdes."
+		property="og:description"
 	/>
-	<meta property="og:image" content="" />
-	<meta property="og:url" content="https://davincibot.fr/project/exodus" />
-	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="DaVinciBot" />
-	<meta property="og:locale" content="fr_FR" />
+	<meta content="" property="og:image" />
+	<meta content="https://davincibot.fr/project/exodus" property="og:url" />
+	<meta content="website" property="og:type" />
+	<meta content="DaVinciBot" property="og:site_name" />
+	<meta content="fr_FR" property="og:locale" />
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Projet Exodus — DaVinciBot" />
@@ -139,10 +139,10 @@
 	<meta name="twitter:image" content="" />
 
 	<link
-		rel="preload"
 		as="image"
-		href="/assets/project/exodus/future_exodus.webp"
 		fetchpriority="high"
+		href="/assets/project/exodus/future_exodus.webp"
+		rel="preload"
 	/>
 </svelte:head>
 
@@ -165,7 +165,7 @@
 				</p>
 				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 					<CTAButton href="/#projets">Nos Projets</CTAButton>
-					<CTAButton variant="secondary" href="https://www.linkedin.com/company/davincibot/"
+					<CTAButton href="https://www.linkedin.com/company/davincibot/" variant="secondary"
 						>Suivre l'avancement</CTAButton
 					>
 				</div>
@@ -176,11 +176,11 @@
 					aria-hidden="true"
 				></div>
 				<img
-					src="/assets/project/exodus/future_exodus.webp"
-					alt="Objectif d'Exodus"
 					class="shadow-dark-light-blue/40 relative w-full max-w-md rounded-3xl border border-white/10 shadow-2xl"
-					loading="lazy"
+					alt="Objectif d'Exodus"
 					fetchpriority="high"
+					loading="lazy"
+					src="/assets/project/exodus/future_exodus.webp"
 				/>
 			</div>
 		</div>

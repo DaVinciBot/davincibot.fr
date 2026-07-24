@@ -15,15 +15,15 @@
 <div class="h-full w-full">
 	<div
 		class="carrousel relative h-full w-full overflow-hidden"
-		class:py-5={!small}
-		class:py-2={small}
 		class:pause-on-hover={pauseOnHover}
+		class:py-2={small}
+		class:py-5={!small}
 	>
 		<!--
 			The inner track duplicates the slot content to create an infinite marquee.
 			CSS handles width via max-content, avoiding JS measurements that can be flaky in Firefox.
 		-->
-		<div class="carousel-inner flex" style={`--duration: ${String(time)}s`}>
+		<div style={`--duration: ${String(time)}s`} class="carousel-inner flex">
 			<div class="flex h-full items-center gap-8">
 				{@render children?.()}
 			</div>

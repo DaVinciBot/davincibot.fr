@@ -55,14 +55,14 @@
 <svelte:head>
 	<title>SmartShare - Instructions de partage d'écran</title>
 	<meta name="description" content="Instructions pour partager votre écran avec SmartShare" />
-	<link rel="icon" type="image/png" href="/favicon.png" />
+	<link href="/favicon.png" rel="icon" type="image/png" />
 
-	<meta property="og:title" content="SmartShare - Instructions de partage d'écran" />
+	<meta content="SmartShare - Instructions de partage d'écran" property="og:title" />
 	<meta
-		property="og:description"
 		content="Instructions pour partager votre écran avec SmartShare"
+		property="og:description"
 	/>
-	<meta property="og:image" content="/dvb_og_img.png" />
+	<meta content="/dvb_og_img.png" property="og:image" />
 
 	<meta name="robots" content="noindex, nofollow" />
 </svelte:head>
@@ -82,17 +82,17 @@
 						viewBox="0 0 24 24"
 					>
 						<rect
-							x="3"
-							y="4"
-							width="18"
+							fill="none"
 							height="12"
 							rx="2"
 							stroke="currentColor"
 							stroke-width="2"
-							fill="none"
+							width="18"
+							x="3"
+							y="4"
 						/>
-						<path d="M8 20h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-						<path d="M12 16v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+						<path d="M8 20h8" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
+						<path d="M12 16v4" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
 					</svg>
 				{:else if currentSlide.icon === 'wifi'}
 					<svg
@@ -114,32 +114,32 @@
 						viewBox="0 0 24 24"
 					>
 						<rect
-							x="4"
-							y="4"
-							width="16"
+							fill="none"
 							height="10"
 							rx="2"
 							stroke="currentColor"
 							stroke-width="2"
-							fill="none"
+							width="16"
+							x="4"
+							y="4"
 						/>
-						<path d="M8 21h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-						<path d="M12 17v4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-						<path d="M9 9l2 2 4-4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+						<path d="M8 21h8" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
+						<path d="M12 17v4" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
+						<path d="M9 9l2 2 4-4" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
 					</svg>
 				{:else if currentSlide.icon === 'cast'}
 					<svg
-						xmlns="http://www.w3.org/2000/svg"
 						class="mx-auto h-24 w-24 text-orange-400"
-						version="1.1"
-						width="512"
-						height="512"
-						x="0"
-						y="0"
-						viewBox="0 0 32 32"
-						xml:space="preserve"
-						fill-rule="evenodd"
 						fill="currentColor"
+						fill-rule="evenodd"
+						height="512"
+						version="1.1"
+						viewBox="0 0 32 32"
+						width="512"
+						x="0"
+						xmlns="http://www.w3.org/2000/svg"
+						y="0"
+						xml:space="preserve"
 						><g
 							><path
 								d="M8.771 23.975h-4a3 3 0 0 1-3-3v-13a3 3 0 0 1 3-3h22a3 3 0 0 1 3 3v13a3 3 0 0 1-3 3h-4v.78a2.22 2.22 0 0 1-2.221 2.22h-9.558a2.22 2.22 0 0 1-2.221-2.22zm2 0v.78c0 .121.099.22.221.22h9.558a.22.22 0 0 0 .221-.22v-.78zm17-16v13a1 1 0 0 1-1 1h-22a1 1 0 0 1-1-1v-13a1 1 0 0 1 1-1h22a1 1 0 0 1 1 1zm-13 5.415-1.121 1.121a1 1 0 0 1-1.414-1.414l2.828-2.829a1 1 0 0 1 1.414 0l2.829 2.829a1 1 0 0 1-1.415 1.414l-1.121-1.121v4.585a1 1 0 0 1-2 0z"
@@ -154,8 +154,8 @@
 						stroke-width="2"
 						viewBox="0 0 24 24"
 					>
-						<circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2" fill="none" />
-						<path d="M12 6v6l4 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+						<circle cx="12" cy="12" fill="none" r="10" stroke="currentColor" stroke-width="2" />
+						<path d="M12 6v6l4 2" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
 					</svg>
 				{/if}
 			</div>
@@ -178,10 +178,10 @@
 					class="h-3 w-3 rounded-full transition-all duration-300 {index === current
 						? 'bg-blue-400'
 						: 'bg-gray-600'}"
+					aria-label={`Go to slide ${String(index + 1)}: ${slide.title}`}
 					onclick={() => {
 						current = index;
 					}}
-					aria-label={`Go to slide ${String(index + 1)}: ${slide.title}`}
 					title="Go to slide {index + 1}"
 				></button>
 			{/each}
@@ -190,8 +190,8 @@
 		<!-- Manual navigation buttons -->
 		<div class="flex justify-center space-x-4">
 			<button
-				onclick={prev}
 				class="flex items-center rounded-lg bg-gray-700 px-6 py-3 transition-colors duration-200 hover:bg-gray-600"
+				onclick={prev}
 			>
 				<svg
 					class="mr-2 h-5 w-5"
@@ -200,13 +200,13 @@
 					stroke-width="2"
 					viewBox="0 0 24 24"
 				>
-					<path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+					<path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
 				</svg>
 				Précédent
 			</button>
 			<button
-				onclick={next}
 				class="flex items-center rounded-lg bg-gray-700 px-6 py-3 transition-colors duration-200 hover:bg-gray-600"
+				onclick={next}
 			>
 				Suivant
 				<svg
@@ -216,7 +216,7 @@
 					stroke-width="2"
 					viewBox="0 0 24 24"
 				>
-					<path d="M9 18l6-6-6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+					<path d="M9 18l6-6-6-6" stroke="currentColor" stroke-linecap="round" stroke-width="2" />
 				</svg>
 			</button>
 		</div>

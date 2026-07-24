@@ -74,7 +74,7 @@
 								class="mt-8 flex flex-col items-center justify-center gap-4 sm:w-125 sm:flex-row lg:justify-start"
 							>
 								<CTAButton href="#ecoles">Découvrir nos écoles</CTAButton>
-								<CTAButton variant="secondary" href="https://www.devinci.fr/"
+								<CTAButton href="https://www.devinci.fr/" variant="secondary"
 									>Site du Pôle</CTAButton
 								>
 							</div>
@@ -89,10 +89,10 @@
 			</div>
 			<div id="teaser">
 				<img
-					src="/assets/img/pulv_lc.webp"
-					alt="Vue du campus du Pôle Léonard de Vinci"
 					class="pointer-events-none absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-50"
+					alt="Vue du campus du Pôle Léonard de Vinci"
 					loading="lazy"
+					src="/assets/img/pulv_lc.webp"
 				/>
 			</div>
 		</div>
@@ -106,10 +106,10 @@
 						class="mx-auto flex aspect-square w-full max-w-md items-center justify-center rounded-lg border border-white/10 bg-white/5 p-6 md:aspect-2/1 md:max-w-none"
 					>
 						<img
-							src={s.image}
-							alt={`Logo ${s.name}`}
 							class="max-h-56 w-auto object-contain md:max-h-52"
+							alt={`Logo ${s.name}`}
 							loading="lazy"
+							src={s.image}
 						/>
 					</div>
 				</div>
@@ -122,8 +122,8 @@
 						{#each s.highlights as h (h)}
 							<li class="flex items-start gap-3">
 								<span
-									class="bg-dark-light-blue mt-0.5 h-5 w-5"
 									style="-webkit-mask:url('/assets/img/icon/checked-document.svg') no-repeat center / contain; mask:url('/assets/img/icon/checked-document.svg') no-repeat center / contain;"
+									class="bg-dark-light-blue mt-0.5 h-5 w-5"
 									aria-hidden="true"
 								></span>
 								<span>{h}</span>
@@ -134,15 +134,15 @@
 					<div class="mt-6">
 						<a
 							class="inline-flex items-center gap-2 text-sm font-semibold text-white underline underline-offset-4 hover:text-white/80"
-							href={s.site}
-							target="_blank"
-							rel="external noopener noreferrer"
 							aria-label={`Visiter le site de ${s.name}`}
+							href={s.site}
+							rel="external noopener noreferrer"
+							target="_blank"
 						>
 							En savoir plus sur {s.name}
 							<span
-								class="bg-dark-light-blue h-4 w-4"
 								style="-webkit-mask:url('/assets/img/icon/link.svg') no-repeat center / contain; mask:url('/assets/img/icon/link.svg') no-repeat center / contain;"
+								class="bg-dark-light-blue h-4 w-4"
 								aria-hidden="true"
 							></span>
 						</a>

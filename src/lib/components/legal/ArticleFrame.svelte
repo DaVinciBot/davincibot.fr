@@ -66,19 +66,19 @@
 		<div class="px-6 md:px-96">
 			<div class="max-w-3xl space-y-5">
 				<a
-					href={resolve('/legal' as '/')}
 					class="text-dark-light-blue/80 flex items-center gap-3 text-xs font-semibold tracking-[0.35em] uppercase"
+					href={resolve('/legal' as '/')}
 				>
 					{#if redirectToLegalHome}
 						<svg
 							class="h-4 w-4 flex-none"
-							viewBox="0 0 24 24"
+							aria-hidden="true"
 							fill="none"
 							stroke="currentColor"
-							stroke-width="2"
 							stroke-linecap="round"
 							stroke-linejoin="round"
-							aria-hidden="true"
+							stroke-width="2"
+							viewBox="0 0 24 24"
 						>
 							<path d="M15 18l-6-6 6-6"></path>
 						</svg>
@@ -114,8 +114,8 @@
 							{#each sections as section (section.id)}
 								<li>
 									<a
-										href={`#${section.id}`}
 										class="flex gap-2 rounded-xl px-3 py-2 transition hover:bg-white/10 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white"
+										href={`#${section.id}`}
 									>
 										<span class="font-semibold text-white">{section.label}</span>
 									</a>

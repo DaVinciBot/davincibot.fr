@@ -96,10 +96,10 @@
 								<div class="inline-flex items-center gap-3">
 									<span class="font-mono text-white/95 select-all">{email}</span>
 									<button
-										type="button"
-										onclick={copyEmail}
 										class="text-dark-light-blue rounded-xl border border-white/20 bg-transparent px-3 py-2 text-sm text-white/90 transition hover:bg-white/10 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/60"
 										aria-live="polite"
+										onclick={copyEmail}
+										type="button"
 									>
 										{#if copied}
 											Copié !
@@ -119,10 +119,10 @@
 			</div>
 			<div id="teaser">
 				<img
-					src={isMobile ? '/assets/img/mobilemap.webp' : '/assets/img/lgscreenmap.webp'}
-					alt="Carte statique Google Maps (thème sombre) montrant notre localisation"
 					class="pointer-events-none absolute top-0 left-0 -z-10 h-full w-full object-cover opacity-50"
+					alt="Carte statique Google Maps (thème sombre) montrant notre localisation"
 					loading="lazy"
+					src={isMobile ? '/assets/img/mobilemap.webp' : '/assets/img/lgscreenmap.webp'}
 				/>
 			</div>
 		</div>

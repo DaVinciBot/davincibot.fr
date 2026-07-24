@@ -43,22 +43,22 @@
 
 <svelte:head>
 	<title>Informations légales — DaVinciBot</title>
-	<link rel="canonical" href={canonical} />
+	<link href={canonical} rel="canonical" />
 	<meta
 		name="description"
 		content="Point d'accès unique aux conditions générales d'utilisation, mentions légales et politique RGPD de davincibot.fr."
 	/>
 	<meta name="robots" content="index,follow" />
-	<meta property="og:title" content="Informations légales — DaVinciBot" />
+	<meta content="Informations légales — DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="Consultez facilement l'ensemble des documents juridiques de DaVinciBot."
+		property="og:description"
 	/>
-	<meta property="og:type" content="article" />
-	<meta property="og:url" content={canonical} />
+	<meta content="article" property="og:type" />
+	<meta content={canonical} property="og:url" />
 </svelte:head>
 
-<ArticleFrame {title} {intro} {updatedAt} {sections}>
+<ArticleFrame {intro} {sections} {title} {updatedAt}>
 	<div class="space-y-12">
 		<section id="essentiel" aria-labelledby="heading-essentiel">
 			<h2 id="heading-essentiel">Pourquoi ces documents ?</h2>
@@ -83,8 +83,8 @@
 			<div class="grid gap-6 sm:grid-cols-2">
 				{#each legalPages as page (page.href)}
 					<a
-						href={resolve(page.href as '/')}
 						class="block h-full rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/40 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white"
+						href={resolve(page.href as '/')}
 					>
 						<p class="text-dark-light-blue/80 text-xs font-semibold tracking-[0.2em] uppercase">
 							{page.tag}
@@ -97,14 +97,14 @@
 						>
 							Lire le document
 							<svg
-								width="16"
-								height="16"
-								viewBox="0 0 24 24"
 								fill="none"
+								height="16"
 								stroke="currentColor"
-								stroke-width="2"
 								stroke-linecap="round"
 								stroke-linejoin="round"
+								stroke-width="2"
+								viewBox="0 0 24 24"
+								width="16"
 							>
 								<path d="M5 12h14" />
 								<path d="M12 5l7 7-7 7" />

@@ -170,8 +170,8 @@
 <svelte:head>
 	<title>Actus — DaVinciBot</title>
 	<link href="https://davincibot.fr/blog/" rel="canonical" />
-	<meta content="Dernières nouvelles, projets et coulisses de DaVinciBot." name="description" />
-	<meta content="index,follow" name="robots" />
+	<meta name="description" content="Dernières nouvelles, projets et coulisses de DaVinciBot." />
+	<meta name="robots" content="index,follow" />
 	<meta content="Actus — DaVinciBot" property="og:title" />
 	<meta
 		content="Dernières nouvelles, projets et coulisses de DaVinciBot."
@@ -180,13 +180,13 @@
 	<meta content="website" property="og:type" />
 	<meta content="https://davincibot.fr/blog/" property="og:url" />
 	<meta content="https://davincibot.fr/dvb_og_img.png" property="og:image" />
-	<meta content="summary_large_image" name="twitter:card" />
-	<meta content="Actus — DaVinciBot" name="twitter:title" />
+	<meta name="twitter:card" content="summary_large_image" />
+	<meta name="twitter:title" content="Actus — DaVinciBot" />
 	<meta
-		content="Dernières nouvelles, projets et coulisses de DaVinciBot."
 		name="twitter:description"
+		content="Dernières nouvelles, projets et coulisses de DaVinciBot."
 	/>
-	<meta content="https://davincibot.fr/dvb_og_img.png" name="twitter:image" />
+	<meta name="twitter:image" content="https://davincibot.fr/dvb_og_img.png" />
 </svelte:head>
 
 <Topbar />
@@ -209,14 +209,14 @@
 				<div class="flex flex-col gap-4 md:min-w-96">
 					<div class="relative">
 						<input
-							bind:value={searchQuery}
 							class="focus:border-dark-light-blue focus:ring-dark-light-blue w-full rounded-2xl border border-gray-700 bg-gray-900/60 px-4 py-3 pl-12 text-sm text-white placeholder-gray-500 transition focus:ring-1 focus:outline-none"
 							placeholder="Rechercher un article..."
 							type="search"
+							bind:value={searchQuery}
 						/>
 						<svg
-							aria-hidden="true"
 							class="absolute top-3.5 left-4 h-5 w-5 text-gray-500"
+							aria-hidden="true"
 							fill="none"
 							stroke="currentColor"
 							stroke-linecap="round"
@@ -239,14 +239,14 @@
 				{#if filteredLatest[0]}
 					{@const featured = filteredLatest[0]}
 					<a
-						href={resolve(`/blog/${featured.slug}` as '/')}
 						class="group hover:border-dark-light-blue grid grid-cols-1 items-stretch gap-6 overflow-hidden rounded-2xl border border-gray-700 transition-colors md:grid-cols-12"
+						href={resolve(`/blog/${featured.slug}` as '/')}
 					>
 						<div class="relative bg-gray-800/40 md:col-span-7">
 							<img
+								class="h-72 w-full object-cover opacity-90 transition-opacity group-hover:opacity-100 md:h-full"
 								alt={featured.title}
 								src={featured.cover}
-								class="h-72 w-full object-cover opacity-90 transition-opacity group-hover:opacity-100 md:h-full"
 							/>
 						</div>
 						<div class="flex flex-col gap-3 self-center p-6 md:col-span-5">
@@ -276,10 +276,10 @@
 					<div class="mt-10 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
 						{#each filteredLatest.slice(1) as post (post.slug)}
 							<a
-								href={resolve(`/blog/${post.slug}` as '/')}
 								class="hover:border-dark-light-blue group flex flex-col overflow-hidden rounded-2xl border border-gray-700 transition-colors"
+								href={resolve(`/blog/${post.slug}` as '/')}
 							>
-								<img src={post.coverSmall} alt={post.title} class="h-48 w-full object-cover" />
+								<img class="h-48 w-full object-cover" alt={post.title} src={post.coverSmall} />
 								<div class="flex flex-col gap-2 p-4">
 									<div class="text-xs text-gray-400">{fmt(post.date)}</div>
 									<h4 class="text-lg leading-snug font-semibold group-hover:text-white">
@@ -312,13 +312,13 @@
 							<div class="flex flex-wrap gap-2">
 								{#each tagOptions as tag (tag)}
 									<button
-										type="button"
-										onclick={() => (selectedTag = tag)}
 										class={`rounded-full border px-4 py-1.5 text-sm transition ${
 											tag === selectedTag
 												? 'border-dark-light-blue bg-dark-light-blue/10 text-dark-light-blue'
 												: 'border-gray-700 text-gray-400 hover:text-white'
 										}`}
+										onclick={() => (selectedTag = tag)}
+										type="button"
 									>
 										{tag === 'all' ? 'Tous les tags' : `#${tag}`}
 									</button>
@@ -338,13 +338,13 @@
 						>
 							{#each filteredArchive as post (post.slug)}
 								<a
-									href={resolve(`/blog/${post.slug}` as '/')}
 									class="hover:border-dark-light-blue flex w-72 min-w-[18rem] shrink-0 snap-start flex-col rounded-2xl border border-gray-800 bg-gray-900/40 transition"
+									href={resolve(`/blog/${post.slug}` as '/')}
 								>
 									<img
-										src={post.coverSmall}
-										alt={post.title}
 										class="h-44 w-full rounded-t-2xl object-cover"
+										alt={post.title}
+										src={post.coverSmall}
 									/>
 									<div class="flex flex-col gap-3 p-4">
 										<div class="text-xs text-gray-500">{fmt(post.date)}</div>
@@ -375,10 +375,10 @@
 				{/if}
 				{#if hasMoreForFilter}
 					<button
-						type="button"
-						onclick={loadMorePosts}
-						disabled={disableLoadMore}
 						class="border-dark-light-blue text-dark-light-blue mt-4 rounded-full border px-6 py-2 text-sm font-semibold hover:text-white disabled:cursor-not-allowed disabled:opacity-40"
+						disabled={disableLoadMore}
+						onclick={loadMorePosts}
+						type="button"
 					>
 						{loadingMore ? 'Chargement…' : 'Charger plus d’articles'}
 					</button>

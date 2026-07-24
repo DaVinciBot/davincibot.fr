@@ -140,23 +140,23 @@
 		name="description"
 		content="Découvrez la plateforme semi-autonome développée par DaVinciBot pour le challenge CoHoMa : perception 3D, navigation adaptative et cohabitation homme-machine."
 	/>
-	<link rel="canonical" href="https://davincibot.fr/project/cohoma" />
+	<link href="https://davincibot.fr/project/cohoma" rel="canonical" />
 	<meta
 		name="keywords"
 		content="CoHoMa, Cohabitation Homme Machine, DaVinciBot, robotique défense, Armée de Terre"
 	/>
 	<meta name="robots" content="index, follow" />
 
-	<meta property="og:title" content="Projet CoHoMa — DaVinciBot" />
+	<meta content="Projet CoHoMa — DaVinciBot" property="og:title" />
 	<meta
-		property="og:description"
 		content="Plateforme robotique semi-autonome conçue avec l'Armée de Terre pour le challenge CoHoMa."
+		property="og:description"
 	/>
-	<meta property="og:image" content="https://davincibot.fr/assets/project/cohoma/cohoma.png" />
-	<meta property="og:url" content="https://davincibot.fr/project/cohoma" />
-	<meta property="og:type" content="website" />
-	<meta property="og:site_name" content="DaVinciBot" />
-	<meta property="og:locale" content="fr_FR" />
+	<meta content="https://davincibot.fr/assets/project/cohoma/cohoma.png" property="og:image" />
+	<meta content="https://davincibot.fr/project/cohoma" property="og:url" />
+	<meta content="website" property="og:type" />
+	<meta content="DaVinciBot" property="og:site_name" />
+	<meta content="fr_FR" property="og:locale" />
 
 	<meta name="twitter:card" content="summary_large_image" />
 	<meta name="twitter:title" content="Projet CoHoMa — DaVinciBot" />
@@ -166,7 +166,7 @@
 	/>
 	<meta name="twitter:image" content="https://davincibot.fr/assets/project/cohoma/cohoma.png" />
 
-	<link rel="preload" as="image" href="/assets/project/cohoma/cohoma.webp" fetchpriority="high" />
+	<link as="image" fetchpriority="high" href="/assets/project/cohoma/cohoma.webp" rel="preload" />
 </svelte:head>
 
 <Topbar />
@@ -176,8 +176,8 @@
 		class="relative overflow-hidden px-4 pt-24 pb-16 sm:px-8 md:px-16 md:pt-28 lg:px-32 lg:pt-36"
 	>
 		<div
-			class="absolute inset-0 -z-10 opacity-70"
 			style="background: radial-gradient(circle at 10% 20%, rgba(2, 50, 255, 0.25), transparent 55%), radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.15), transparent 45%);"
+			class="absolute inset-0 -z-10 opacity-70"
 			aria-hidden="true"
 		></div>
 		<div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
@@ -193,7 +193,7 @@
 				</p>
 				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 					<CTAButton href="/contact">Échanger avec nous</CTAButton>
-					<CTAButton variant="secondary" href="https://www.linkedin.com/company/davincibot/"
+					<CTAButton href="https://www.linkedin.com/company/davincibot/" variant="secondary"
 						>Suivre l'avancement</CTAButton
 					>
 				</div>
@@ -204,10 +204,10 @@
 					aria-hidden="true"
 				></div>
 				<img
-					src="/assets/project/cohoma/cohoma.webp"
-					alt="Rendu 3D du robot CoHoMa développé par DaVinciBot"
 					class="shadow-dark-light-blue/40 relative w-full max-w-md rounded-3xl border border-white/10 shadow-2xl"
+					alt="Rendu 3D du robot CoHoMa développé par DaVinciBot"
 					loading="lazy"
+					src="/assets/project/cohoma/cohoma.webp"
 				/>
 			</div>
 		</div>

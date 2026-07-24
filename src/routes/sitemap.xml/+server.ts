@@ -1,6 +1,6 @@
-import { canonicalFor } from '@davincibot/lib';
-import { fetchPublishedBlogRows } from '$lib/server/blogPosts';
 import type { BlogSupabaseClient } from '$lib/server/blogPosts';
+import { fetchPublishedBlogRows } from '$lib/server/blogPosts';
+import { canonicalFor } from '@davincibot/lib';
 import type { RequestHandler } from './$types';
 
 export const prerender = false;

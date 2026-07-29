@@ -1,66 +1,75 @@
-# create-svelte
+# davincibot.fr
 
-Everything you need to build a Svelte project, powered by [`create-svelte`](https://github.com/sveltejs/kit/tree/main/packages/create-svelte).
+Site public de DaVinciBot (SvelteKit + Svelte 5), servi à la racine du domaine
+`davincibot.fr`. C'est aussi le repo qui porte les scripts « lancer toutes les apps » du monorepo local.
 
-## Creating a project
+Apps voisines : [`cash`](https://github.com/DaVinciBot/cash) (`/admin`),
+[`formation`](https://github.com/DaVinciBot/formation) (`/formation`),
+[`auth`](https://github.com/davincibot/auth) (`auth.davincibot.fr`).
 
-If you're seeing this, you've probably already done this step. Congrats!
+## Prérequis
 
-```bash
-# create a new project in the current directory
-pnpm dlx sv create
+- Node `24.11.0` (`.nvmrc`), pnpm ≥ 10
+- Un `NPM_TOKEN` (PAT GitHub avec `read:packages`) exporté dans le shell : les dépendances `@davincibot/*` viennent de
+  GitHub Packages (privé). Voir
+  [DaVinciBot/packages](https://github.com/DaVinciBot/packages).
 
-# create a new project in my-app
-pnpm dlx sv create my-app
+## Configuration
+
+Copier `.env.example` en `.env` :
+
+```sh
+PUBLIC_SUPABASE_URL=https://project.supabase.co
+PUBLIC_SUPABASE_PUBLISHABLE_KEY=local-anon-key
+# Service auth central (prod : https://auth.davincibot.fr)
+PUBLIC_AUTH_BASE_URL=http://localhost:5177
+# Préfixe optionnel des noms de cookies, vide en prod
+PUBLIC_COOKIE_PREFIX=
 ```
 
-## Developing
+L'authentification est déléguée au service `auth` : pour un parcours de login complet en local, il faut aussi faire
+tourner l'app `auth` sur le port 5177.
 
-Pour lancer les 3 apps (`davincibot.fr`, `cash`, `formation`) sur un seul port local:
+## Développement
 
-```bash
-pnpm dev:all
-```
-
-Depuis `http://localhost:5174`:
-
-- `/` -> `davincibot.fr`
-- `/admin` -> `cash`
-- `/formation` -> `formation`
-
-Si tu veux utiliser la variante Traefik Docker:
-
-```bash
-pnpm dev:all:docker
-```
-
-Pour stopper les conteneurs Docker de dev:
-
-```bash
-pnpm dev:proxy:down
-```
-
-Once you've created a project and installed dependencies with `pnpm install`, start a development server:
-
-```bash
-pnpm dev
-
-# or start the server and open the app in a new browser tab
+```sh
+pnpm install
+pnpm dev            # http://localhost:5174
 pnpm dev -- --open
 ```
 
-## Building
+Lancer les 3 sites d'un coup (web + admin + formation) :
 
-To create a production version of your app:
-
-```bash
-pnpm build
+```sh
+pnpm dev:all
 ```
 
-You can preview the production build with `pnpm preview`.
+Chaque app garde son port (`5174` web, `5175` admin, `5176` formation) ; le service `auth` (`5177`) n'est pas inclus, le
+démarrer à part depuis `../auth`.
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for your target environment.
+Variante Traefik / Docker, qui regroupe tout derrière
+`http://localhost:5174` (`/` → web, `/admin` → cash, `/formation` → formation) :
 
-## micro docs (will be moved)
+```sh
+pnpm dev:all:docker
+pnpm dev:proxy:down   # stopper les conteneurs
+```
 
-- Year starts on 1st september (eg : CDR 2025 correspond to 1st september 2024 to 31th August 2025)
+## Qualité et build
+
+```sh
+pnpm check        # svelte-check
+pnpm lint         # prettier --check + eslint --max-warnings=0
+pnpm format       # prettier --write
+pnpm test:unit    # vitest run --coverage
+pnpm test:e2e     # playwright
+pnpm build        # svelte-kit sync && vite build
+pnpm preview      # 127.0.0.1:4173
+pnpm ci           # check + lint + test:unit + build (ce que fait la CI)
+```
+
+## Déploiement
+
+Build `adapter-node`, image Docker publiée sur GHCR puis déployée par Dokploy (service Swarm derrière Traefik). Les
+workflows de `.github/workflows` appellent les workflows réutilisables de
+[DaVinciBot/shared-workflows](https://github.com/DaVinciBot/shared-workflows).

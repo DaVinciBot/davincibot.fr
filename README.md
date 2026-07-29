@@ -9,7 +9,7 @@ Apps voisines : [`cash`](https://github.com/DaVinciBot/cash) (`/admin`),
 
 ## Prérequis
 
-- Node `24.11.0` (`.nvmrc`), pnpm ≥ 10
+- Node `24.11.0` (`.nvmrc`), pnpm `11.5.2` (épinglé par `packageManager`)
 - Un `NPM_TOKEN` (PAT GitHub avec `read:packages`) exporté dans le shell : les dépendances `@davincibot/*` viennent de
   GitHub Packages (privé). Voir
   [DaVinciBot/packages](https://github.com/DaVinciBot/packages).

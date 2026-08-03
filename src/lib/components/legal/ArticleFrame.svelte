@@ -19,7 +19,7 @@
 		children?: Snippet;
 	}
 
-	const {
+	let {
 		title = '',
 		intro = '',
 		updatedAt = '',

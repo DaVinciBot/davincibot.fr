@@ -9,7 +9,7 @@
 		children?: Snippet;
 	}
 
-	const { time = 50, pauseOnHover = true, small = false, children }: Props = $props();
+	let { time = 50, pauseOnHover = true, small = false, children }: Props = $props();
 </script>
 
 <div class="h-full w-full">

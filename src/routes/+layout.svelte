@@ -15,7 +15,7 @@
 		children?: Snippet;
 	}
 
-	const { data, children }: Props = $props();
+	let { data, children }: Props = $props();
 
 	const userFallback = $derived(
 		data.user

@@ -6,7 +6,7 @@
 		link?: string;
 	}
 
-	const { title = '', description = '', image = '', link = '' }: Props = $props();
+	let { title = '', description = '', image = '', link = '' }: Props = $props();
 </script>
 
 <div

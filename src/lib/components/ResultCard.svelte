@@ -10,7 +10,7 @@
 		marginBottom?: string;
 	}
 
-	const {
+	let {
 		title = '',
 		rank_and_points = '',
 		image = '',

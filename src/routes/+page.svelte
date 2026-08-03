@@ -8,7 +8,7 @@
 	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 	import type { PageData } from './$types';
 
-	const { data }: { data: PageData } = $props();
+	let { data }: { data: PageData } = $props();
 
 	function getInitialPosts() {
 		return data.posts;

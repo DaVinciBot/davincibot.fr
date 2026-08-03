@@ -11,7 +11,7 @@
 		once?: boolean;
 	}
 
-	const {
+	let {
 		target = 0,
 		duration = 2000,
 		prefix = '',

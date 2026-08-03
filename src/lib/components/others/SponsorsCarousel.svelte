@@ -18,9 +18,7 @@
 		small?: boolean;
 	}
 
-	/* eslint-disable prefer-const */
 	let { time = 60, pauseOnHover = true, small = $bindable(false) }: Props = $props();
-	/* eslint-enable prefer-const */
 
 	let isMobile = $state(false);
 	let add_padding = $state<boolean>(false);

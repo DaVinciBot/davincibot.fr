@@ -9,7 +9,7 @@
 		title?: string;
 	}
 
-	const { items = [{ text: '', href: '' }], title = '' }: Props = $props();
+	let { items = [{ text: '', href: '' }], title = '' }: Props = $props();
 </script>
 
 <div

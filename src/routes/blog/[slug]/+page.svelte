@@ -19,7 +19,7 @@
 		post: ArticlePost;
 	}
 
-	const { data }: { data: ArticlePageData } = $props();
+	let { data }: { data: ArticlePageData } = $props();
 
 	function getInitialPost(): ArticlePost {
 		return data.post;

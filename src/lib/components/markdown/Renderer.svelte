@@ -10,7 +10,7 @@
 		tree?: MarkdownNode | null;
 	}
 
-	const { tree = null }: Props = $props();
+	let { tree = null }: Props = $props();
 
 	function nodeKey(child: MarkdownNode, index: number) {
 		return child.id === undefined ? `${child.type}-${String(index)}` : String(child.id);

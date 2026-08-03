@@ -4,7 +4,7 @@
 	import { Topbar } from '@davincibot/components';
 	import type { PageData } from './$types';
 
-	const { data }: { data: PageData } = $props();
+	let { data }: { data: PageData } = $props();
 
 	type BlogPost = PageData['posts'][number];
 

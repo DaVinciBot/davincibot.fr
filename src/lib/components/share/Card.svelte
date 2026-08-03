@@ -1,12 +1,12 @@
 <script lang="ts">
-	interface CardProps {
+	interface Props {
 		title?: string;
 		description?: string;
 		image?: string;
 		link?: string;
 	}
 
-	const { title = '', description = '', image = '', link = '' }: CardProps = $props();
+	const { title = '', description = '', image = '', link = '' }: Props = $props();
 </script>
 
 <div

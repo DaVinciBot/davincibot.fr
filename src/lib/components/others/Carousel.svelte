@@ -2,14 +2,14 @@
 	import type { Snippet } from 'svelte';
 
 	// Duration in seconds for a full loop
-	interface CarouselProps {
+	interface Props {
 		time?: number;
 		pauseOnHover?: boolean;
 		small?: boolean;
 		children?: Snippet;
 	}
 
-	const { time = 50, pauseOnHover = true, small = false, children }: CarouselProps = $props();
+	const { time = 50, pauseOnHover = true, small = false, children }: Props = $props();
 </script>
 
 <div class="h-full w-full">

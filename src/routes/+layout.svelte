@@ -8,14 +8,14 @@
 		email?: string | null;
 	}
 
-	interface LayoutProps {
+	interface Props {
 		data: {
 			user?: LayoutUser | null;
 		};
 		children?: Snippet;
 	}
 
-	const { data, children }: LayoutProps = $props();
+	const { data, children }: Props = $props();
 
 	const userFallback = $derived(
 		data.user

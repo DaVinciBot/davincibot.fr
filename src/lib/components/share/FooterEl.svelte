@@ -4,12 +4,12 @@
 		href: string;
 	}
 
-	interface FooterElProps {
+	interface Props {
 		items?: FooterItem[];
 		title?: string;
 	}
 
-	const { items = [{ text: '', href: '' }], title = '' }: FooterElProps = $props();
+	const { items = [{ text: '', href: '' }], title = '' }: Props = $props();
 </script>
 
 <div

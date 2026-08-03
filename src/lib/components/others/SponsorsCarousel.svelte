@@ -12,18 +12,14 @@
 	import { Mouser as MouserLogo } from '@davincibot/components';
 	import { RS as RSLogo } from '@davincibot/components';
 
-	interface SponsorsCarouselProps {
+	interface Props {
 		time?: number;
 		pauseOnHover?: boolean;
 		small?: boolean;
 	}
 
 	/* eslint-disable prefer-const */
-	let {
-		time = 60,
-		pauseOnHover = true,
-		small = $bindable(false)
-	}: SponsorsCarouselProps = $props();
+	let { time = 60, pauseOnHover = true, small = $bindable(false) }: Props = $props();
 	/* eslint-enable prefer-const */
 
 	let isMobile = $state(false);

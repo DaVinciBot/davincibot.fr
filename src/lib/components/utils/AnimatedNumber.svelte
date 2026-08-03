@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { onDestroy, onMount } from 'svelte';
 	// If true, animation will run only the first time it becomes visible
-	interface AnimatedNumberProps {
+	interface Props {
 		target?: number;
 		duration?: number;
 		prefix?: string;
@@ -19,7 +19,7 @@
 		locale = 'fr-FR',
 		decimals = 0,
 		once = true
-	}: AnimatedNumberProps = $props();
+	}: Props = $props();
 
 	let display = $state('');
 	let raf: number | null = null;

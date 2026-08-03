@@ -19,7 +19,7 @@ interface SubmitPayload {
 	users: { name: string; email: string; project: string }[];
 }
 
-interface UserImportModalProps {
+interface Props {
 	permissionCategories: Record<string, Permission[]>;
 	permissionPackages: PermissionPackage[];
 	projectOptions: { value: string; name: string }[];
@@ -33,7 +33,7 @@ describe('UserImportModal (components submodule)', () => {
 		const onClose = vi.fn();
 		const target = document.createElement('div');
 		document.body.appendChild(target);
-		const props: UserImportModalProps = {
+		const props: Props = {
 			permissionCategories: {},
 			permissionPackages: [],
 			projectOptions: [{ value: 'project-1', name: 'Project 1' }],

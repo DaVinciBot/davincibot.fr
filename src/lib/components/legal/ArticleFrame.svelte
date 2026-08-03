@@ -9,7 +9,7 @@
 		label: string;
 	}
 
-	interface ArticleFrameProps {
+	interface Props {
 		title?: string;
 		intro?: string;
 		updatedAt?: string;
@@ -27,7 +27,7 @@
 		sections = [],
 		redirectToLegalHome = false,
 		children
-	}: ArticleFrameProps = $props();
+	}: Props = $props();
 
 	const getValidDate = (value: string) => {
 		if (!value) {

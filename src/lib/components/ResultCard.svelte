@@ -1,7 +1,7 @@
 <script lang="ts">
 	import type { Component } from 'svelte';
 
-	interface ResultCardProps {
+	interface Props {
 		title?: string;
 		rank_and_points?: string;
 		image?: string;
@@ -17,7 +17,7 @@
 		logo,
 		marginLeft = '',
 		marginBottom = ''
-	}: ResultCardProps = $props();
+	}: Props = $props();
 
 	const SvelteComponent = $derived(logo);
 	const transformStyle = $derived(

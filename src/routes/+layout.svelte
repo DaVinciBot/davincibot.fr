@@ -24,6 +24,7 @@
 					email: data.user.email ?? '',
 					name: data.user.email ? (data.user.email.split('@')[0] ?? '') : '',
 					avatar: '',
+					campus: null,
 					projects: [],
 					permissions: [],
 					allProjects: null

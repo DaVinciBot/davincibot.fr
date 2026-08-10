@@ -33,6 +33,8 @@ async function guardDevEnvironment(
 	session: App.Locals['session'],
 	user: App.Locals['user']
 ): Promise<void> {
+	console.log(`event.url.pathname ${event.url.pathname}`);
+	console.log(`resolveRoute('/health') ${resolveRoute('/health')}`);
 	// Ne pas garder les routes d'authentification elles-mêmes : sur dev.*, le
 	// login vit sur le même hôte, donc les exempter évite une boucle de redirect.
 	if (event.url.pathname.startsWith('/auth/')) {

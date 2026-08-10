@@ -1,5 +1,4 @@
 import { building } from '$app/environment';
-import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl } from '@davincibot/lib';
 import {
 	SessionCache,
@@ -34,7 +33,6 @@ async function guardDevEnvironment(
 	user: App.Locals['user']
 ): Promise<void> {
 	console.log(`event.url.pathname ${event.url.pathname}`);
-	console.log(`resolveRoute('/health') ${resolveRoute('/health')}`);
 	// Ne pas garder les routes d'authentification elles-mêmes : sur dev.*, le
 	// login vit sur le même hôte, donc les exempter évite une boucle de redirect.
 	if (event.url.pathname.startsWith('/auth/')) {
@@ -42,7 +40,7 @@ async function guardDevEnvironment(
 	}
 
 	// Health check du déploiement : public, ne divulgue rien.
-	if (event.url.pathname === resolveRoute('/health')) {
+	if (event.url.pathname === '/health') {
 		return;
 	}
 

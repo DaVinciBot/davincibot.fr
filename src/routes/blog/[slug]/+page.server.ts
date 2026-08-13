@@ -52,7 +52,14 @@ async function renderMarkdown(markdown: string) {
 	});
 }
 
-export const load: PageServerLoad = async ({ params, setHeaders, locals: { supabase } }) => {
+export const load: PageServerLoad = async ({
+	depends,
+	params,
+	setHeaders,
+	locals: { supabase }
+}) => {
+	depends('web:post');
+
 	if (!supabase) {
 		kitError(404, 'Article introuvable');
 	}

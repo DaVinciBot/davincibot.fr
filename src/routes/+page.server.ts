@@ -28,7 +28,9 @@ const toHomePost = (post: BlogPost): HomePost => ({
 	tags: post.tags
 });
 
-export const load: PageServerLoad = async ({ setHeaders, locals: { supabase } }) => {
+export const load: PageServerLoad = async ({ depends, setHeaders, locals: { supabase } }) => {
+	depends('web:home');
+
 	const blogSupabase = supabase as unknown as BlogSupabaseClient;
 	const { posts } = await fetchBlogPosts(blogSupabase, { offset: 0, limit: 10 });
 

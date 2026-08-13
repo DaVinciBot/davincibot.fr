@@ -1,7 +1,9 @@
 import { building } from '$app/environment';
 import type { LayoutServerLoad } from './$types';
 
-export const load: LayoutServerLoad = async ({ locals, cookies }) => {
+export const load: LayoutServerLoad = async ({ depends, locals, cookies }) => {
+	depends('web:session');
+
 	if (building) {
 		return {
 			session: null,

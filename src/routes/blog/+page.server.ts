@@ -4,7 +4,9 @@ import type { PageServerLoad } from './$types';
 
 export const prerender = false;
 
-export const load: PageServerLoad = async ({ setHeaders, locals: { supabase } }) => {
+export const load: PageServerLoad = async ({ depends, setHeaders, locals: { supabase } }) => {
+	depends('web:posts');
+
 	const blogSupabase = supabase as unknown as BlogSupabaseClient;
 
 	try {

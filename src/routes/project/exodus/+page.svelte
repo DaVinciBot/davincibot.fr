@@ -27,17 +27,17 @@
 		{
 			title: "Augmenter l'utilisateur",
 			description:
-				'Augmenter l’utilisateur en amplifiant sa force, sa précision et son endurance grâce à un exosquelette intelligent.'
+				"Augmenter l'utilisateur en amplifiant sa force, sa précision et son endurance grâce à un exosquelette intelligent."
 		},
 		{
 			title: 'Préserver la liberté de mouvement',
 			description:
-				'Concevoir un exosquelette qui épouse les gestes de l’utilisateur en garantissant un confort optimal et une utilisation fluide.'
+				"Concevoir un exosquelette qui épouse les gestes de l'utilisateur en garantissant un confort optimal et une utilisation fluide."
 		},
 		{
 			title: 'Renforcer la sécurité',
 			description:
-				'Protéger les utilisateurs des risques de blessures en anticipant leurs mouvements et en adaptant l’assistance en temps réel.'
+				"Protéger les utilisateurs des risques de blessures en anticipant leurs mouvements et en adaptant l'assistance en temps réel."
 		}
 	];
 
@@ -161,7 +161,7 @@
 				<p class="text-base leading-relaxed text-white/80 sm:text-lg">
 					DaVinciBot conçoit un exosquelette intelligent, pensé pour les ouvriers et leurs besoins
 					quotidiens. Notre objectif : proposer un équipement intuitif et réactif,capable de
-					s’adapter en temps réel pour assister chaque mouvement avec précision.
+					s'adapter en temps réel pour assister chaque mouvement avec précision.
 				</p>
 				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
 					<CTAButton href="/#projets">Nos Projets</CTAButton>
@@ -221,10 +221,10 @@
 				<h3 class="text-2xl font-bold">Architecture système</h3>
 				<p class="mt-3 text-sm leading-relaxed text-white/75">
 					Exodus s'articule autour d'une liaison dorsale et de 2 bras. Des moteurs brushless dédiés
-					à chaque épaule assurent une assistance précise, tandis qu’une structure en TPU offre
+					à chaque épaule assurent une assistance précise, tandis qu'une structure en TPU offre
 					légèreté et résistance. Le réseau CAN garantit une communication fluide entre les
-					composants, et un écran intégré permet à l’utilisateur de configurer en temps réel les
-					paramètres d’assistance.
+					composants, et un écran intégré permet à l'utilisateur de configurer en temps réel les
+					paramètres d'assistance.
 				</p>
 				<div class="bg-dark-blue/40 mt-6 grid gap-4 rounded-2xl border border-white/10 p-5 text-sm">
 					<p class="font-semibold tracking-[0.25em] text-white/60 uppercase">Composants clés</p>

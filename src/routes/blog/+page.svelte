@@ -380,7 +380,7 @@
 						onclick={loadMorePosts}
 						type="button"
 					>
-						{loadingMore ? 'Chargement…' : 'Charger plus d’articles'}
+						{loadingMore ? 'Chargement…' : "Charger plus d'articles"}
 					</button>
 				{:else}
 					<p class="mt-4 text-xs text-gray-500">

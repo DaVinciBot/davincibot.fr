@@ -130,7 +130,7 @@
 		{
 			title: 'Pôle Partenariats',
 			description:
-				'Relations entreprises, recherche de financement et organisation d’événements avec nos sponsors.'
+				"Relations entreprises, recherche de financement et organisation d'événements avec nos sponsors."
 		},
 		{
 			title: 'Pôle Formation',
@@ -143,7 +143,7 @@
 		{
 			title: 'Découverte',
 			description:
-				'A la rentrée, nous présentons l’association, les projets en cours et les profils recherchés. Les nouveaux membres choisissent leurs pôles.'
+				"A la rentrée, nous présentons l'association, les projets en cours et les profils recherchés. Les nouveaux membres choisissent leurs pôles."
 		},
 		{
 			title: 'Montée en compétences',
@@ -158,7 +158,7 @@
 		{
 			title: 'Compétitions & transmission',
 			description:
-				'Mai et juin sont rythmés par la Coupe de France de Robotique, les retours d’expérience puis le passage de relais à la promotion suivante.'
+				"Mai et juin sont rythmés par la Coupe de France de Robotique, les retours d'expérience puis le passage de relais à la promotion suivante."
 		}
 	];
 </script>
@@ -167,11 +167,11 @@
 	<title>À propos | DaVinciBot</title>
 	<meta
 		name="description"
-		content="Découvrez la mission, les valeurs et le fonctionnement de DaVinciBot, l’association de robotique du Pôle Léonard de Vinci."
+		content="Découvrez la mission, les valeurs et le fonctionnement de DaVinciBot, l'association de robotique du Pôle Léonard de Vinci."
 	/>
 	<meta content="À propos | DaVinciBot" property="og:title" />
 	<meta
-		content="Comprendre qui nous sommes, ce que nous construisons et comment nous formons la nouvelle génération d’ingénieurs."
+		content="Comprendre qui nous sommes, ce que nous construisons et comment nous formons la nouvelle génération d'ingénieurs."
 		property="og:description"
 	/>
 	<meta content="/dvb_og_img.png" property="og:image" />

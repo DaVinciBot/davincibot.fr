@@ -10,7 +10,7 @@
 			name: 'ESILV',
 			subtitle: "École d'ingénieurs",
 			description:
-				"L'ESILV forme des ingénieurs généralistes tournés vers les technologies numériques et l’innovation. Les étudiants y développent des compétences en informatique, IA, data, finance, mécanique et énergie au travers d’une pédagogie par projets.",
+				"L'ESILV forme des ingénieurs généralistes tournés vers les technologies numériques et l'innovation. Les étudiants y développent des compétences en informatique, IA, data, finance, mécanique et énergie au travers d'une pédagogie par projets.",
 			highlights: [
 				'Accréditée CTI, grade de master',
 				'Spécialisations: IA, data, fintech, mécatronique, énergie',
@@ -24,7 +24,7 @@
 			name: 'EMLV',
 			subtitle: 'École de management',
 			description:
-				"L'EMLV prépare aux métiers du management, du marketing et de la finance dans un contexte résolument digital. L’école met l’accent sur l’ouverture, la professionnalisation et le travail en équipe inter-écoles.",
+				"L'EMLV prépare aux métiers du management, du marketing et de la finance dans un contexte résolument digital. L'école met l'accent sur l'ouverture, la professionnalisation et le travail en équipe inter-écoles.",
 			highlights: [
 				'Programmes visés et grade de master',
 				"Marketing digital, business development, finance d'entreprise",

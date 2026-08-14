@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { resolve } from '$app/paths';
+	import { asset } from '$app/paths';
 	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
 
@@ -165,7 +165,7 @@
 				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
 				aria-label="Télécharger notre brochure de partenariat"
 				download
-				href={resolve(brochureUrl as '/')}
+				href={asset(brochureUrl)}
 			>
 				Télécharger la brochure de partenariat
 			</a>
@@ -237,7 +237,7 @@
 				class="inline-flex items-center justify-center rounded-md border border-white/15 bg-white/10 px-5 py-3 text-sm font-semibold text-white backdrop-blur transition hover:bg-white/20"
 				aria-label="Télécharger notre brochure de partenariat"
 				download
-				href={resolve(brochureUrl as '/')}
+				href={asset(brochureUrl)}
 			>
 				Télécharger la brochure de partenariat
 			</a>

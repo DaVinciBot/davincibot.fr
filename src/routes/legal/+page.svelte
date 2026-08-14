@@ -38,7 +38,7 @@
 				'Politique RGPD : absence de collecte pour les visiteurs et détails des données traitées pour les membres.',
 			updatedLabel: '15 janvier 2026'
 		}
-	];
+	] as const;
 </script>
 
 <svelte:head>
@@ -84,7 +84,7 @@
 				{#each legalPages as page (page.href)}
 					<a
 						class="block h-full rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:border-white/40 focus-visible:outline focus-visible:outline-offset-2 focus-visible:outline-white"
-						href={resolve(page.href as '/')}
+						href={resolve(page.href)}
 					>
 						<p class="text-dark-light-blue/80 text-xs font-semibold tracking-[0.2em] uppercase">
 							{page.tag}

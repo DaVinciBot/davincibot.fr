@@ -240,7 +240,7 @@
 					{@const featured = filteredLatest[0]}
 					<a
 						class="group hover:border-dark-light-blue grid grid-cols-1 items-stretch gap-6 overflow-hidden rounded-2xl border border-gray-700 transition-colors md:grid-cols-12"
-						href={resolve(`/blog/${featured.slug}` as '/')}
+						href={resolve('/blog/[slug]', { slug: featured.slug })}
 					>
 						<div class="relative bg-gray-800/40 md:col-span-7">
 							<img
@@ -277,7 +277,7 @@
 						{#each filteredLatest.slice(1) as post (post.slug)}
 							<a
 								class="hover:border-dark-light-blue group flex flex-col overflow-hidden rounded-2xl border border-gray-700 transition-colors"
-								href={resolve(`/blog/${post.slug}` as '/')}
+								href={resolve('/blog/[slug]', { slug: post.slug })}
 							>
 								<img class="h-48 w-full object-cover" alt={post.title} src={post.coverSmall} />
 								<div class="flex flex-col gap-2 p-4">
@@ -339,7 +339,7 @@
 							{#each filteredArchive as post (post.slug)}
 								<a
 									class="hover:border-dark-light-blue flex w-72 min-w-[18rem] shrink-0 snap-start flex-col rounded-2xl border border-gray-800 bg-gray-900/40 transition"
-									href={resolve(`/blog/${post.slug}` as '/')}
+									href={resolve('/blog/[slug]', { slug: post.slug })}
 								>
 									<img
 										class="h-44 w-full rounded-t-2xl object-cover"

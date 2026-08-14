@@ -67,7 +67,7 @@
 			<div class="max-w-3xl space-y-5">
 				<a
 					class="text-dark-light-blue/80 flex items-center gap-3 text-xs font-semibold tracking-[0.35em] uppercase"
-					href={resolve('/legal' as '/')}
+					href={resolve('/legal')}
 				>
 					{#if redirectToLegalHome}
 						<svg

@@ -3,3 +3,4 @@ allowBuilds:
   svelte-preprocess: true
 minimumReleaseAgeExclude:
   - '@davincibot/*'
+  - marked@18.0.10

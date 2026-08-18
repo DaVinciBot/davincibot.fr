@@ -1,40 +1,47 @@
-FROM node:24.11.0-slim AS base
+# syntax=docker/dockerfile:1
+
+FROM node:24.19.0-trixie-slim AS base
 
 ENV PNPM_HOME="/pnpm"
 ENV PATH="$PNPM_HOME:$PATH"
 
-RUN corepack enable && corepack prepare pnpm@11.5.2 --activate
+RUN corepack enable
 
 WORKDIR /app
 
 FROM base AS deps
 
 COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
-RUN --mount=type=secret,id=npm_token,env=NPM_TOKEN pnpm install --frozen-lockfile --prod
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    --mount=type=secret,id=npm_token,env=NPM_TOKEN \
+    pnpm install --frozen-lockfile --prod
+
 
 FROM base AS build
 
 COPY package.json pnpm-lock.yaml .npmrc pnpm-workspace.yaml ./
-RUN --mount=type=secret,id=npm_token,env=NPM_TOKEN pnpm install --frozen-lockfile
+
+RUN --mount=type=cache,id=pnpm,target=/pnpm/store \
+    --mount=type=secret,id=npm_token,env=NPM_TOKEN \
+    pnpm install --frozen-lockfile
 
 COPY . .
+
 RUN pnpm build
 
-FROM node:24.11.0-slim AS runner
+FROM node:24.19.0-trixie-slim AS runner
 
 ENV NODE_ENV=production
 
-ARG DEBIAN_FRONTEND=noninteractive
-
-RUN apt-get update \
-    && apt-get upgrade -y --no-install-recommends \
-    && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
-       /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/* /var/cache/debconf/*.dat-old \
-       /var/lib/dpkg/status-old /var/log/apt/* /var/log/dpkg.log
-
 WORKDIR /app
+
+RUN rm -rf \
+    /usr/local/lib/node_modules/npm \
+    /usr/local/lib/node_modules/corepack \
+    /usr/local/bin/npm \
+    /usr/local/bin/npx \
+    /usr/local/bin/corepack
 
 COPY --chown=node:node package.json ./
 COPY --from=deps --chown=node:node /app/node_modules ./node_modules

@@ -50,9 +50,9 @@
 		"vitest": "^4.1.10"
 	},
 	"dependencies": {
-		"@davincibot/components": "^5.0.2",
-		"@davincibot/database-types": "^3.3.1",
-		"@davincibot/lib": "^3.6.0",
+		"@davincibot/components": "^5.0.3",
+		"@davincibot/database-types": "^4.0.0",
+		"@davincibot/lib": "^3.6.1",
 		"@lucide/svelte": "^1.31.0",
 		"@supabase/phoenix": "^0.4.5",
 		"@supabase/ssr": "^0.12.4",

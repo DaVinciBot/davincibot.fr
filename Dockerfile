@@ -24,16 +24,15 @@ FROM node:24.11.0-slim AS runner
 
 ENV NODE_ENV=production
 
-# Patch system packages to pick up security fixes (e.g. libgnutls30
-# CVE-2026-33845 / CVE-2026-42010) not yet in the base image.
+ARG DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update \
     && apt-get upgrade -y --no-install-recommends \
-    && rm -rf /var/lib/apt/lists/*
-
-# Runtime = `node build` uniquement : retirer npm/npx/corepack supprime leur
-# outillage vendored (ex. tar CVE-2026-59873) du périmètre des scans d'image.
-RUN rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
-    /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack
+    && rm -rf /usr/local/lib/node_modules/npm /usr/local/lib/node_modules/corepack \
+       /usr/local/bin/npm /usr/local/bin/npx /usr/local/bin/corepack \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/* /var/cache/debconf/*.dat-old \
+       /var/lib/dpkg/status-old /var/log/apt/* /var/log/dpkg.log
 
 WORKDIR /app
 

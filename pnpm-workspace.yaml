@@ -4,3 +4,6 @@ allowBuilds:
 minimumReleaseAgeExclude:
   - '@davincibot/*'
   - marked@18.0.10
+overrides:
+  '@sveltejs/kit>cookie': ^0.7.2
+  postcss: ^8.5.26

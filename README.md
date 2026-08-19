@@ -20,7 +20,7 @@ Copier `.env.example` en `.env` :
 
 ```sh
 PUBLIC_SUPABASE_URL=https://project.supabase.co
-PUBLIC_SUPABASE_PUBLISHABLE_KEY=local-anon-key
+PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_xx
 # Service auth central (prod : https://auth.davincibot.fr)
 PUBLIC_AUTH_BASE_URL=http://localhost:5177
 # Préfixe optionnel des noms de cookies, vide en prod

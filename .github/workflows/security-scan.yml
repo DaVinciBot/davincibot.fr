@@ -21,6 +21,6 @@ permissions:
 jobs:
   security:
     name: Security
-    uses: DaVinciBot/shared-workflows/.github/workflows/security-scan.yml@v7.1.0
+    uses: DaVinciBot/shared-workflows/.github/workflows/security-scan.yml@v7.1.1
     with:
       runner: '["ubuntu-latest"]'

@@ -1,15 +1,27 @@
 import { building } from '$app/environment';
 import { resolve as resolveRoute } from '$app/paths';
-import { buildLoginUrl } from '@davincibot/lib';
+import { buildLoginUrl, publicEnvCheck } from '@davincibot/lib';
+import { assertEnv } from '@davincibot/lib/env';
 import {
 	SessionCache,
 	createAnonClient,
 	createUserClient,
+	privateEnvCheck,
 	resolveSessionViaAuth,
 	sidCookieName
 } from '@davincibot/lib/server';
 import type { ResolvedAuthSession, ResolvedAuthUser } from '@davincibot/lib/server/types';
-import { error, redirect, type Handle, type RequestEvent } from '@sveltejs/kit';
+import { error, redirect, type Handle, type RequestEvent, type ServerInit } from '@sveltejs/kit';
+
+export const init: ServerInit = () => {
+	if (building) {
+		return;
+	}
+	// Résout d'un coup tout ce qui est obligatoire et lève une erreur unique
+	// listant les variables manquantes : une prod mal configurée ne démarre pas,
+	// au lieu de casser à la première requête d'un utilisateur.
+	assertEnv(publicEnvCheck, privateEnvCheck);
+};
 
 const SESSION_CACHE_TTL_MS = 5 * 60 * 1000;
 const SESSION_STALE_MAX_AGE_MS = 15 * 60 * 1000;

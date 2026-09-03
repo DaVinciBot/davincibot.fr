@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
-	import { CTAButton } from '@davincibot/components';
+	import { CtaButton } from '@davincibot/components';
 
 	// Schools content for alternating sections
 	const schools = [
@@ -73,9 +73,9 @@
 							<div
 								class="mt-8 flex flex-col items-center justify-center gap-4 sm:w-125 sm:flex-row lg:justify-start"
 							>
-								<CTAButton href="#ecoles">Découvrir nos écoles</CTAButton>
-								<CTAButton href="https://www.devinci.fr/" variant="secondary"
-									>Site du Pôle</CTAButton
+								<CtaButton href="#ecoles">Découvrir nos écoles</CtaButton>
+								<CtaButton href="https://www.devinci.fr/" variant="secondary"
+									>Site du Pôle</CtaButton
 								>
 							</div>
 

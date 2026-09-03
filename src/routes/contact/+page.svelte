@@ -3,7 +3,7 @@
 	import { Topbar } from '@davincibot/components';
 
 	import { browser } from '$app/environment';
-	import { CTAButton } from '@davincibot/components';
+	import { CtaButton } from '@davincibot/components';
 	import { onMount } from 'svelte';
 
 	const email = 'davincibot@devinci.fr';
@@ -91,7 +91,7 @@
 							<div
 								class="mt-8 flex flex-col items-center justify-center gap-4 sm:flex-row lg:justify-start"
 							>
-								<CTAButton href={`mailto:${email}`}>Envoyer un e-mail</CTAButton>
+								<CtaButton href={`mailto:${email}`}>Envoyer un e-mail</CtaButton>
 
 								<div class="inline-flex items-center gap-3">
 									<span class="font-mono text-white/95 select-all">{email}</span>

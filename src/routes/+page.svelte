@@ -2,7 +2,7 @@
 	import Carousel from '$lib/components/others/Carousel.svelte';
 	import Card from '$lib/components/share/Card.svelte';
 	import Footer from '$lib/components/share/Footer.svelte';
-	import { CTAButton as CtaButton, Topbar } from '@davincibot/components';
+	import { CtaButton, Topbar } from '@davincibot/components';
 	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
 
 	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';

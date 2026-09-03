@@ -2,7 +2,7 @@
 	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
 	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
-	import { CTAButton } from '@davincibot/components';
+	import { CtaButton } from '@davincibot/components';
 	import { onDestroy, onMount } from 'svelte';
 	import { fade } from 'svelte/transition';
 
@@ -211,8 +211,8 @@
 					événements. Chaque projet est un parcours humain, technique et entrepreneurial.
 				</p>
 				<div class="flex flex-col items-start gap-4 sm:flex-row">
-					<CTAButton href="/contact">Rejoindre l'aventure</CTAButton>
-					<CTAButton href="/nos-ecoles" variant="secondary">Découvrir nos écoles</CTAButton>
+					<CtaButton href="/contact">Rejoindre l'aventure</CtaButton>
+					<CtaButton href="/nos-ecoles" variant="secondary">Découvrir nos écoles</CtaButton>
 				</div>
 			</div>
 			<div class="relative">
@@ -454,8 +454,8 @@
 					soutenir nos équipes pour la prochaine saison.
 				</p>
 				<div class="flex flex-col items-start gap-4 sm:flex-row">
-					<CTAButton href="/sponsors">Devenir partenaire</CTAButton>
-					<CTAButton href="/blog" variant="secondary">Suivre nos actus</CTAButton>
+					<CtaButton href="/sponsors">Devenir partenaire</CtaButton>
+					<CtaButton href="/blog" variant="secondary">Suivre nos actus</CtaButton>
 				</div>
 			</div>
 			<div class="relative">

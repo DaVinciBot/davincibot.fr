@@ -79,7 +79,7 @@
 					</p>
 				</div>
 				<div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:gap-6">
-					<CtaButton>Nos Projets</CtaButton>
+					<CtaButton href="/#projets">Nos Projets</CtaButton>
 					<CtaButton variant="secondary">Soutenez nous</CtaButton>
 				</div>
 			</div>

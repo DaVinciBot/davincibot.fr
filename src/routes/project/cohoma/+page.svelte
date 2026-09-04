@@ -117,6 +117,12 @@
 
 	const milestones: ProjectMilestone[] = [
 		{
+			period: 'Septembre 2025',
+			title: "État de l'art",
+			description:
+				'Analyse des éditions précédentes du challenge, revue des plateformes semi-autonomes existantes et des travaux sur la coopération homme-machine.'
+		},
+		{
 			period: 'Février 2026',
 			title: 'Définition du cahier des charges',
 			description:

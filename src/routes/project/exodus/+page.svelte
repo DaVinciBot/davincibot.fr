@@ -1,308 +1,228 @@
 <script lang="ts">
+	import {
+		FeatureGrid,
+		FigureGrid,
+		ProjectCta,
+		ProjectHead,
+		ProjectHero,
+		ProjectSection,
+		SpecPanel,
+		Timeline,
+		type ProjectAction,
+		type ProjectFeature,
+		type ProjectFigure,
+		type ProjectMilestone
+	} from '$lib/components/project';
 	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
-	import { CTAButton } from '@davincibot/components';
 
-	const keyFigures = [
+	const heroActions: ProjectAction[] = [
+		{ label: 'Échanger avec nous', href: '/contact', variant: 'primary' },
+		{
+			label: "Suivre l'avancement",
+			href: 'https://www.linkedin.com/company/davincibot/',
+			variant: 'secondary'
+		}
+	];
+
+	const keyFigures: ProjectFigure[] = [
 		{
 			value: '2024',
 			label: 'Naissance du projet',
 			description:
-				"Création du projet initialement avec l'association DeVinci Fablab, début d'une aventure technologique."
+				"Lancé avec l'association DeVinci Fablab, le projet a depuis rejoint les rangs de DaVinciBot."
 		},
 		{
 			value: '12',
 			label: 'Étudiants mobilisés',
 			description:
-				'Équipe pluridisciplinaire mêlant CAO, électronique, informatique embarquée et fabrication additive.'
+				'Une équipe pluridisciplinaire qui réunit CAO, électronique, informatique embarquée et fabrication additive.'
 		},
 		{
 			value: '3',
-			label: 'Axes technologiques',
-			description: "Trois piliers guide la conception : la légèreté, l'ergonomie et la polyvalence."
+			label: 'Axes de conception',
+			description:
+				"Trois piliers guident chaque arbitrage : la légèreté, l'ergonomie et la polyvalence."
+		},
+		{
+			value: '250 ms',
+			label: 'Temps de réaction visé',
+			description:
+				"Délai maximal entre la détection d'un mouvement et l'assistance délivrée par les moteurs."
 		}
 	];
 
-	const missionPillars = [
+	const missionPillars: ProjectFeature[] = [
 		{
 			title: "Augmenter l'utilisateur",
 			description:
-				"Augmenter l'utilisateur en amplifiant sa force, sa précision et son endurance grâce à un exosquelette intelligent."
+				"Amplifier la force, la précision et l'endurance sans jamais imposer un geste : c'est l'intention qui commande, l'exosquelette qui suit."
 		},
 		{
 			title: 'Préserver la liberté de mouvement',
 			description:
-				"Concevoir un exosquelette qui épouse les gestes de l'utilisateur en garantissant un confort optimal et une utilisation fluide."
+				"Épouser les gestes de l'utilisateur, garantir un confort qui tient sur une journée entière et une prise en main immédiate."
 		},
 		{
 			title: 'Renforcer la sécurité',
 			description:
-				"Protéger les utilisateurs des risques de blessures en anticipant leurs mouvements et en adaptant l'assistance en temps réel."
+				"Anticiper les mouvements à risque et adapter l'assistance en temps réel, pour prévenir les troubles musculo-squelettiques avant qu'ils ne s'installent."
 		}
 	];
 
-	const teamStreams = [
+	const capabilities: ProjectFeature[] = [
+		{
+			title: "Détection de l'intention",
+			description:
+				"Capteurs de force et centrales inertielles mesurent l'effort à l'épaule ; un modèle embarqué en déduit le geste engagé avant qu'il ne soit terminé."
+		},
+		{
+			title: 'Assistance proportionnelle',
+			description:
+				'Les moteurs brushless délivrent un couple recalculé en continu, dosé pour accompagner la charge sans jamais contrarier le mouvement.'
+		},
+		{
+			title: "Réglage par l'utilisateur",
+			description:
+				"Un écran embarqué expose les profils d'assistance : chacun ajuste le niveau de soutien à sa morphologie et à la tâche du moment."
+		}
+	];
+
+	const teamStreams: ProjectFeature[] = [
 		{
 			title: 'Conception mécanique',
 			points: [
-				"Modélisation 3D des différentes parties de l'exosquelette.",
-				"Prototypage rapide à l' aide de la fabrication additive et soustractive.",
-				'Recherche de nouveaux matériaux et procédés de fabrication pour allier légèreté et robustesse.'
+				"Modélisation 3D de chaque sous-ensemble de l'exosquelette",
+				'Prototypage rapide par fabrication additive et soustractive',
+				'Veille matériaux et procédés pour allier légèreté et robustesse'
 			]
 		},
 		{
-			title: 'Electronique et informatique embarquée.',
+			title: 'Électronique et informatique embarquée',
 			points: [
-				'Conception des cartes électroniques utiles pour le fonctionnement des capteurs et drivers.',
-				"Développement d'un système de contrôle des moteurs intelligents et réactifs."
+				'Conception des cartes qui pilotent les capteurs et les drivers moteurs',
+				"Développement d'un contrôle moteur réactif, avec arrêt sûr en cas de défaut",
+				'Réseau CAN et gestion énergétique de la structure complète'
 			]
 		},
 		{
 			title: 'Expérience utilisateur',
 			points: [
-				"Interface permettant un paramétrage simple de l'exosquelette.",
-				'Tests sur des personnes ayant des morphologies différetes pour un meilleur feedback.',
-				'Processus de tests des composants mécaniques sur banc de test pour vérifier la solidité.'
+				'Interface de paramétrage lisible, réglable sans notice',
+				'Essais sur des morphologies variées pour élargir les retours terrain',
+				'Campagnes de tests des pièces mécaniques sur banc de charge'
 			]
 		}
 	];
 
-	const milestones = [
+	const milestones: ProjectMilestone[] = [
 		{
 			period: '2025-2026',
 			title: 'Bras et liaison dorsale',
 			description:
-				'Recherche et développement pour la conception de la liaison dorsale et des bras avec les moteurs brushless.'
+				'Recherche et développement sur la liaison dorsale et sur les bras motorisés par moteurs brushless.'
 		},
 		{
 			period: '2026-2027',
 			title: 'Développement du bassin',
 			description:
-				"Intégration d'un bassin aux précédents prototypes et développement d'une IA de prédiction des mouvements."
+				"Intégration d'un bassin aux prototypes existants et mise au point d'une IA de prédiction des mouvements."
 		},
 		{
 			period: '2027-2028',
 			title: 'Intégration des jambes',
 			description:
-				"recherche et développement pour l'intégration des jambes et consolidation du reste de l'exosquelette."
+				"Extension de la structure aux membres inférieurs et consolidation de l'ensemble déjà validé."
 		},
 		{
 			period: '2028-2029',
-			title: 'Version Finale',
-			description: "Tests finaux et présentation du modèle finale d'Exodus."
+			title: 'Version finale',
+			description:
+				"Tests d'endurance en conditions réelles et présentation du modèle final d'Exodus."
 		}
 	];
 
-	const supportLinks = [
+	const supportActions: ProjectAction[] = [
 		{
 			label: "Contacter l'équipe projet",
-			href: 'mailto:davincibot@devinci.fr?subject=Projet%20CoHoMa'
+			href: 'mailto:davincibot@devinci.fr?subject=Projet%20Exodus',
+			variant: 'primary'
 		},
-		{
-			label: 'Proposer un partenariat',
-			href: '/sponsors'
-		},
-		{
-			label: 'Découvrir DaVinciBot',
-			href: '/'
-		}
+		{ label: 'Proposer un partenariat', href: '/sponsors', variant: 'secondary' },
+		{ label: 'Découvrir DaVinciBot', href: '/', variant: 'secondary' }
 	];
 </script>
 
-<svelte:head>
-	<title>Projet Exodus — DaVinciBot</title>
-	<meta
-		name="description"
-		content="Découvrez l'exosquelette robotique Exodus développé par DaVinciBot pour assister les ouvriers lorsqu'ils portent des charges lourdes."
-	/>
-	<link href="https://davincibot.fr/project/exodus" rel="canonical" />
-	<meta name="keywords" content="Exodus, Exosquelette, DaVinciBot, robot d'assistance, recherche" />
-	<meta name="robots" content="index, follow" />
-
-	<meta content="Projet Exodus — DaVinciBot" property="og:title" />
-	<meta
-		content="Exosquelette robotique conçu pour assister les ouvriers dans le port de charges lourdes."
-		property="og:description"
-	/>
-	<meta content="" property="og:image" />
-	<meta content="https://davincibot.fr/project/exodus" property="og:url" />
-	<meta content="website" property="og:type" />
-	<meta content="DaVinciBot" property="og:site_name" />
-	<meta content="fr_FR" property="og:locale" />
-
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Projet Exodus — DaVinciBot" />
-	<meta
-		name="twitter:description"
-		content="Focus sur notre exosquelette robotique assistant les ouvriers."
-	/>
-	<meta name="twitter:image" content="" />
-
-	<link
-		as="image"
-		fetchpriority="high"
-		href="/assets/project/exodus/future_exodus.webp"
-		rel="preload"
-	/>
-</svelte:head>
+<ProjectHead
+	description="Découvrez Exodus, l'exosquelette robotique développé par DaVinciBot pour assister celles et ceux qui portent des charges lourdes au quotidien."
+	image="/assets/project/exodus/exodus.jpg"
+	keywords="Exodus, exosquelette, DaVinciBot, robot d'assistance, port de charges, recherche"
+	path="/project/exodus"
+	preload="/assets/project/exodus/future_exodus.webp"
+	socialDescription="Notre exosquelette robotique, conçu pour soulager le port de charges lourdes."
+	title="Projet Exodus"
+/>
 
 <Topbar />
 
 <main class="flex flex-col">
-	<section
-		class="relative overflow-hidden px-4 pt-24 pb-16 sm:px-8 md:px-16 md:pt-28 lg:px-32 lg:pt-36"
+	<ProjectHero
+		actions={heroActions}
+		eyebrow="Projet Exodus"
+		glow
+		image="/assets/project/exodus/future_exodus.webp"
+		imageAlt="Rendu de l'exosquelette Exodus développé par DaVinciBot"
+		lede="DaVinciBot conçoit un exosquelette intelligent, dessiné pour les métiers qui portent au quotidien. Notre objectif : un équipement intuitif et réactif, capable de s'adapter en temps réel pour accompagner chaque mouvement avec précision."
+		title="L'exosquelette pensé pour le port de charges lourdes"
+	/>
+
+	<ProjectSection compact>
+		<FigureGrid figures={keyFigures} />
+	</ProjectSection>
+
+	<ProjectSection
+		lede="Exodus vise à soulager les employés amenés à porter des charges lourdes tout au long de leur journée. Plusieurs défis se répondent : équilibrer puissance et légèreté, garantir une autonomie prolongée, et rester confortable après plusieurs heures de port. Notre réponse combine des matériaux avancés, une conception ergonomique et une prédiction des mouvements par apprentissage."
+		title="Mission et contraintes"
 	>
-		<div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-			<div class="space-y-6">
-				<p class="text-sm font-semibold tracking-[0.3em] text-white/70 uppercase">Projet Exodus</p>
-				<h1 class="text-4xl leading-tight font-extrabold sm:text-5xl lg:text-6xl">
-					L'exosquelette optimisé pour le port de charges lourdes
-				</h1>
-				<p class="text-base leading-relaxed text-white/80 sm:text-lg">
-					DaVinciBot conçoit un exosquelette intelligent, pensé pour les ouvriers et leurs besoins
-					quotidiens. Notre objectif : proposer un équipement intuitif et réactif,capable de
-					s'adapter en temps réel pour assister chaque mouvement avec précision.
-				</p>
-				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-					<CTAButton href="/#projets">Nos Projets</CTAButton>
-					<CTAButton href="https://www.linkedin.com/company/davincibot/" variant="secondary"
-						>Suivre l'avancement</CTAButton
-					>
-				</div>
-			</div>
-			<div class="relative flex justify-center">
-				<div
-					class="bg-dark-light-blue/20 absolute h-full w-full max-w-sm rounded-3xl blur-3xl transition-transform duration-700"
-					aria-hidden="true"
-				></div>
-				<img
-					class="shadow-dark-light-blue/40 relative w-full max-w-md rounded-3xl border border-white/10 shadow-2xl"
-					alt="Objectif d'Exodus"
-					fetchpriority="high"
-					loading="lazy"
-					src="/assets/project/exodus/future_exodus.webp"
-				/>
-			</div>
+		<div class="grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+			<FeatureGrid columns={1} items={missionPillars} />
+			<SpecPanel
+				description="Exodus s'articule autour d'une liaison dorsale et de deux bras. Des moteurs brushless dédiés à chaque épaule assurent une assistance précise, tandis qu'une structure en TPU offre légèreté et résistance. Le réseau CAN garantit une communication fluide entre les composants, et un écran intégré permet de régler les paramètres d'assistance en cours d'utilisation."
+				items={[
+					'Structure dorsale en TPU, pour la flexibilité',
+					"Capteurs de force intégrés, pour doser l'assistance",
+					'Moteurs brushless à chaque épaule, pour le couple',
+					'Chaîne embarquée qui répond en moins de 250 ms'
+				]}
+				title="Architecture système"
+			/>
 		</div>
-	</section>
+	</ProjectSection>
 
-	<section class="px-4 py-12 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 xl:grid-cols-3">
-			{#each keyFigures as figure (figure.label)}
-				<article class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-					<h2 class="text-dark-light-blue text-3xl font-extrabold sm:text-4xl">{figure.value}</h2>
-					<p class="mt-2 text-lg font-semibold text-white/80">{figure.label}</p>
-					<p class="mt-4 text-sm leading-relaxed text-white/70">{figure.description}</p>
-				</article>
-			{/each}
-		</div>
-	</section>
+	<ProjectSection
+		lede="Chaque sous-système est pensé pour se faire oublier : l'utilisateur porte sa charge, l'exosquelette s'occupe du reste."
+		title="Capacités principales"
+		tone="muted"
+	>
+		<FeatureGrid items={capabilities} />
+	</ProjectSection>
 
-	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-			<div class="space-y-6">
-				<h2 class="text-3xl font-extrabold sm:text-4xl">Mission et contraintes</h2>
-				<p class="text-base leading-relaxed text-white/75 sm:text-lg">
-					L'exosquelette Exodus vise à améliorer la condition des employés amenés à porter des
-					charges lourdes. Plusieurs défis sont à relever comme équilibrer puissance et légèreté ou
-					garantir une autonomie pronlongée.Notre solution combine l'utilisation de matériaux
-					avancés, une conception ergonomique et prédiction de mouvements avec l'IA.
-				</p>
-				<ul class="space-y-4">
-					{#each missionPillars as item (item.title)}
-						<li class="rounded-xl border border-white/10 bg-white/5 p-4">
-							<h3 class="text-xl font-semibold text-white">{item.title}</h3>
-							<p class="mt-2 text-sm text-white/70">{item.description}</p>
-						</li>
-					{/each}
-				</ul>
-			</div>
-			<div class="relative rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-				<h3 class="text-2xl font-bold">Architecture système</h3>
-				<p class="mt-3 text-sm leading-relaxed text-white/75">
-					Exodus s'articule autour d'une liaison dorsale et de 2 bras. Des moteurs brushless dédiés
-					à chaque épaule assurent une assistance précise, tandis qu'une structure en TPU offre
-					légèreté et résistance. Le réseau CAN garantit une communication fluide entre les
-					composants, et un écran intégré permet à l'utilisateur de configurer en temps réel les
-					paramètres d'assistance.
-				</p>
-				<div class="bg-dark-blue/40 mt-6 grid gap-4 rounded-2xl border border-white/10 p-5 text-sm">
-					<p class="font-semibold tracking-[0.25em] text-white/60 uppercase">Composants clés</p>
-					<ul class="space-y-2 text-white/75">
-						<li>• Structure dorsale en TPU pour plus de flexibilité</li>
-						<li>• Capteurs de force intégrés pour une meilleure assistance</li>
-						<li>• Moteurs brushless pour plus de puissance</li>
-						<li>• Systèmes embarqués capable de répondre en moins 250 ms</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
+	<ProjectSection
+		lede="L'équipe Exodus mobilise les compétences des trois écoles du Pôle Léonard de Vinci. Nos méthodes agiles permettent un prototypage rapide, afin de confronter chaque hypothèse au besoin réel des utilisateurs."
+		title="Organisation de l'équipe"
+	>
+		<FeatureGrid items={teamStreams} />
+	</ProjectSection>
 
-	<section class="bg-white/5 px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto max-w-6xl">
-			<h2 class="text-3xl font-extrabold sm:text-4xl">Organisation de l'équipe</h2>
-			<p class="mt-3 text-base text-white/70 sm:text-lg">
-				L'équipe Exodus mobilise les compétences des trois écoles du Pôle Léonard de Vinci. Nos
-				méthodes agiles permettent un protypage rapide afin de répondre efficacement aux besoins des
-				utilisateurs.
-			</p>
-			<div class="mt-10 grid gap-6 lg:grid-cols-3">
-				{#each teamStreams as stream (stream.title)}
-					<article class="rounded-2xl border border-white/10 bg-white/5 p-6">
-						<h3 class="text-xl font-semibold text-white">{stream.title}</h3>
-						<ul class="mt-4 space-y-3 text-sm text-white/70">
-							{#each stream.points as point (point)}
-								<li>• {point}</li>
-							{/each}
-						</ul>
-					</article>
-				{/each}
-			</div>
-		</div>
-	</section>
+	<ProjectSection title="Feuille de route du projet" tone="muted" width="narrow">
+		<Timeline {milestones} />
+	</ProjectSection>
 
-	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto max-w-5xl">
-			<h2 class="text-3xl font-extrabold sm:text-4xl">Feuille de route du projet</h2>
-			<ol class="mt-10 space-y-8">
-				{#each milestones as milestone, index (index)}
-					<li class="bg-dark-blue/60 relative rounded-2xl border border-white/10 p-6">
-						<div
-							class="bg-dark-light-blue text-dark-blue absolute top-6 -left-8 hidden h-12 w-12 items-center justify-center rounded-full border border-white/20 text-xl font-bold lg:flex"
-						>
-							{index + 1}
-						</div>
-						<p class="text-sm font-semibold tracking-[0.3em] text-white/50 uppercase">
-							{milestone.period}
-						</p>
-						<h3 class="mt-2 text-2xl font-semibold text-white">{milestone.title}</h3>
-						<p class="mt-3 text-sm leading-relaxed text-white/75">{milestone.description}</p>
-					</li>
-				{/each}
-			</ol>
-		</div>
-	</section>
-
-	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div
-			class="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-linear-to-br from-white/10 via-white/5 to-white/10 p-10 text-center backdrop-blur"
-		>
-			<h2 class="text-3xl font-extrabold sm:text-4xl">Sponsoriser le projet Exodus</h2>
-			<p class="mt-4 text-base leading-relaxed text-white/75 sm:text-lg">
-				Nous cherchons des partenaires techniques, mentors tactiques et soutiens financiers pour
-				accélérer le développement. Vous souhaitez contribuer à la prochaine génération de systèmes
-				robotisés ? Parlons-en.
-			</p>
-			<div class="mt-8 grid gap-4 sm:grid-cols-3">
-				{#each supportLinks as link (link.href)}
-					<CTAButton href={link.href} variant={link.href !== '/contact' ? 'secondary' : 'primary'}>
-						{link.label}
-					</CTAButton>
-				{/each}
-			</div>
-		</div>
-	</section>
+	<ProjectCta
+		actions={supportActions}
+		description="Matériaux, actionneurs, temps machine ou soutien financier : chaque appui accélère une année de développement. Vous souhaitez contribuer à un exosquelette pensé pour le terrain ? Parlons-en."
+		title="Sponsoriser le projet Exodus"
+	/>
 </main>
 
 <Footer />

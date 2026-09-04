@@ -1,81 +1,104 @@
 <script lang="ts">
+	import {
+		FeatureGrid,
+		FigureGrid,
+		ProjectCta,
+		ProjectHead,
+		ProjectHero,
+		ProjectSection,
+		SpecPanel,
+		Timeline,
+		type ProjectAction,
+		type ProjectFeature,
+		type ProjectFigure,
+		type ProjectMilestone
+	} from '$lib/components/project';
 	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
-	import { CTAButton } from '@davincibot/components';
 
-	const keyFigures = [
+	const heroActions: ProjectAction[] = [
+		{ label: 'Échanger avec nous', href: '/contact', variant: 'primary' },
+		{
+			label: "Suivre l'avancement",
+			href: 'https://www.linkedin.com/company/davincibot/',
+			variant: 'secondary'
+		}
+	];
+
+	const keyFigures: ProjectFigure[] = [
 		{
 			value: '2027',
 			label: 'Édition CoHoMa IV',
 			description:
-				'Participation à la quatrième édition du challenge CoHaMa organisé par le Battle Lab Terre.'
+				'Quatrième édition du challenge organisé par le Battle Lab Terre, dont les épreuves finales se tiennent en juin 2027.'
 		},
 		{
 			value: '6',
 			label: 'Étudiants mobilisés',
 			description:
-				"Équipe pluridisciplinaire mêlant mécatronique, IA, électronique et design d'expérience."
+				"Une équipe pluridisciplinaire qui réunit mécatronique, IA, électronique et design d'expérience."
 		},
 		{
 			value: '3',
 			label: 'Sous-systèmes intégrés',
-			description: 'Navigation autonome, perception 3D et interface opérateur augmentée.'
+			description:
+				'Navigation autonome, perception 3D et interface opérateur augmentée, développés en parallèle puis assemblés sur le châssis.'
 		},
 		{
 			value: '12+',
 			label: 'Capteurs embarqués',
 			description:
-				'Lidar, caméras stéréo, IMU tactique, télémétrie GNSS et surveillance énergétique.'
+				'LiDAR, caméras stéréo, IMU tactique, télémétrie GNSS et surveillance énergétique du robot.'
 		}
 	];
 
-	const missionPillars = [
+	const missionPillars: ProjectFeature[] = [
 		{
 			title: 'Augmenter le soldat',
 			description:
-				"Offrir une aide robotique capable d'explorer, cartographier et sécuriser les abords d'une zone d'intervention."
+				"Offrir une aide robotique capable d'explorer, de cartographier et de sécuriser les abords d'une zone d'intervention avant que l'équipe ne s'y engage."
 		},
 		{
 			title: 'Assurer la cohabitation',
 			description:
-				"Concevoir une interface qui laisse l'humain au centre de la décision tout en exploitant les capacités du robot."
+				"Concevoir une interface qui laisse l'humain au centre de la décision, tout en exploitant pleinement ce que le robot sait faire seul."
 		},
 		{
 			title: 'Garder le rythme opérationnel',
 			description:
-				'Développer une plateforme robuste, rapide à déployer et autonome sur un cycle de mission complet.'
+				'Tenir un cycle de mission complet : plateforme robuste, déploiement en quelques minutes et autonomie énergétique suffisante.'
 		}
 	];
 
-	const capabilities = [
+	const capabilities: ProjectFeature[] = [
 		{
 			title: 'Perception et fusion de données',
 			description:
-				'LiDAR 3D Hémisphérique, caméras RGB-D et odométrie sont fusionnés pour produire une carte locale dense et détecter les menaces.'
+				'LiDAR 3D hémisphérique, caméras RGB-D et odométrie sont fusionnés pour produire une carte locale dense et détecter les menaces.'
 		},
 		{
 			title: 'Navigation adaptative',
 			description:
-				'Planification hybride : navigation autonome sur zones sûres, reprise manuelle instantanée via logiciel de contrôle.'
+				"Planification hybride : le robot progresse seul sur les zones reconnues sûres, et l'opérateur reprend la main instantanément via logiciel de contrôle."
 		},
 		{
 			title: 'Interaction homme-machine',
 			description:
-				"Interface tactile et casque X-AR affichent l'état du robot, les alertes terrain et les propositions de trajectoire."
+				"Interface tactile et casque X-AR affichent l'état du robot, les alertes terrain et les trajectoires proposées, sans noyer l'opérateur sous la donnée."
 		}
 	];
 
-	const teamStreams = [
+	const teamStreams: ProjectFeature[] = [
 		{
-			title: 'Robotique & mécatronique',
+			title: 'Robotique et mécatronique',
 			points: [
 				"Intégration d'un châssis à assistance électrique tout-terrain",
 				'Suspension modulaire pour franchir les obstacles du parcours de qualification',
-				"Gestion thermique et énergétique pour 6h d'autonomie"
+				"Gestion thermique et énergétique pour six heures d'autonomie"
 			]
 		},
 		{
-			title: 'Perception & IA embarquée',
+			title: 'Perception et IA embarquée',
 			points: [
 				'Segmentation 3D en temps réel pour distinguer alliés, obstacles et zones de danger',
 				'Suivi de chemin sécurisé avec recalage SLAM et géorepérage',
@@ -85,274 +108,120 @@
 		{
 			title: 'Expérience opérateur',
 			points: [
-				'Interface qui priorise les alertes critiques et simplifie la supervision des capteurs',
-				'Visualisation AR pour projeter cartes et trajectoires directement dans le champ de vision',
-				"Séquences d'entraînement gamifiées pour familiariser l'opérateur avant la compétition"
+				'Interface qui hiérarchise les alertes critiques et simplifie la supervision des capteurs',
+				'Visualisation AR pour projeter cartes et trajectoires dans le champ de vision',
+				"Séquences d'entraînement gamifiées pour préparer l'opérateur avant la compétition"
 			]
 		}
 	];
 
-	const milestones = [
+	const milestones: ProjectMilestone[] = [
 		{
 			period: 'Février 2026',
 			title: 'Définition du cahier des charges',
-			description: 'Reception du Cahier des Charges, analyse des besoins et des contraintes.'
+			description:
+				'Réception du cahier des charges du Battle Lab Terre, analyse des besoins opérationnels et arbitrage des contraintes techniques.'
 		},
 		{
 			period: 'Juin 2026',
 			title: 'Prototype terrain V1',
 			description:
-				'Assemblage châssis, capteurs principaux et téléopération sécurisée. Campagne de tests sur terrain accidenté.'
+				'Assemblage du châssis, des capteurs principaux et de la téléopération sécurisée, suivi par une campagne de tests sur terrain accidenté.'
 		},
 		{
 			period: 'Octobre 2026',
 			title: 'Itération co-design',
 			description:
-				'Intégration des retours des instructeurs militaires : révision IHM, modes de secours et checklists opérateur.'
+				"Intégration des retours des instructeurs militaires : révision de l'IHM, modes de secours et checklists opérateur."
 		},
 		{
 			period: 'Juin 2027',
-			title: 'Qualification Challenge',
+			title: 'Qualification du challenge',
 			description:
-				'Présentation officielle, démonstrateur complet et simulations des épreuves de cohabitation homme-machine.'
+				'Présentation officielle du démonstrateur complet et passage des épreuves de cohabitation homme-machine.'
 		}
 	];
 
-	const supportLinks = [
+	const supportActions: ProjectAction[] = [
 		{
 			label: "Contacter l'équipe projet",
-			href: 'mailto:davincibot@devinci.fr?subject=Projet%20CoHoMa'
+			href: 'mailto:davincibot@devinci.fr?subject=Projet%20CoHoMa',
+			variant: 'primary'
 		},
-		{
-			label: 'Proposer un partenariat',
-			href: '/sponsors'
-		},
-		{
-			label: 'Découvrir DaVinciBot',
-			href: '/'
-		}
+		{ label: 'Proposer un partenariat', href: '/sponsors', variant: 'secondary' },
+		{ label: 'Découvrir DaVinciBot', href: '/', variant: 'secondary' }
 	];
 </script>
 
-<svelte:head>
-	<title>Projet CoHoMa — DaVinciBot</title>
-	<meta
-		name="description"
-		content="Découvrez la plateforme semi-autonome développée par DaVinciBot pour le challenge CoHoMa : perception 3D, navigation adaptative et cohabitation homme-machine."
-	/>
-	<link href="https://davincibot.fr/project/cohoma" rel="canonical" />
-	<meta
-		name="keywords"
-		content="CoHoMa, Cohabitation Homme Machine, DaVinciBot, robotique défense, Armée de Terre"
-	/>
-	<meta name="robots" content="index, follow" />
-
-	<meta content="Projet CoHoMa — DaVinciBot" property="og:title" />
-	<meta
-		content="Plateforme robotique semi-autonome conçue avec l'Armée de Terre pour le challenge CoHoMa."
-		property="og:description"
-	/>
-	<meta content="https://davincibot.fr/assets/project/cohoma/cohoma.png" property="og:image" />
-	<meta content="https://davincibot.fr/project/cohoma" property="og:url" />
-	<meta content="website" property="og:type" />
-	<meta content="DaVinciBot" property="og:site_name" />
-	<meta content="fr_FR" property="og:locale" />
-
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Projet CoHoMa — DaVinciBot" />
-	<meta
-		name="twitter:description"
-		content="Focus sur notre système robotique cohabitant homme-machine développé avec le Battle Lab Terre."
-	/>
-	<meta name="twitter:image" content="https://davincibot.fr/assets/project/cohoma/cohoma.png" />
-
-	<link as="image" fetchpriority="high" href="/assets/project/cohoma/cohoma.webp" rel="preload" />
-</svelte:head>
+<ProjectHead
+	description="Découvrez la plateforme semi-autonome développée par DaVinciBot pour le challenge CoHoMa : perception 3D, navigation adaptative et cohabitation homme-machine."
+	image="/assets/project/cohoma/cohoma.png"
+	keywords="CoHoMa, Cohabitation Homme Machine, DaVinciBot, robotique défense, Armée de Terre"
+	path="/project/cohoma"
+	preload="/assets/project/cohoma/cohoma.webp"
+	socialDescription="Notre système robotique de cohabitation homme-machine, développé avec le Battle Lab Terre."
+	title="Projet CoHoMa"
+/>
 
 <Topbar />
 
 <main class="flex flex-col">
-	<section
-		class="relative overflow-hidden px-4 pt-24 pb-16 sm:px-8 md:px-16 md:pt-28 lg:px-32 lg:pt-36"
+	<ProjectHero
+		actions={heroActions}
+		eyebrow="Projet CoHoMa"
+		glow
+		image="/assets/project/cohoma/cohoma.webp"
+		imageAlt="Rendu 3D du robot CoHoMa développé par DaVinciBot"
+		lede="DaVinciBot développe une plateforme robotique semi-autonome capable de partager la mission avec le soldat. Notre objectif : un éclaireur fiable, conscient de son environnement, qui assiste l'opérateur sans jamais le remplacer."
+		title="Une coopération homme-machine taillée pour le terrain"
+	/>
+
+	<ProjectSection compact>
+		<FigureGrid figures={keyFigures} />
+	</ProjectSection>
+
+	<ProjectSection
+		lede="Le challenge CoHoMa met l'accent sur la collaboration entre l'humain et la machine. Chaque épreuve impose un tempo soutenu, l'identification rapide des menaces et la capacité à explorer des zones à visibilité limitée. Notre réponse combine perception 3D, navigation assistée et une interface opérateur qui guide sans saturer l'attention."
+		title="Mission et contraintes"
 	>
-		<div
-			style="background: radial-gradient(circle at 10% 20%, rgba(2, 50, 255, 0.25), transparent 55%), radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.15), transparent 45%);"
-			class="absolute inset-0 -z-10 opacity-70"
-			aria-hidden="true"
-		></div>
-		<div class="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[1.1fr_0.9fr]">
-			<div class="space-y-6">
-				<p class="text-sm font-semibold tracking-[0.3em] text-white/70 uppercase">Projet CoHoMa</p>
-				<h1 class="text-4xl leading-tight font-extrabold sm:text-5xl lg:text-6xl">
-					Une coopération homme-machine taillée pour le terrain
-				</h1>
-				<p class="text-base leading-relaxed text-white/80 sm:text-lg">
-					DaVinciBot développe une plateforme robotique semi-autonome capable de partager la mission
-					avec le soldat. Notre objectif : offrir un éclaireur fiable, conscient de son
-					environnement et capable d'assister l'opérateur sans le remplacer.
-				</p>
-				<div class="flex flex-col gap-4 sm:flex-row sm:items-center">
-					<CTAButton href="/contact">Échanger avec nous</CTAButton>
-					<CTAButton href="https://www.linkedin.com/company/davincibot/" variant="secondary"
-						>Suivre l'avancement</CTAButton
-					>
-				</div>
-			</div>
-			<div class="relative flex justify-center">
-				<div
-					class="bg-dark-light-blue/20 absolute h-full w-full max-w-sm rounded-3xl blur-3xl transition-transform duration-700"
-					aria-hidden="true"
-				></div>
-				<img
-					class="shadow-dark-light-blue/40 relative w-full max-w-md rounded-3xl border border-white/10 shadow-2xl"
-					alt="Rendu 3D du robot CoHoMa développé par DaVinciBot"
-					loading="lazy"
-					src="/assets/project/cohoma/cohoma.webp"
-				/>
-			</div>
+		<div class="grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+			<FeatureGrid columns={1} items={missionPillars} />
+			<SpecPanel
+				description="Le robot s'articule autour d'un châssis motorisé quatre roues motrices, d'un mât capteurs modulaire et d'une baie électronique refroidie passivement. Des rails de montage permettent d'ajouter des charges utiles : bras robotique, capteurs NRBC, relais de communications. Une architecture ROS 2 distribue la prise de décision sur trois ordinateurs embarqués reliés par un réseau temps réel."
+				items={[
+					'Compute Jetson Orin et microcontrôleur redondant pour la sécurité',
+					'Double réseau CAN pour la motorisation et les actionneurs secondaires',
+					'Lien radio chiffré et 5G privée pour le retour vidéo et la télémétrie'
+				]}
+				title="Architecture système"
+			/>
 		</div>
-	</section>
+	</ProjectSection>
 
-	<section class="px-4 py-12 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto grid max-w-6xl gap-6 sm:grid-cols-2 xl:grid-cols-4">
-			{#each keyFigures as figure (figure.label)}
-				<article class="rounded-2xl border border-white/10 bg-white/5 p-6 backdrop-blur">
-					<h2 class="text-dark-light-blue text-3xl font-extrabold sm:text-4xl">{figure.value}</h2>
-					<p class="mt-2 text-lg font-semibold text-white/80">{figure.label}</p>
-					<p class="mt-4 text-sm leading-relaxed text-white/70">{figure.description}</p>
-				</article>
-			{/each}
-		</div>
-	</section>
+	<ProjectSection
+		lede="Chaque sous-système est pensé pour livrer une information exploitable en quelques secondes par l'opérateur, tout en respectant les règles d'engagement."
+		title="Capacités principales"
+		tone="muted"
+	>
+		<FeatureGrid items={capabilities} />
+	</ProjectSection>
 
-	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto grid max-w-6xl gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-			<div class="space-y-6">
-				<h2 class="text-3xl font-extrabold sm:text-4xl">Mission et contraintes</h2>
-				<p class="text-base leading-relaxed text-white/75 sm:text-lg">
-					Le challenge CoHoMa met l'accent sur la collaboration entre l'humain et la machine. Chaque
-					épreuve impose un tempo soutenu, l'identification rapide des menaces et la capacité à
-					explorer des zones à visibilité limitée. Notre réponse combine perception 3D, navigation
-					assistée et une interface opérateur qui guide sans saturer l'attention.
-				</p>
-				<ul class="space-y-4">
-					{#each missionPillars as item (item.title)}
-						<li class="rounded-xl border border-white/10 bg-white/5 p-4">
-							<h3 class="text-xl font-semibold text-white">{item.title}</h3>
-							<p class="mt-2 text-sm text-white/70">{item.description}</p>
-						</li>
-					{/each}
-				</ul>
-			</div>
-			<div class="relative rounded-3xl border border-white/10 bg-white/5 p-8 backdrop-blur">
-				<h3 class="text-2xl font-bold">Architecture système</h3>
-				<p class="mt-3 text-sm leading-relaxed text-white/75">
-					Le robot s'articule autour d'un châssis motorisé quatre roues motrices, d'un mât capteurs
-					modulaire et d'une baie électronique refroidie passivement. Des rails de montage
-					permettent d'ajouter facilement des charges utiles (bras robotique, capteurs NRBC, relais
-					de communications). Une architecture ROS&nbsp;2 distribue la prise de décision sur trois
-					ordinateurs embarqués reliés par un réseau temps réel.
-				</p>
-				<div class="bg-dark-blue/40 mt-6 grid gap-4 rounded-2xl border border-white/10 p-5 text-sm">
-					<p class="font-semibold tracking-[0.25em] text-white/60 uppercase">Composants clés</p>
-					<ul class="space-y-2 text-white/75">
-						<li>• Compute Jetson Orin + MCU redondante pour la sécurité</li>
-						<li>• Double réseau CAN pour la motorisation et les actionneurs secondaires</li>
-						<li>• Lien radio crypté + 5G privée pour le retour vidéo et télémétrie</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>
+	<ProjectSection
+		lede="L'équipe CoHoMa mobilise les compétences des trois écoles du Pôle Léonard de Vinci. Nos méthodes agiles se combinent à une approche V&V (Verification & Validation) inspirée de l'industrie de défense."
+		title="Organisation de l'équipe"
+	>
+		<FeatureGrid items={teamStreams} />
+	</ProjectSection>
 
-	<section class="bg-white/5 px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto max-w-6xl">
-			<div class="mb-12 flex flex-col gap-6 lg:flex-row lg:items-end lg:justify-between">
-				<div>
-					<h2 class="text-3xl font-extrabold sm:text-4xl">Capacités principales</h2>
-					<p class="mt-3 text-base text-white/70 sm:text-lg">
-						Chaque sous-système est pensé pour apporter une information exploitable en quelques
-						secondes par l'opérateur, tout en respectant les règles d'engagement.
-					</p>
-				</div>
-			</div>
-			<div class="grid gap-6 md:grid-cols-3">
-				{#each capabilities as capability (capability.title)}
-					<article
-						class="bg-dark-blue/60 flex flex-col gap-3 rounded-2xl border border-white/10 p-6"
-					>
-						<h3 class="text-xl font-semibold text-white">{capability.title}</h3>
-						<p class="text-sm leading-relaxed text-white/70">{capability.description}</p>
-					</article>
-				{/each}
-			</div>
-		</div>
-	</section>
+	<ProjectSection title="Feuille de route 2025-2027" tone="muted" width="narrow">
+		<Timeline {milestones} />
+	</ProjectSection>
 
-	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto max-w-6xl">
-			<h2 class="text-3xl font-extrabold sm:text-4xl">Organisation de l'équipe</h2>
-			<p class="mt-3 text-base text-white/70 sm:text-lg">
-				L'équipe CoHoMa mobilise les compétences des trois écoles du Pôle Léonard de Vinci. Nos
-				méthodes agiles se combinent à une approche V&V (Verification &amp; Validation) inspirée de
-				l'industrie défense.
-			</p>
-			<div class="mt-10 grid gap-6 lg:grid-cols-3">
-				{#each teamStreams as stream (stream.title)}
-					<article class="rounded-2xl border border-white/10 bg-white/5 p-6">
-						<h3 class="text-xl font-semibold text-white">{stream.title}</h3>
-						<ul class="mt-4 space-y-3 text-sm text-white/70">
-							{#each stream.points as point (point)}
-								<li>• {point}</li>
-							{/each}
-						</ul>
-					</article>
-				{/each}
-			</div>
-		</div>
-	</section>
-
-	<section class="bg-white/5 px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div class="mx-auto max-w-5xl">
-			<h2 class="text-3xl font-extrabold sm:text-4xl">Feuille de route 2025-2027</h2>
-			<ol class="mt-10 space-y-8">
-				{#each milestones as milestone, index (milestone.title)}
-					<li class="bg-dark-blue/60 relative rounded-2xl border border-white/10 p-6">
-						<div
-							class="bg-dark-light-blue text-dark-blue absolute top-6 -left-8 hidden h-12 w-12 items-center justify-center rounded-full border border-white/20 text-xl font-bold lg:flex"
-						>
-							{index + 1}
-						</div>
-						<p class="text-sm font-semibold tracking-[0.3em] text-white/50 uppercase">
-							{milestone.period}
-						</p>
-						<h3 class="mt-2 text-2xl font-semibold text-white">{milestone.title}</h3>
-						<p class="mt-3 text-sm leading-relaxed text-white/75">{milestone.description}</p>
-					</li>
-				{/each}
-			</ol>
-		</div>
-	</section>
-
-	<section class="px-4 py-16 sm:px-8 md:px-16 lg:px-32">
-		<div
-			class="mx-auto max-w-5xl rounded-3xl border border-white/10 bg-gradient-to-br from-white/10 via-white/5 to-white/10 p-10 text-center backdrop-blur"
-		>
-			<h2 class="text-3xl font-extrabold sm:text-4xl">Collaborer autour de CoHoMa</h2>
-			<p class="mt-4 text-base leading-relaxed text-white/75 sm:text-lg">
-				Nous cherchons des partenaires techniques, mentors tactiques et soutiens financiers pour
-				accélérer le développement. Vous souhaitez contribuer à la prochaine génération de systèmes
-				robotisés ? Parlons-en.
-			</p>
-			<div class="mt-8 grid gap-4 sm:grid-cols-3">
-				{#each supportLinks as link (link.href)}
-					<CTAButton href={link.href} variant={link.href !== '/contact' ? 'secondary' : 'primary'}>
-						{link.label}
-					</CTAButton>
-				{/each}
-			</div>
-		</div>
-	</section>
+	<ProjectCta
+		actions={supportActions}
+		description="Nous cherchons des partenaires techniques, des mentors tactiques et des soutiens financiers pour accélérer le développement. Vous souhaitez contribuer à la prochaine génération de systèmes robotisés ? Parlons-en."
+		title="Collaborer autour de CoHoMa"
+	/>
 </main>
 
 <Footer />

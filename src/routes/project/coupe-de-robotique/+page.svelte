@@ -1,276 +1,374 @@
 <script lang="ts">
-	import Carousel from '$lib/components/others/Carousel.svelte';
-	import Footer from '$lib/components/share/Footer.svelte';
-	import ResultCard from '$lib/components/ResultCard.svelte';
-	import { Topbar } from '@davincibot/components';
-	import { CTAButton as CtaButton } from '@davincibot/components';
-
-	import FarmingMars from '$lib/components/share/Logo/FarmingMars.svelte';
-	import TheCherryOnTheCake from '$lib/components/share/Logo/TheCherryOnTheCake.svelte';
-	import TheShowMustGoOnLogo from '$lib/components/share/Logo/TheShowMustGoOnLogo.svelte';
-
-	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 	import Activity from '$lib/components/icon/Activity.svelte';
 	import Compass from '$lib/components/icon/Compass.svelte';
 	import EyeOpen from '$lib/components/icon/EyeOpen.svelte';
 	import FindUsLogo from '$lib/components/icon/FindUsLogo.svelte';
 	import Signal from '$lib/components/icon/Signal.svelte';
+	import Carousel from '$lib/components/others/Carousel.svelte';
+	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
+	import {
+		FeatureGrid,
+		FigureGrid,
+		ProjectCta,
+		ProjectHead,
+		ProjectHero,
+		ProjectSection,
+		SpecPanel,
+		Timeline,
+		type ProjectAction,
+		type ProjectFeature,
+		type ProjectFigure,
+		type ProjectMilestone
+	} from '$lib/components/project';
+	import ResultCard from '$lib/components/ResultCard.svelte';
+	import Footer from '$lib/components/share/Footer.svelte';
+	import FarmingMars from '$lib/components/share/Logo/FarmingMars.svelte';
+	import TheCherryOnTheCake from '$lib/components/share/Logo/TheCherryOnTheCake.svelte';
+	import TheShowMustGoOnLogo from '$lib/components/share/Logo/TheShowMustGoOnLogo.svelte';
+	import AgeOfBots from '$lib/components/share/Logo/AgeOfBots.svelte';
+	import { Topbar } from '@davincibot/components';
+	import type { Component } from 'svelte';
 
 	const cdrImg = '/assets/project/cdr/CDR.webp';
 	const precoupeImg = '/assets/article/precoupe.webp';
 	const coupe23Img = '/assets/project/cdr/IMG_1179.webp';
+
+	const heroActions: ProjectAction[] = [
+		{ label: 'Échanger avec nous', href: '/contact', variant: 'primary' },
+		{
+			label: "Suivre l'avancement",
+			href: 'https://www.linkedin.com/company/davincibot/',
+			variant: 'secondary'
+		}
+	];
+
+	const keyFigures: ProjectFigure[] = [
+		{
+			value: '10+',
+			label: 'Années de participation',
+			description:
+				'DaVinciBot aligne une équipe à chaque édition, avec une nouvelle promotion aux commandes.'
+		},
+		{
+			value: '8',
+			label: 'Robots construits',
+			description:
+				'Huit générations de plateformes, chacune repensée autour du règlement de son année.'
+		},
+		{
+			value: '12',
+			label: "Membres dans l'équipe",
+			description:
+				'Mécanique, électronique, informatique et stratégie de match travaillent sur le même robot.'
+		},
+		{
+			value: '2 000 €',
+			label: 'Budget par saison',
+			description:
+				"Pièces, cartes électroniques et matière première, financés par nos partenaires et par l'école."
+		}
+	];
+
+	const missionPillars: ProjectFeature[] = [
+		{
+			title: 'Marquer sans intervention',
+			description:
+				"Les cent secondes du match se déroulent en autonomie complète : pas de télécommande, pas de reprise en main. Tout se décide avant l'appui sur le bouton de départ."
+		},
+		{
+			title: 'Ne jamais percuter',
+			description:
+				"Le robot surveille en permanence l'adversaire et notre second robot : un contact coûte bien plus cher au classement que les points auxquels on renonce."
+		},
+		{
+			title: 'Transmettre le savoir-faire',
+			description:
+				"L'équipe se renouvelle chaque année. Code, CAO et procédures de match sont documentés pour que la promotion suivante reparte du robot précédent, pas de zéro."
+		}
+	];
+
+	/** Les quatre briques présentées autour du visuel du robot. */
+	interface Technology {
+		icon: Component<Record<string, unknown>>;
+		title: string;
+		description: string;
+		/** Décalage horizontal pour épouser la silhouette du robot au centre. */
+		offset: string;
+	}
+
+	const leftTechnologies: Technology[] = [
+		{
+			icon: EyeOpen,
+			title: 'LiDAR',
+			description:
+				"Un LiDAR 2D balaie le plateau en continu et déclenche l'arrêt dès qu'un robot adverse entre dans la zone de sécurité.",
+			offset: 'md:-translate-x-6 lg:-translate-x-8'
+		},
+		{
+			icon: Signal,
+			title: 'Inter Com',
+			description:
+				"Notre liaison radio maison : les deux robots s'échangent position et intentions pour se répartir les actions sans se gêner.",
+			offset: 'md:-translate-x-1 lg:-translate-x-2'
+		}
+	];
+
+	const rightTechnologies: Technology[] = [
+		{
+			icon: Compass,
+			title: 'Roues encodeuses',
+			description:
+				"Deux roues folles équipées d'encodeurs donnent la position du robot en permanence, sans se laisser tromper par le patinage des roues motrices.",
+			offset: 'md:translate-x-6 lg:translate-x-8'
+		},
+		{
+			icon: Activity,
+			title: 'Brain',
+			description:
+				'La librairie qui orchestre toutes les actions en parallèle, arbitre leurs priorités et sécurise chaque cycle de match.',
+			offset: 'md:translate-x-1 lg:translate-x-2'
+		}
+	];
+
+	const teamStreams: ProjectFeature[] = [
+		{
+			title: 'Mécanique et CAO',
+			points: [
+				"Conception de la base roulante et des actionneurs propres au thème de l'année",
+				'Usinage, impression 3D et découpe laser réalisés au fablab',
+				'Bancs de test pour valider chaque mécanisme avant son intégration'
+			]
+		},
+		{
+			title: 'Électronique et embarqué',
+			points: [
+				'Cartes de puissance et de distribution conçues en interne',
+				'Asservissement et odométrie exécutés sur microcontrôleur',
+				'Diagnostic embarqué pour identifier une panne entre deux matchs'
+			]
+		},
+		{
+			title: 'Stratégie et informatique',
+			points: [
+				'Brain : orchestration des actions et gestion des priorités',
+				'Évitement dynamique à partir des relevés du LiDAR',
+				'Simulation de matchs pour comparer les stratégies de points'
+			]
+		}
+	];
+
+	const milestones: ProjectMilestone[] = [
+		{
+			period: 'Septembre',
+			title: 'Découverte du règlement',
+			description:
+				"Planète Sciences publie le thème de l'année : analyse des actions, comptage des points et premiers arbitrages de stratégie."
+		},
+		{
+			period: 'Décembre',
+			title: 'Prototypes et base roulante',
+			description:
+				'La base roulante se déplace et se repère sur le plateau, pendant que les mécanismes du thème sont mis au point séparément.'
+		},
+		{
+			period: 'Mars',
+			title: 'Pré-coupe',
+			description:
+				'Première confrontation en conditions réelles : un week-end de matchs qui révèle les fragilités pendant que la finale est encore loin.'
+		},
+		{
+			period: 'Mai',
+			title: 'Finale nationale',
+			description:
+				"Trois jours d'homologation et de matchs face à une centaine d'équipes venues de toute la France."
+		}
+	];
+
+	const supportActions: ProjectAction[] = [
+		{
+			label: "Contacter l'équipe projet",
+			href: 'mailto:davincibot@devinci.fr?subject=Coupe%20de%20France%20de%20Robotique',
+			variant: 'primary'
+		},
+		{ label: 'Proposer un partenariat', href: '/sponsors', variant: 'secondary' },
+		{ label: 'Découvrir DaVinciBot', href: '/', variant: 'secondary' }
+	];
 </script>
 
-<svelte:head>
-	<title>Projet Coupe de France de Robotique — DaVinciBot</title>
-	<meta
-		name="description"
-		content="Découvrez les robots développés par DaVinciBot pour la Coupe de France de Robotique"
-	/>
-	<meta name="keywords" content="DaVinciBot, Coupe de France de Robotique, étudiant." />
-	<meta name="author" content="DaVinciBot" />
-	<meta name="robots" content="index, follow" />
-
-	<!-- meta og -->
-	<meta content="Projet Coupe de France de Robotique — DaVinciBot" property="og:title" />
-	<meta
-		content="DaVinciBot participe à la Coupe de France de Robotique"
-		property="og:description"
-	/>
-	<meta content="/assets/project/cdr/CDR.jpg" property="og:image" />
-	<meta content="https://davincibot.fr/project/coupe-de-robotique" property="og:url" />
-	<meta content="website" property="og:type" />
-	<meta content="DaVinciBot" property="og:site_name" />
-	<meta content="fr_FR" property="og:locale" />
-
-	<!-- meta twitter -->
-	<meta name="twitter:card" content="summary_large_image" />
-	<meta name="twitter:title" content="Projet Coupe de France de Robotique — DaVinciBot" />
-	<meta
-		name="twitter:description"
-		content="Focus sur notre participation à la Coupe de France de Robotique."
-	/>
-	<meta name="twitter:image" content="/assets/project/cdr/CDR.jpg" />
-
-	<link
-		as="image"
-		fetchpriority="high"
-		href="/assets/project/cdr/boombot_small.webp"
-		rel="preload"
-	/>
-</svelte:head>
+<ProjectHead
+	description="Découvrez les robots conçus par DaVinciBot pour la Coupe de France de Robotique : base roulante autonome, LiDAR, odométrie et stratégie de match."
+	image="/assets/project/cdr/CDR.jpg"
+	keywords="DaVinciBot, Coupe de France de Robotique, Planète Sciences, robotique étudiante"
+	path="/project/coupe-de-robotique"
+	preload="/assets/project/cdr/boombot_small.webp"
+	socialDescription="Notre participation à la Coupe de France de Robotique, saison après saison."
+	title="Projet Coupe de France de Robotique"
+/>
 
 <Topbar />
 
-<div
-	class="mx-auto flex h-full w-full max-w-screen-2xl flex-col gap-12 px-4 pt-20 sm:px-6 md:px-10 md:pt-28 lg:px-16 lg:pt-36"
->
-	<div class="justify-start">
-		<div class="grid grid-cols-1 items-center gap-10 md:grid-cols-[2fr_1.5fr]">
-			<div class="order-2 flex flex-col justify-start gap-6 text-start md:order-1">
-				<div class="flex flex-col gap-5">
-					<h1 class="text-4xl font-extrabold sm:text-5xl lg:text-6xl">
-						La Coupe de France de Robotique
-					</h1>
-					<p class="text-dark-blue-gray self-stretch text-lg leading-relaxed sm:text-xl">
-						DaVinciBot participe depuis plus de 10 ans à cette compétition organisée par Planète
-						Sciences avec tous les ans une nouvelle équipe, un nouveau thème et de nouveaux défis à
-						réaliser.
-					</p>
-				</div>
-				<div class="flex w-full flex-col gap-4 sm:w-auto sm:flex-row sm:gap-6">
-					<CtaButton href="/#projets">Nos Projets</CtaButton>
-					<CtaButton variant="secondary">Soutenez nous</CtaButton>
+<!-- eslint-disable @typescript-eslint/no-confusing-void-expression -- {@render} est vu comme une expression void imbriquée par la règle ; les snippets sont pourtant la bonne forme ici -->
+
+<!-- Défini hors du composant : un {#snippet} placé directement sous une balise
+     de composant lui serait passé comme prop. -->
+{#snippet technologyColumn(items: Technology[])}
+	<div class="flex flex-col items-center gap-10 text-center md:justify-between md:gap-20">
+		{#each items as tech (tech.title)}
+			{@const Icon = tech.icon}
+			<div class="flex flex-col items-center gap-2 {tech.offset}">
+				<span class="flex h-11 w-11 items-center justify-center">
+					<Icon />
+				</span>
+				<div class="max-w-xs space-y-1 md:max-w-sm lg:max-w-md">
+					<h3 class="text-xl leading-tight font-semibold lg:text-2xl">{tech.title}</h3>
+					<p class="text-sm leading-relaxed text-white/70 lg:text-base">{tech.description}</p>
 				</div>
 			</div>
-			<img
-				class="order-1 mx-auto mb-6 w-full max-w-md object-contain md:order-2 md:mb-0 md:max-h-105 md:max-w-full lg:max-h-120"
-				alt="Robot de DaVinciBot pour la Coupe de France de Robotique"
-				fetchpriority="high"
-				height="720"
-				loading="eager"
-				src="/assets/project/cdr/boombot_small.webp"
-				width="1280"
+		{/each}
+	</div>
+{/snippet}
+
+<main class="flex flex-col">
+	<ProjectHero
+		actions={heroActions}
+		eyebrow="Projet Coupe de France de Robotique"
+		frame="plain"
+		glow
+		image="/assets/project/cdr/boombot_small.webp"
+		imageAlt="Robot de DaVinciBot pour la Coupe de France de Robotique"
+		lede="DaVinciBot participe depuis plus de dix ans à la compétition organisée par Planète Sciences. Chaque saison rebat les cartes : nouvelle équipe, nouveau thème, nouveaux défis et un robot entièrement repensé en neuf mois."
+		title="Un robot autonome conçu, câblé et programmé chaque année"
+	/>
+
+	<ProjectSection compact title="Nos soutiens" tone="muted">
+		<SponsorsCarousel />
+	</ProjectSection>
+
+	<ProjectSection compact>
+		<FigureGrid figures={keyFigures} />
+	</ProjectSection>
+
+	<ProjectSection
+		lede="Le règlement change tous les ans : un plateau, une poignée d'actions à réaliser en cent secondes, et deux robots par équipe qui doivent cohabiter sans se percuter. Tout se joue sur la régularité — un robot rapide qui s'arrête au premier imprévu marque moins qu'un robot qui termine chacun de ses matchs."
+		title="Mission et contraintes"
+	>
+		<div class="grid gap-12 lg:grid-cols-[1.05fr_0.95fr]">
+			<FeatureGrid columns={1} items={missionPillars} />
+			<SpecPanel
+				description="Le robot repose sur une base roulante motorisée, un étage électronique qui regroupe alimentation et cartes de puissance, et un étage supérieur qui accueille les actionneurs propres au thème de l'année. Un ordinateur embarqué exécute Brain, notre orchestrateur d'actions, pendant que les microcontrôleurs gardent la main sur l'asservissement et sur les sécurités."
+				items={[
+					'Base roulante asservie sur roues encodeuses',
+					'LiDAR 2D pour la détection des robots adverses',
+					'Cartes de puissance et de distribution conçues en interne',
+					'Inter Com, notre liaison radio entre les deux robots'
+				]}
+				title="Architecture du robot"
 			/>
 		</div>
+	</ProjectSection>
 
-		<div class="mt-8 flex w-full flex-col justify-center sm:w-10/12 md:w-9/12 lg:w-7/12 2xl:mt-0">
-			<h2 class="text-base font-bold">Nos soutiens</h2>
-
-			<SponsorsCarousel />
-		</div>
-	</div>
-	<section class="flex w-full flex-col gap-6 px-2 py-10 sm:px-0">
-		<div class="flex flex-col items-center gap-2 text-center">
-			<h2 class="text-3xl font-extrabold sm:text-4xl">Nos chiffres clés</h2>
-			<p class="text-dark-blue-gray text-base leading-relaxed sm:text-lg">
-				Un aperçu rapide de l'engagement annuel de l'équipe CDR.
-			</p>
-		</div>
-		<div class="grid w-full grid-cols-1 gap-6 sm:grid-cols-3 md:gap-8 lg:gap-10">
-			<div class="flex flex-col items-center gap-2 rounded-2xl p-4 text-center">
-				<h2 class="text-4xl font-extrabold sm:text-5xl lg:text-6xl">8</h2>
-				<p class="text-dark-blue-gray text-lg font-semibold tracking-wide">Robots</p>
-			</div>
-			<div class="flex flex-col items-center gap-2 rounded-2xl p-4 text-center">
-				<h2 class="text-4xl font-extrabold sm:text-5xl lg:text-6xl">2000&nbsp;€</h2>
-				<p class="text-dark-blue-gray text-lg font-semibold tracking-wide">Budget</p>
-			</div>
-			<div class="flex flex-col items-center gap-2 rounded-2xl p-4 text-center">
-				<h2 class="text-4xl font-extrabold sm:text-5xl lg:text-6xl">12</h2>
-				<p class="text-dark-blue-gray text-lg font-semibold tracking-wide">Membres</p>
-			</div>
-		</div>
-	</section>
-	<div class="mt-12 flex flex-col items-center justify-center">
-		<div class="relative mx-auto w-full max-w-2xl text-center">
-			<h1 class="text-4xl font-extrabold tracking-tight sm:text-4xl md:text-5xl">
-				Nos classements
-			</h1>
-			<p class="text-dark-blue-gray mt-5 text-base leading-relaxed sm:text-lg">
-				DaVinciBot organise et participe à des événements de robotique, offrant à ses membres des
-				occasions de se perfectionner et de relever des défis concrets. <br /> <br />
-				L'association propose des compétitions internes et externes, ainsi que des ateliers, permettant
-				aux étudiants d'appliquer leurs connaissances et d'innover en robotique.
-			</p>
-		</div>
-		<div class="my-10 max-w-full">
-			<Carousel time={90}>
-				<ResultCard
-					image={cdrImg}
-					logo={TheShowMustGoOnLogo}
-					marginBottom="20"
-					marginLeft="30"
-					rank_and_points="36/103 "
-					title="2025 - The Show Must Go On"
-				/>
-				<ResultCard
-					image={precoupeImg}
-					logo={FarmingMars}
-					marginBottom="35"
-					marginLeft="35"
-					rank_and_points="44e/186 - 157 pts"
-					title="2024 - Farming Mars"
-				/>
-				<ResultCard
-					image={coupe23Img}
-					logo={TheCherryOnTheCake}
-					marginBottom="35"
-					marginLeft="50"
-					rank_and_points="46e/100 - 150 pts"
-					title="2023 - The Cherry on the Cake"
-				/>
-				<!-- <ResultCard
-					title={'2022 - Age of Bots'}
-					rank_and_points={''}
-					image={cdrImg}
-					logo={AgeOfBots}
-					marginLeft={'20'}
-					marginBottom={'5'}
-				/>
-				<ResultCard
-					title={'2019'}
-					rank_and_points={'54e/160 - 327 pts'}
-					image={cdrImg}
-					logo={AgeOfBots}
-					marginLeft={'20'}
-					marginBottom={'5'}
-				/> -->
-			</Carousel>
-		</div>
-	</div>
-	<section class="w-full pt-12 pb-16 sm:pt-16 md:pt-20 lg:pt-24">
-		<div class="mx-auto flex max-w-6xl flex-col items-center gap-8 px-4 sm:px-6 md:gap-12">
-			<div class="max-w-2xl space-y-3 text-center md:space-y-4">
-				<h2 class="text-4xl font-extrabold sm:text-5xl">Nos technologies</h2>
-				<p class="text-dark-blue-gray mb-0 text-lg">
-					Avec les années notre robot a accumulé de nombreuses technologies permettant d'être
-					toujours plus efficace lors de la Coupe de France de Robotique.
-				</p>
-			</div>
-
-			<div
-				class="relative -mt-2 grid w-full gap-10 md:-mt-4 md:grid-cols-[minmax(18rem,24rem)_minmax(20rem,28rem)_minmax(18rem,24rem)] md:items-center lg:-mt-6 lg:grid-cols-[minmax(20rem,30rem)_minmax(22rem,32rem)_minmax(20rem,30rem)]"
-			>
+	<ProjectSection
+		align="center"
+		lede="Au fil des saisons, le robot a accumulé des briques que l'on reprend chaque année et que l'on affine. Voici celles qui font la différence pendant un match."
+		title="Nos technologies"
+		tone="muted"
+	>
+		<div
+			class="grid w-full gap-10 md:grid-cols-[minmax(18rem,24rem)_minmax(20rem,28rem)_minmax(18rem,24rem)] md:items-center lg:grid-cols-[minmax(20rem,30rem)_minmax(22rem,32rem)_minmax(20rem,30rem)]"
+		>
+			{@render technologyColumn(leftTechnologies)}
+			<div class="flex justify-center">
 				<div
-					class="flex flex-col items-center gap-10 text-center md:items-center md:justify-between md:gap-20 md:text-center"
+					class="relative aspect-square w-full max-w-[24rem] sm:max-w-120 lg:max-w-140 xl:max-w-152"
 				>
-					<div class="flex flex-col items-center gap-2 md:-translate-x-6 lg:-translate-x-8">
-						<span class="flex h-11 w-11 items-center justify-center">
-							<EyeOpen />
-						</span>
-						<div class="max-w-xs space-y-1 md:max-w-sm lg:max-w-md">
-							<h3 class="text-xl leading-tight font-semibold lg:text-2xl">Lidar</h3>
-							<p class="text-dark-blue-gray text-sm leading-relaxed lg:text-base">
-								Un lidar 2D détecte les robots de l'équipe adverse.
-							</p>
-						</div>
-					</div>
-					<div class="flex flex-col items-center gap-2 md:-translate-x-1 lg:-translate-x-2">
-						<span class="flex h-11 w-11 items-center justify-center">
-							<Signal />
-						</span>
-						<div class="max-w-xs space-y-1 md:max-w-sm lg:max-w-md">
-							<h3 class="text-xl leading-tight font-semibold lg:text-2xl">Inter Com</h3>
-							<p class="text-dark-blue-gray text-sm leading-relaxed lg:text-base">
-								Le système de communication fait maison entre nos différents robots.
-							</p>
-						</div>
-					</div>
-				</div>
-				<div class="flex justify-center">
 					<div
-						class="relative aspect-square w-full max-w-[24rem] sm:max-w-120 lg:max-w-140 xl:max-w-152"
-					>
-						<div
-							class="bg-dark-blue-gray/15 absolute inset-x-12 bottom-1.5 h-[4.2rem] rounded-full blur-lg sm:bottom-2 sm:h-[4.8rem] lg:h-[5.6rem]"
-						></div>
-						<img
-							class="relative z-10 h-full w-full object-contain drop-shadow-[0_30px_45px_rgba(2,50,255,0.28)]"
-							alt="Robot bleu DaVinciBot"
-							loading="lazy"
-							src="/assets/project/cdr/boombot_small.webp"
-						/>
-					</div>
-				</div>
-				<div
-					class="flex flex-col items-center gap-10 text-center md:items-center md:justify-between md:gap-20 md:text-center"
-				>
-					<div class="flex flex-col items-center gap-2 md:translate-x-6 lg:translate-x-8">
-						<span class="flex h-11 w-11 items-center justify-center">
-							<Compass />
-						</span>
-						<div class="max-w-xs space-y-1 md:max-w-sm lg:max-w-md">
-							<h3 class="text-xl leading-tight font-semibold lg:text-2xl">Roues encodeuses</h3>
-							<p class="text-dark-blue-gray text-sm leading-relaxed lg:text-base">
-								Des roues munies d'encodeurs fournissent en permanence la position du robot.
-							</p>
-						</div>
-					</div>
-					<div class="flex flex-col items-center gap-2 md:-translate-x-1 lg:-translate-x-2">
-						<span class="flex h-11 w-11 items-center justify-center">
-							<Activity />
-						</span>
-						<div class="max-w-xs space-y-1 md:max-w-sm lg:max-w-md">
-							<h3 class="text-xl leading-tight font-semibold lg:text-2xl">Brain</h3>
-							<p class="text-dark-blue-gray text-sm leading-relaxed lg:text-base">
-								La librairie qui orchestre toutes les actions en parallèle et sécurise chaque cycle.
-							</p>
-						</div>
-					</div>
+						class="bg-dark-blue-gray/15 absolute inset-x-12 bottom-1.5 h-[4.2rem] rounded-full blur-lg sm:bottom-2 sm:h-[4.8rem] lg:h-[5.6rem]"
+						aria-hidden="true"
+					></div>
+					<img
+						class="relative z-10 h-full w-full object-contain drop-shadow-[0_30px_45px_rgba(2,50,255,0.28)]"
+						alt="Robot bleu de DaVinciBot, vu de face"
+						loading="lazy"
+						src="/assets/project/cdr/boombot_small.webp"
+					/>
 				</div>
 			</div>
-
-			<div class="mt-6 flex flex-col items-center justify-center gap-3 text-center">
-				<span class="flex h-12 w-12 items-center justify-center">
-					<FindUsLogo />
-				</span>
-				<span class="text-sm font-semibold tracking-[0.35em] uppercase"> Retrouvez-nous </span>
-				<p class="text-dark-blue-gray text-base">12 Av. Léonard de Vinci</p>
-				<p class="text-dark-blue-gray text-base">92400 Courbevoie</p>
-			</div>
+			{@render technologyColumn(rightTechnologies)}
 		</div>
-	</section>
-</div>
+	</ProjectSection>
+
+	<ProjectSection
+		lede="L'équipe réunit les compétences des trois écoles du Pôle Léonard de Vinci autour d'un seul objet : le robot qui entrera sur le plateau au mois de mai."
+		title="Organisation de l'équipe"
+	>
+		<FeatureGrid items={teamStreams} />
+	</ProjectSection>
+
+	<ProjectSection
+		lede="Neuf mois séparent la publication du règlement de la finale. Le calendrier ci-dessous se répète, saison après saison."
+		title="Le rythme d'une saison"
+		tone="muted"
+		width="narrow"
+	>
+		<Timeline {milestones} />
+	</ProjectSection>
+
+	<ProjectSection
+		align="center"
+		lede="Chaque édition laisse une trace : un thème, un classement et une liste de choses à corriger pour l'année suivante."
+		title="Notre palmarès"
+	>
+		<Carousel time={60}>
+			<ResultCard
+				image={cdrImg}
+				logo={TheShowMustGoOnLogo}
+				marginBottom="20"
+				marginLeft="30"
+				rank_and_points="36e/188"
+				title="2025 - The Show Must Go On"
+			/>
+			<ResultCard
+				image={precoupeImg}
+				logo={FarmingMars}
+				marginBottom="35"
+				marginLeft="35"
+				rank_and_points="44e/186 - 157 pts"
+				title="2024 - Farming Mars"
+			/>
+			<ResultCard
+				image={coupe23Img}
+				logo={TheCherryOnTheCake}
+				marginBottom="35"
+				marginLeft="50"
+				rank_and_points="46e/170 - 150 pts"
+				title="2023 - The Cherry on the Cake"
+			/>
+			<ResultCard
+				image={cdrImg}
+				logo={AgeOfBots}
+				marginBottom="5"
+				marginLeft="20"
+				rank_and_points="36e/78 - 132 pts"
+				title="2022 - Age of Bots"
+			/>
+		</Carousel>
+	</ProjectSection>
+
+	<ProjectCta
+		actions={supportActions}
+		description="Pièces mécaniques, cartes électroniques, temps machine ou soutien financier : nos partenaires rendent la saison possible. Vous souhaitez accompagner une équipe étudiante jusqu'à la finale ? Parlons-en."
+		title="Soutenir la saison qui vient"
+	>
+		<div class="flex flex-col items-center gap-3">
+			<a
+				class="flex h-12 w-12 items-center justify-center"
+				href="https://github.com/DaVinciBot/CoupeDeRobotique"
+			>
+				<FindUsLogo />
+			</a>
+			<span class="text-sm font-semibold tracking-[0.35em] uppercase">Retrouvez-nous</span>
+		</div>
+	</ProjectCta>
+</main>
 
 <Footer />

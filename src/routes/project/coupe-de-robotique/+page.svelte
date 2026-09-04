@@ -351,6 +351,7 @@
 				rank_and_points="36e/78 - 132 pts"
 				title="2022 - Age of Bots"
 			/>
+			<ResultCard image={cdrImg} rank_and_points="54e/166 - 327 pts" title="2019 - Atom Factory" />
 		</Carousel>
 	</ProjectSection>
 

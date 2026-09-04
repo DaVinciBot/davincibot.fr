@@ -48,20 +48,22 @@
 
 	.carrousel {
 		position: relative;
-		/* optional background color to match gradient edges; adjust to your theme */
 		background-color: transparent;
+		/* Le fondu des bords efface le contenu lui-même plutôt que de peindre la
+		   couleur de la page par-dessus : le carrousel reste juste sur n'importe
+		   quelle surface (fond de page, section éclaircie, encart). */
+		-webkit-mask-image: linear-gradient(
+			90deg,
+			transparent 0%,
+			#000 12%,
+			#000 88%,
+			transparent 100%
+		);
+		mask-image: linear-gradient(90deg, transparent 0%, #000 12%, #000 88%, transparent 100%);
 	}
 
 	.pause-on-hover:hover .carousel-inner {
 		animation-play-state: paused;
-	}
-
-	.carrousel::after {
-		content: '';
-		position: absolute;
-		inset: 0;
-		pointer-events: none;
-		background: linear-gradient(90deg, rgb(1, 1, 40) 0%, rgba(1, 1, 40, 0) 50%, #010128 100%);
 	}
 
 	@keyframes slidein {

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { dev } from '$app/environment';
 	import { DevRbacPanel } from '@davincibot/components';
 	import { userdata } from '@davincibot/lib';
 	import type { Snippet } from 'svelte';
@@ -63,7 +62,5 @@
 <div class="bg-dark-blue min-h-screen min-w-screen font-['Almarai'] text-white antialiased">
 	{@render children?.()}
 
-	{#if dev}
-		<DevRbacPanel />
-	{/if}
+	<DevRbacPanel />
 </div>

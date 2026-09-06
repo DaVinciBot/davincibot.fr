@@ -5,7 +5,6 @@
 	import FindUsLogo from '$lib/components/icon/FindUsLogo.svelte';
 	import Signal from '$lib/components/icon/Signal.svelte';
 	import Carousel from '$lib/components/others/Carousel.svelte';
-	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
 	import {
 		FeatureGrid,
 		FigureGrid,

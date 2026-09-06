@@ -34,10 +34,6 @@
 </script>
 
 <Carousel {pauseOnHover} {small} {time}>
-	<HDSLogo {small} />
-	<RSLogo {small} />
-	<FaulhaberLogo {small} />
-	<AlstomLogo {small} />
 	<IFTLogo {small} />
 	<Kurokesu {small} />
 	<GotronicLogo {small} />

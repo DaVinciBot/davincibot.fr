@@ -30,7 +30,7 @@
 			value: '2024',
 			label: 'Naissance du projet',
 			description:
-				"Lancé avec l'association DeVinci Fablab, le projet a depuis rejoint les rangs de DaVinciBot."
+				"Lancé avec l'association DeVinci Fablab, le projet est maintenant exclusif à DaVinciBot."
 		},
 		{
 			value: '12',

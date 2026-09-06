@@ -62,8 +62,8 @@
 				'Mécanique, électronique, informatique et stratégie de match travaillent sur le même robot.'
 		},
 		{
-			value: '2 000 €',
-			label: 'Budget par saison',
+			value: '4 000 €',
+			label: 'Budget par campus',
 			description:
 				"Pièces, cartes électroniques et matière première, financés par nos partenaires et par l'école."
 		}
@@ -239,10 +239,6 @@
 		lede="DaVinciBot participe depuis plus de dix ans à la compétition organisée par Planète Sciences. Chaque saison rebat les cartes : nouvelle équipe, nouveau thème, nouveaux défis et un robot entièrement repensé en neuf mois."
 		title="Un robot autonome conçu, câblé et programmé chaque année"
 	/>
-
-	<ProjectSection compact title="Nos soutiens" tone="muted">
-		<SponsorsCarousel />
-	</ProjectSection>
 
 	<ProjectSection compact>
 		<FigureGrid figures={keyFigures} />

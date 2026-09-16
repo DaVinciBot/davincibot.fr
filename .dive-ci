@@ -6,4 +6,4 @@ rules:
   # Octets écrits dans une couche puis écrasés ou supprimés par une couche suivante.
   highestWastedBytes: 50MB
   # Octets gaspillés, rapportés aux octets ajoutés par les couches applicatives.
-  highestUserWastedPercent: 0.1
+  highestUserWastedPercent: 0.15

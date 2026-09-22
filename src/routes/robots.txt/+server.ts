@@ -8,7 +8,6 @@ export const GET: RequestHandler = () => {
 		'User-agent: *',
 		'Allow: /',
 		'Disallow: /admin/',
-		'Disallow: /caroussel/',
 		`Sitemap: ${SITE.origin}/sitemap.xml`
 	].join('\n');
 

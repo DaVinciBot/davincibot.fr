@@ -2,7 +2,7 @@
 	import Footer from '$lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
 
-	import { browser } from '$app/environment';
+	import { browser } from '$app/env';
 	import { CtaButton } from '@davincibot/components';
 	import { onMount } from 'svelte';
 

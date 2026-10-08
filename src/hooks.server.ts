@@ -1,4 +1,4 @@
-import { building } from '$app/environment';
+import { building } from '$app/env';
 import { resolve as resolveRoute } from '$app/paths';
 import { buildLoginUrl, publicEnvCheck } from '@davincibot/lib';
 import { assertEnv } from '@davincibot/lib/env';
@@ -11,7 +11,8 @@ import {
 	sidCookieName
 } from '@davincibot/lib/server';
 import type { ResolvedAuthSession, ResolvedAuthUser } from '@davincibot/lib/server/types';
-import { error, redirect, type Handle, type RequestEvent, type ServerInit } from '@sveltejs/kit';
+import { error, redirect, type RequestEvent } from '@sveltejs/kit';
+import type { Handle, ServerInit } from '@sveltejs/kit/hooks';
 
 export const init: ServerInit = () => {
 	if (building) {

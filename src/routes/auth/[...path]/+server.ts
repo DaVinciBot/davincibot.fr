@@ -7,5 +7,7 @@ import type { RequestHandler } from './$types';
 // fragment #access_token est préservé par le navigateur sur un 302) et l'URL
 // d'autorisation OIDC de Rallly/Pangolin (/auth/oauth -> /oauth).
 export const GET: RequestHandler = ({ params, url }) => {
-	redirect(302, `${publicEnv.PUBLIC_AUTH_BASE_URL}/${params.path}${url.search}`);
+	redirect(302, `${publicEnv.PUBLIC_AUTH_BASE_URL}/${params.path}${url.search}`, {
+		external: true
+	});
 };

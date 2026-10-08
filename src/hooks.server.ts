@@ -58,7 +58,7 @@ async function guardDevEnvironment(
 	}
 
 	if (!session || !user) {
-		redirect(302, buildLoginUrl(event.url.href));
+		redirect(302, buildLoginUrl(event.url.href), { external: true });
 	}
 
 	if (!event.locals.supabase) {

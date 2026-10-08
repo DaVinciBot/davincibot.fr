@@ -1,6 +1,5 @@
 import type { BlogSupabaseClient } from '$lib/server/blogPosts';
 import { BLOG_PAGE_SIZE, fetchBlogPosts } from '$lib/server/blogPosts';
-import { json } from '@sveltejs/kit';
 import type { RequestHandler } from './$types';
 
 export const prerender = false;
@@ -20,8 +19,11 @@ export const GET: RequestHandler = async ({ url, locals: { supabase } }) => {
 			tag
 		});
 
-		return json({ posts, count });
+		return Response.json({ posts, count });
 	} catch {
-		return json({ posts: [], count: 0, error: 'Unable to load more posts' }, { status: 500 });
+		return Response.json(
+			{ posts: [], count: 0, error: 'Unable to load more posts' },
+			{ status: 500 }
+		);
 	}
 };

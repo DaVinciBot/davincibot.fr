@@ -3,25 +3,14 @@ import { describe, expect, it, vi } from 'vitest';
 
 import { UserImportModal } from '@davincibot/components';
 
-interface Permission {
-	value: string;
-	label: string;
-}
-
-interface PermissionPackage {
-	label: string;
-	perms: string[];
-}
-
 interface SubmitPayload {
-	permissions: string[];
+	campus: string;
 	project: string;
-	users: { name: string; email: string; project: string }[];
+	role: string;
+	users: { name: string; email: string; project: string; campus: string }[];
 }
 
 interface Props {
-	permissionCategories: Record<string, Permission[]>;
-	permissionPackages: PermissionPackage[];
 	projectOptions: { value: string; name: string }[];
 	onSubmit: (payload: SubmitPayload) => Promise<void> | void;
 	onClose: () => void;
@@ -34,8 +23,6 @@ describe('UserImportModal (components submodule)', () => {
 		const target = document.createElement('div');
 		document.body.appendChild(target);
 		const props: Props = {
-			permissionCategories: {},
-			permissionPackages: [],
 			projectOptions: [{ value: 'project-1', name: 'Project 1' }],
 			onSubmit,
 			onClose
@@ -71,9 +58,10 @@ describe('UserImportModal (components submodule)', () => {
 
 		await vi.waitFor(() => {
 			expect(onSubmit).toHaveBeenCalledWith({
-				permissions: [],
+				campus: '',
 				project: '',
-				users: [{ name: 'Alice', email: 'alice@example.com', project: 'project-1' }]
+				role: '',
+				users: [{ name: 'Alice', email: 'alice@example.com', project: 'project-1', campus: '' }]
 			});
 			expect(onClose).toHaveBeenCalledTimes(1);
 		});

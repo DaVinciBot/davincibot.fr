@@ -67,7 +67,6 @@ function createQuery(): Query {
 }
 
 const from = vi.fn((_table: 'blog') => {
-	void _table;
 	const query = createQuery();
 	lastQuery = query;
 	return query;

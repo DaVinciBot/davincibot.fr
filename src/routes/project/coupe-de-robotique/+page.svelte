@@ -1,10 +1,10 @@
 <script lang="ts">
-	import Activity from '$lib/components/icon/Activity.svelte';
-	import Compass from '$lib/components/icon/Compass.svelte';
-	import EyeOpen from '$lib/components/icon/EyeOpen.svelte';
-	import FindUsLogo from '$lib/components/icon/FindUsLogo.svelte';
-	import Signal from '$lib/components/icon/Signal.svelte';
-	import Carousel from '$lib/components/others/Carousel.svelte';
+	import Activity from '#lib/components/icon/Activity.svelte';
+	import Compass from '#lib/components/icon/Compass.svelte';
+	import EyeOpen from '#lib/components/icon/EyeOpen.svelte';
+	import FindUsLogo from '#lib/components/icon/FindUsLogo.svelte';
+	import Signal from '#lib/components/icon/Signal.svelte';
+	import Carousel from '#lib/components/others/Carousel.svelte';
 	import {
 		FeatureGrid,
 		FigureGrid,
@@ -18,13 +18,13 @@
 		type ProjectFeature,
 		type ProjectFigure,
 		type ProjectMilestone
-	} from '$lib/components/project';
-	import ResultCard from '$lib/components/ResultCard.svelte';
-	import Footer from '$lib/components/share/Footer.svelte';
-	import FarmingMars from '$lib/components/share/Logo/FarmingMars.svelte';
-	import TheCherryOnTheCake from '$lib/components/share/Logo/TheCherryOnTheCake.svelte';
-	import TheShowMustGoOnLogo from '$lib/components/share/Logo/TheShowMustGoOnLogo.svelte';
-	import AgeOfBots from '$lib/components/share/Logo/AgeOfBots.svelte';
+	} from '#lib/components/project/index.js';
+	import ResultCard from '#lib/components/ResultCard.svelte';
+	import Footer from '#lib/components/share/Footer.svelte';
+	import FarmingMars from '#lib/components/share/Logo/FarmingMars.svelte';
+	import TheCherryOnTheCake from '#lib/components/share/Logo/TheCherryOnTheCake.svelte';
+	import TheShowMustGoOnLogo from '#lib/components/share/Logo/TheShowMustGoOnLogo.svelte';
+	import AgeOfBots from '#lib/components/share/Logo/AgeOfBots.svelte';
 	import { Topbar } from '@davincibot/components';
 	import type { Component } from 'svelte';
 

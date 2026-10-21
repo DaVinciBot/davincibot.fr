@@ -1,5 +1,5 @@
 <script lang="ts">
-	import Carousel from '$lib/components/others/Carousel.svelte';
+	import Carousel from '#lib/components/others/Carousel.svelte';
 	import { Aisler as AislerLogo } from '@davincibot/components';
 	import { Gotronic as GotronicLogo } from '@davincibot/components';
 	import { IFT as IFTLogo } from '@davincibot/components';

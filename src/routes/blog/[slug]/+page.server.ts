@@ -1,6 +1,6 @@
-import { parseMarkdownToAst } from '$lib/markdown/parse';
-import type { BlogSupabaseClient } from '$lib/server/blogPosts';
-import { fetchBlogPostBySlug } from '$lib/server/blogPosts';
+import { parseMarkdownToAst } from '#lib/markdown/parse.js';
+import type { BlogSupabaseClient } from '#lib/server/blogPosts.js';
+import { fetchBlogPostBySlug } from '#lib/server/blogPosts.js';
 import type { Json } from '@davincibot/database-types';
 import { error as kitError } from '@sveltejs/kit';
 import { marked } from 'marked';

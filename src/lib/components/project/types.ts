@@ -4,7 +4,7 @@
  * Les trois pages racontent la même histoire dans le même ordre — héros,
  * chiffres, mission, capacités, équipe, feuille de route, appel — et ne
  * diffèrent que par leur contenu. Ces types fixent la forme de ce contenu pour
- * que les composants de `$lib/components/project` restent interchangeables.
+ * que les composants de `#lib/components/project/index.js` restent interchangeables.
  */
 
 /** Un chiffre mis en avant, avec la phrase qui lui donne son sens. */

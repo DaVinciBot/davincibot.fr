@@ -1,11 +1,11 @@
 <script lang="ts">
-	import Carousel from '$lib/components/others/Carousel.svelte';
-	import Card from '$lib/components/share/Card.svelte';
-	import Footer from '$lib/components/share/Footer.svelte';
+	import Carousel from '#lib/components/others/Carousel.svelte';
+	import Card from '#lib/components/share/Card.svelte';
+	import Footer from '#lib/components/share/Footer.svelte';
 	import { CtaButton, Topbar } from '@davincibot/components';
-	import AnimatedNumber from '$lib/components/utils/AnimatedNumber.svelte';
+	import AnimatedNumber from '#lib/components/utils/AnimatedNumber.svelte';
 
-	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
+	import SponsorsCarousel from '#lib/components/others/SponsorsCarousel.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();

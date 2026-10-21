@@ -12,8 +12,8 @@
 		type ProjectFeature,
 		type ProjectFigure,
 		type ProjectMilestone
-	} from '$lib/components/project';
-	import Footer from '$lib/components/share/Footer.svelte';
+	} from '#lib/components/project/index.js';
+	import Footer from '#lib/components/share/Footer.svelte';
 	import { Topbar } from '@davincibot/components';
 
 	const heroActions: ProjectAction[] = [

@@ -1,6 +1,6 @@
 <script lang="ts">
-	import SponsorsCarousel from '$lib/components/others/SponsorsCarousel.svelte';
-	import FooterEl from '$lib/components/share/FooterEl.svelte';
+	import SponsorsCarousel from '#lib/components/others/SponsorsCarousel.svelte';
+	import FooterEl from '#lib/components/share/FooterEl.svelte';
 	import { DVBLogo } from '@davincibot/components';
 
 	const items = [

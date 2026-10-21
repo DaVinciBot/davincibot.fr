@@ -1,5 +1,5 @@
-import type { BlogPost, BlogSupabaseClient } from '$lib/server/blogPosts';
-import { fetchBlogPosts } from '$lib/server/blogPosts';
+import type { BlogPost, BlogSupabaseClient } from '#lib/server/blogPosts.js';
+import { fetchBlogPosts } from '#lib/server/blogPosts.js';
 import type { PageServerLoad } from './$types';
 
 export const csr = true;

@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { resolve } from '$app/paths';
 	import { Topbar } from '@davincibot/components';
-	import Footer from '$lib/components/share/Footer.svelte';
+	import Footer from '#lib/components/share/Footer.svelte';
 	import type { Snippet } from 'svelte';
 
 	interface ArticleSection {

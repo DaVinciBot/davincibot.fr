@@ -4,12 +4,12 @@ const mocks = vi.hoisted(() => ({
 	createClient: vi.fn()
 }));
 
-vi.mock('$env/dynamic/public', () => ({
-	env: {
+vi.mock('$app/env/public', async () =>
+	(await import('../envMock.js')).envModule({
 		PUBLIC_SUPABASE_URL: 'https://example.supabase.co',
 		PUBLIC_SUPABASE_PUBLISHABLE_KEY: 'pk-test'
-	}
-}));
+	})
+);
 
 vi.mock('@supabase/supabase-js', () => ({
 	createClient: mocks.createClient
